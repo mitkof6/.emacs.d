@@ -1,4 +1,5 @@
 
+;; style preferences
 (defun my-c-mode-common-hook ()
  ;; my customizations for all of c-mode, c++-mode, objc-mode, java-mode
  (c-set-offset 'substatement-open 0)
@@ -14,5 +15,14 @@
  )
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+;; hide and show code region
+(add-hook 'c-mode-common-hook
+  (lambda()
+    (local-set-key (kbd "C-c <right>") 'hs-show-block)
+    (local-set-key (kbd "C-c <left>")  'hs-hide-block)
+    (local-set-key (kbd "C-c <up>")    'hs-hide-all)
+    (local-set-key (kbd "C-c <down>")  'hs-show-all)
+    (hs-minor-mode t)))
 
 (provide 'init-c-style)
