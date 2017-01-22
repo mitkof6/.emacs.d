@@ -54,8 +54,11 @@
 ;; (require 'init-ibuffer)
 ;; (require 'init-flycheck)
 
+;; custom
 (require 'init-c-style)
-(require 'init-paredit)
+;; (require 'init-paredit)
+(require 'init-irony)
+
 (require 'init-recentf)
 (require 'init-ido)
 (require 'init-yasnippet)
