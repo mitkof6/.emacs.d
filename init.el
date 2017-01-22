@@ -16,7 +16,8 @@
 (require 'init-utils)
 
 ;; Machinery for installing required packages.
-;; explicitly call 'package-initialize to set up all packages installed via ELPA.
+;; explicitly call 'package-initialize to set up all packages installed via
+;; ELPA.
 ;; should come before all package-related config files
 (require 'init-elpa)
 (require 'init-exec-path) ;; Set up $PATH
