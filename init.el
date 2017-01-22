@@ -32,6 +32,7 @@
 (require 'init-irony)
 ;; (require 'init-ispell)
 (require 'init-rtags)
+(require 'init-cmake)
 (require 'init-recentf)
 (require 'init-ido)
 (require 'init-yasnippet)
