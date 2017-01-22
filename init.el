@@ -28,7 +28,6 @@
 ;; (require 'init-security)
 (require 'init-dired)
 ;; (require 'init-flycheck)
-;; (require 'init-flyspell)
 (require 'init-c-style)
 (require 'init-irony)
 ;; (require 'init-ispell)
