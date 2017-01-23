@@ -1,3 +1,7 @@
+;;----------------------------------------------------------------------------
+;; Setup rtags
+;;----------------------------------------------------------------------------
+
 ;; load custom files
 (add-to-list 'load-path "~/.emacs.d/lisp/rtags")
 (load "rtags.el")
@@ -17,7 +21,6 @@
 ;; (setq rtags-use-helm t)
 
 (require 'flycheck-rtags)
-
 (defun my-flycheck-rtags-setup ()
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
@@ -25,12 +28,12 @@
 ;; c-mode-common-hook is also called by c++-mode
 (add-hook 'c-mode-common-hook 'my-flycheck-rtags-setup)
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;----------------------------------------------------------------------------
 ;; Setup cmake-ide
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;----------------------------------------------------------------------------
+
+(require-package 'cmake-ide)
 (require 'cmake-ide)
 (cmake-ide-setup)
 ;; Set cmake-ide-flags-c++ to use C++11

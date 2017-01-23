@@ -25,11 +25,4 @@
     (local-set-key (kbd "C-c <down>")  'hs-show-all)
     (hs-minor-mode t)))
 
-;; remove trailing whitespace after save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; 80 char mark and utility for whitespace
-(require 'whitespace)
-(global-whitespace-mode t)
-
 (provide 'init-c-style)

@@ -11,44 +11,31 @@
 (require 'package)
 
 
+
 ;;; Standard package repositories
 
-;; decide whether to use secure connection for ELPA repositories
-(defun add-address-prefix (addr)
-  (if (and (boundp 'tls-checktrust)
-	   (eq tls-checktrust 'ask))
-      (concat "https://" addr)
-    (concat "http://" addr)))
-
-;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; Mainly for ruby-mode
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")))
 
 ;; We include the org repository for completeness, but don't normally
 ;; use it.
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
 (when (< emacs-major-version 24)
-  (add-to-list 'package-archives
-               `("gnu" . ,(add-address-prefix "elpa.gnu.org/packages/"))))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;;; Also use Melpa for most packages
-(add-to-list 'package-archives
-             `("melpa" . ,(add-address-prefix "melpa.org/packages/")))
-(add-to-list 'package-archives
-             `("melpa-stable" . ,(add-address-prefix "stable.melpa.org/packages/")))
+(add-to-list 'package-archives `("melpa" . ,(if (< emacs-major-version 24)
+                                                "http://melpa.org/packages/"
+                                              "https://melpa.org/packages/")))
 
-
-;; If gpg cannot be found, signature checking will fail, so we
-;; conditionally enable it according to whether gpg is available. We
-;; re-run this check once $PATH has been configured
-(defun sanityinc/package-maybe-enable-signatures ()
-  (setq package-check-signature (if (executable-find "gpg") 'allow-unsigned)))
-
-(sanityinc/package-maybe-enable-signatures)
-(after-load 'init-exec-path
-  (sanityinc/package-maybe-enable-signatures))
+;; NOTE: In case of MELPA problems, the official mirror URL is
+;; https://www.mirrorservice.org/sites/stable.melpa.org/packages/
 
 
 
+
 ;;; On-demand installation of packages
 
 (defun require-package (package &optional min-version no-refresh)
@@ -58,7 +45,10 @@ re-downloaded in order to locate PACKAGE."
   (if (package-installed-p package min-version)
       t
     (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
+        (if (boundp 'package-selected-packages)
+            ;; Record this as a package the user installed explicitly
+            (package-install package nil)
+          (package-install package))
       (progn
         (package-refresh-contents)
         (require-package package min-version t)))))
@@ -67,34 +57,45 @@ re-downloaded in order to locate PACKAGE."
 (defun maybe-require-package (package &optional min-version no-refresh)
   "Try to install PACKAGE, and return non-nil if successful.
 In the event of failure, return nil and print a warning message.
-Optionally require MIN-VERSION. If NO-REFRESH is non-nil, the
+Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
 available package lists will not be re-downloaded in order to
 locate PACKAGE."
   (condition-case err
       (require-package package min-version no-refresh)
     (error
-     (message "Couldn't install package `%s': %S" package err)
+     (message "Couldn't install optional package `%s': %S" package err)
      nil)))
 
+
 ;;; Fire up package.el
+
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; The cl-lib is distributed with Emacs >= 24.3 and is required by many packages.
-;; For Emacs version < 24.3, it can be installed via ELPA. But you'd better move
-;; the cl-lib.el to PATH/TO/EMACS/lisp/emacs-lisp, otherwise it may break future
-;; updating of Emacs.
-(unless (package-installed-p 'cl-lib)
-  (when (yes-or-no-p "Cannot find cl-lib. Maybe your Emacs is too old,
-you'd better update it to >= 24.3. Install the cl-lib now?")
-    (require-package 'cl-lib)
-    (require 'cl-lib)
-    (message "The cl-lib has been automatically installed,
-but you'd better update to Emacs >= 24.3.
-Or, move the cl-lib.el to 'EMACS-INSTALLATION-PATH/lisp/emacs-lisp'")))
 
-;; (require-package 'fullframe)
-;; (fullframe list-packages quit-window)
+
+(require-package 'fullframe)
+(fullframe list-packages quit-window)
+
+
+(require-package 'cl-lib)
+(require 'cl-lib)
+
+(defun sanityinc/set-tabulated-list-column-width (col-name width)
+  "Set any column with name COL-NAME to the given WIDTH."
+  (when (> width (length col-name))
+    (cl-loop for column across tabulated-list-format
+             when (string= col-name (car column))
+             do (setf (elt column 1) width))))
+
+(defun sanityinc/maybe-widen-package-menu-columns ()
+  "Widen some columns of the package menu table to avoid truncation."
+  (when (boundp 'tabulated-list-format)
+    (sanityinc/set-tabulated-list-column-width "Version" 13)
+    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
+      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+
+(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
 
 (provide 'init-elpa)

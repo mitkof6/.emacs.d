@@ -1,105 +1,131 @@
-# A usable emacs config
+[![Build Status](https://travis-ci.org/purcell/emacs.d.png?branch=master)](https://travis-ci.org/purcell/emacs.d)
 
-This is my emacs configuration tree which originates from [that of Purcell's](https://github.com/purcell/emacs.d). But I eliminated many functions of that.
+# A reasonable Emacs config
 
-This config now supports for the following:
+This is my emacs configuration tree, continually used and tweaked
+since 2000, and it may be a good starting point for other Emacs
+users, especially those who are web developers. These days it's
+somewhat geared towards OS X, but it is known to also work on Linux
+and Windows.
 
-* C/C++
-* Matlab
-* Markdown/LaTeX
+Emacs itself comes with support for many programming languages. This
+config adds improved defaults and extended support for the following:
+
+* Ruby / Ruby on Rails
+* CSS / LESS / SASS / SCSS
+* HAML / Markdown / Textile / ERB
+* Clojure (with Cider and nRepl)
+* Javascript / Coffeescript
+* Python
+* PHP
 * Haskell
+* Elm
+* Erlang
+* Common Lisp (with Slime)
 
-## Requirements
-These are requirements that **must** be met:
+In particular, there's a nice config for *autocompletion* with
+[company](https://company-mode.github.io/), and
+[flycheck](http://www.flycheck.org) is used to immediately highlight
+syntax errors in Ruby, Python, Javascript, Haskell and a number of
+other languages.
 
-* Emacs 24.4.1 or greater
-* git 1.9.4 or greater
+## Supported Emacs versions
 
-and these are not necessary if you don't use that language
+The config should run on Emacs 23.3 or greater and is designed to
+degrade smoothly - see the Travis build - but note that Emacs 24 and
+above is required for an increasing number of key packages, including
+`magit`, `company` and `flycheck`, so to get full you should use the
+latest Emacs version available to you.
 
-* clang 3.2-10 or greater (for C/C++, necessary for `auto-complete-clang`)
-* ghci 7.10.1 or greater (for Haskell)
+Some Windows users might need to follow
+[these instructions](http://xn--9dbdkw.se/diary/how_to_enable_GnuTLS_for_Emacs_24_on_Windows/index.en.html)
+to get TLS (ie. SSL) support included in their Emacs.
 
-### Enable TLS for securely connecting to ELPA
-ELPA is accessed over HTTP by default, which may result in security problems, so I prefer to use HTTPS instead. This can be done simply by replace the "http" in ELPA repository addresses with "https", and turn on the TLS checking.
+## Other requirements
 
-By default, both HTTPS and TLS checking are **disabled**. If you do like to turn them on (and I recommend you to), then the following requirements must be met:
-
-* remove the comment before `(require 'init-security)` line in `init.el`
-* gnutls 3.4 or greater
-* The `certifi` package from pypi (`pip install certifi`)
-
-More detailed description can be found in [this article](https://glyph.twistedmatrix.com/2015/11/editor-malware.html).
+To make the most of the programming language-specific support in this
+config, further programs will likely be required, particularly those
+that [flycheck](https://github.com/flycheck/flycheck) uses to provide
+on-the-fly syntax checking.
 
 ## Installation
+
 To install, clone this repo to `~/.emacs.d`, i.e. ensure that the
 `init.el` contained in this repo ends up at `~/.emacs.d/init.el`:
 
 ```
-git clone https://github.com/xyguo/emacs.d.git ~/.emacs.d
+git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
 ```
 
 Upon starting up Emacs for the first time, further third-party
-packages will be automatically downloaded and installed.
+packages will be automatically downloaded and installed. If you
+encounter any errors at that stage, try restarting Emacs, and possibly
+running `M-x package-refresh-contents` before doing so.
 
-## Update
+
+
+## Important note about `ido`
+
+This config enables `ido-mode` completion in the minibuffer wherever
+possible, which might confuse you when trying to open files using
+<kbd>C-x C-f</kbd>, e.g. when you want to open a directory to use
+`dired` -- if you get stuck, use <kbd>C-f</kbd> to drop into the
+regular `find-file` prompt. (You might want to customize the
+`ido-show-dot-for-dired` variable if this is an issue for you.)
+
+## Updates
 
 Update the config with `git pull`. You'll probably also want/need to update
 the third-party packages regularly too:
 
 <kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
 
-## Troubleshooting
+You should usually restart Emacs after pulling changes or updating
+packages so that they can take effect. Emacs should usually restore
+your working buffers when you restart due to this configuration's use
+of the `desktop` and `session` packages.
 
-### "Symbol's function definition is void: XXX" or "Package XXX is not available for installation"
-Errors of this type are mostly caused by obsolete package or outdated Emacs version. Thus, when you encounter
-such errors, first check that your Emacs' version has satisfied the requirement listed above in section 
-"Requirements", if so, do the following:
+## Adding your own customization
 
-##### Execute Emacs with the `--debug-init` option, i.e.
-```
-$ emacs --debug-init
-```
+To add your own customization, use <kbd>M-x customize</kbd> and/or
+create a file `~/.emacs.d/lisp/init-local.el` which looks like this:
 
-##### Read the debugging info, it usually begins with something like
+```el
+... your code here ...
 
-> Debugger entered--Lisp error: (void-function XXX)
-  ... (the unfoldded calling stack)
-
-##### Now you have some choices:
-  * [File an issue](https://github.com/xyguo/emacs.d/issues) and I'll help you deal with that.
-  * (A quick-and-dirty way, not recommended) Most times you can just comment out the corresponding line (which can be found through the debugging info) in the `init.el` file to bypass the initialization step that triggers the problem. 
-  * Sometimes, a package maintainer decides to change the package's name, which results in a "package not available" error. You can simply Google for the unavailable package's name and if lucky you'll find its new name. After that, [file an issue](https://github.com/xyguo/emacs.d/issues) and I'll be glad to fix the init files.
-
-### auto-complete-clang
-Note that the `ac-clang-flags` set in `init-ac-source.el` is platform-dependent. It's actually clang's include file search path. According to the [Troubleshooting section of auto-complete-clang](https://github.com/brianjcj/auto-complete-clang), you can use the following method to find the correct path:
-
-```
-echo "" | g++ -v -x c++ -E -
+(provide 'init-local)
 ```
 
-and you'll get something like this:
+If you need initialisation code which executes earlier in the startup process,
+you can also create an `~/.emacs.d/lisp/init-preload-local.el` file.
 
-```
-#include "..." search starts here：
-#include <...> search starts here：
- /usr/include/c++/4.8
- /usr/include/x86_64-linux-gnu/c++/4.8
- /usr/include/c++/4.8/backward
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include
- /usr/local/include
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed
- /usr/include/x86_64-linux-gnu
- /usr/include
-End of search list.
-```
-Just use them to replace the corresponding string.
+If you plan to customize things more extensively, you should probably
+just fork the repo and hack away at the config to make it your own!
+Remember to regularly merge in changes from this repo, so that your
+config remains compatible with the latest package and Emacs versions.
 
-## Support/issues
-If you hit any problems, please 
+*Please note that I cannot provide support for customised versions of
+this configuration.*
 
-1. Check that whether you have met system requirements listed in section "Requirements".
-2. Ensure that you are using the latest version of this code, and that you have updated your packages to the most recent available versions (see "Updates" above). 
-3. If you still experience problems, go ahead and [file an issue](https://github.com/xyguo/emacs.d/issues).  
+## Similar configs
 
--Xiang-Yu Guo
+You might also want to check out `emacs-starter-kit` and `prelude`.
+
+## Support / issues
+
+If you hit any problems, please first ensure that you are using the latest version
+of this code, and that you have updated your packages to the most recent available
+versions (see "Updates" above). If you still experience problems, go ahead and
+[file an issue on the github project](https://github.com/purcell/emacs.d).
+
+-Steve Purcell
+
+<hr>
+
+[![](http://api.coderwall.com/purcell/endorsecount.png)](http://coderwall.com/purcell)
+
+[![](http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.png)](http://uk.linkedin.com/in/stevepurcell)
+
+[sanityinc.com](http://www.sanityinc.com/)
+
+[@sanityinc](https://twitter.com/)
