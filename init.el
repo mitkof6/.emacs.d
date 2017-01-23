@@ -26,14 +26,16 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-;; (require 'init-security)
+(require 'init-custom-variables)
+
 (require 'init-dired)
-;; (require 'init-flycheck)
+(require 'init-flycheck)
 (require 'init-c-style)
 (require 'init-irony)
-;; (require 'init-ispell)
+(require 'init-spelling)
 (require 'init-rtags)
-(require 'init-cmake)
+(require 'init-clang-format)
+;; (require 'init-helm)
 (require 'init-recentf)
 (require 'init-ido)
 (require 'init-yasnippet)
@@ -64,5 +66,6 @@
 (when (file-exists-p (expand-file-name "init-local.el" user-emacs-directory))
   (error "Please move init-local.el to ~/.emacs.d/lisp"))
 (require 'init-local nil t)
+
 
 (provide 'init)
