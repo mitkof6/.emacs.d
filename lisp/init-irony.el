@@ -113,6 +113,9 @@
     )
   )
 
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
 (defun my-disable-semantic ()
   "Disable the company-semantic backend."
   (interactive)

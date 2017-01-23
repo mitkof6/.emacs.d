@@ -1,4 +1,3 @@
-(add-to-list 'load-path (expand-file-name "lisp/editing-utils" user-emacs-directory))
 ;; enhanced help mechanism
 (require-package 'help-fns+)
 (require 'help-fns+)
@@ -37,15 +36,12 @@
 
 ;; auto-revert
 (global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t
+ (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose t)
 
 ;; enable auto-pairing
 (require 'init-autopair)
 (diminish 'autopair-mode)
-
-;; some personal key bindings
-(global-set-key (kbd "C-c r") 'replace-string)
 
 ;; newline behavior
 (global-set-key (kbd "RET") 'newline-and-indent)
@@ -58,7 +54,7 @@
 (global-set-key (kbd "<S-return>") 'sanityinc/newline-at-end-of-line)
 
 ;; change yes-or-no to y-or-n
-;; (fset 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; display time
 (display-time-mode t)
@@ -114,14 +110,6 @@
 ;; (global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
 ;; (global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
 
-;; switch-window
-;; Set "C-x p" to select the previous window
-(defun other-window-backward (&optional n)
-  "Select the Nth previous window"
-  (interactive "P")
-  (other-window (- (prefix-numeric-value n))))
-(global-set-key "\C-xp" 'other-window-backward)
-
 ;; undo-tree
 (require 'init-undo-tree)
 (diminish 'undo-tree-mode)
@@ -132,9 +120,6 @@
 ;; use C-u C-u C-s/r to trigger the flexible search action
 (require 'init-flex-isearch)
 
-;; set some compilation shortcuts
-(require 'init-compile)
-
 ;; spell checking
 ;; (when (executable-find "hunspell")
 ;;   (setq-default ispell-program-name "hunspell")
@@ -144,6 +129,5 @@
   (setq-default ispell-program-name "aspell")
   (setq ispell-really-aspell t)
   (require 'init-flyspell))
-
 
 (provide 'init-editing-utils)
