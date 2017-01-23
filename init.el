@@ -57,7 +57,7 @@
 ;;----------------------------------------------------------------------------
 (require-package 'afternoon-theme)
 (require 'afternoon-theme)
-;; (load-theme 'afternoon)
+(setq inhibit-startup-screen t)
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface

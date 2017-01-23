@@ -26,4 +26,6 @@
 (after-load 'flyspell
   (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
 
+(global-set-key (kbd "C-c f") 'flycheck-mode)
+
 (provide 'init-flyspell)
