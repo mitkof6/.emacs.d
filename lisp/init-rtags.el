@@ -4,6 +4,7 @@
 
 ;; load custom files
 (add-to-list 'load-path "~/.emacs.d/lisp/rtags")
+(require-package 'company)
 (load "rtags.el")
 (load "company-rtags.el")
 (load "flycheck-rtags.el")

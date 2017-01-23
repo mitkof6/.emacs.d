@@ -1,6 +1,13 @@
 ;;----------------------------------------------------------------------------
 ;; Temporarily reduce garbage collection during startup
 ;;----------------------------------------------------------------------------
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")
 (setq gc-cons-threshold (* 128 1024 1024))
@@ -49,7 +56,7 @@
 (require 'init-git)
 (require 'init-markdown)
 (require 'init-auctex)
-(require 'init-org)
+;; (require 'init-org)
 (require 'init-python-mode)
 
 ;;----------------------------------------------------------------------------
