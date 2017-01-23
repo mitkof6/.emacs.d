@@ -30,7 +30,7 @@
 (require 'init-rtags)
 (require 'init-cmake-ide)
 ;; (require 'init-helm)
-(require 'init-ivy)
+;; (require 'init-ivy)
 (require 'init-csv)
 (require 'init-windows)
 (require 'init-spelling)

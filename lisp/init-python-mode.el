@@ -15,4 +15,14 @@
                 (lambda () (sanityinc/local-push-company-backend 'company-anaconda))))))
 
 
+(require-package 'company-jedi)
+(require-package 'jedi)
+(require 'company-jedi)
+
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)                 ; optional
+
 (provide 'init-python-mode)
