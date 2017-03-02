@@ -4,7 +4,20 @@ Based on: Steve Purcell
 
 ## Installation
 
+Build irony-server
+
+```
 M-x irony-install-server
+```
+
+Build rtags
+
+```
+git clone --recursive https://github.com/Andersbakken/rtags.git
+cd rtags
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
+make
+```
 
 ### auto-complete-clang
 
