@@ -12,52 +12,47 @@
   "Initial value of `gc-cons-threshold' at start-up time.")
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+          (lambda ()
+	    (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap configure
 ;;----------------------------------------------------------------------------
 ;; add lisp directory
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'init-benchmarking) ;; Measure startup time
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(require 'init-utils)
-(require 'init-elpa)      ;; Machinery for installing required packages
-(require 'init-exec-path) ;; Set up $PATH
+(require 'ds-utils)
+(require 'ds-elpa)      ;; Machinery for installing required packages
+(require 'ds-exec-path) ;; Set up $PATH
 
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-(require 'init-dired)
-(require 'init-flycheck)
-(require 'init-c-style)
-(require 'init-irony)
-(require 'init-rtags)
-(require 'init-cmake-ide)
-;; (require 'init-helm)
-;; (require 'init-ivy)
-(require 'init-csv)
-(require 'init-windows)
-(require 'init-spelling)
-(require 'init-isearch)
-(require 'init-whitespace)
-(require 'init-recentf)
-(require 'init-ido)
-(require 'init-yasnippet)
-(require 'init-hippie-expand)
-(require 'init-auto-complete)
-(require 'init-fonts)
-(require 'init-tabbar)
-(require 'init-editing-utils)
-(require 'init-evil)
-(require 'init-matlab)
-(require 'init-git)
-(require 'init-markdown)
-(require 'init-auctex)
-;; (require 'init-org)
-(require 'init-python-mode)
+(require 'ds-dired)
+(require 'ds-flycheck)
+(require 'ds-c-style)
+(require 'ds-irony)
+(require 'ds-rtags)
+(require 'ds-cmake-ide)
+;; (require 'ds-helm)
+;; (require 'ds-ivy)
+(require 'ds-windows)
+(require 'ds-spelling)
+(require 'ds-isearch)
+(require 'ds-whitespace)
+(require 'ds-recentf)
+(require 'ds-ido)
+(require 'ds-yasnippet)
+(require 'ds-auto-complete)
+(require 'ds-fonts)
+(require 'ds-tabbar)
+(require 'ds-editing-utils)
+(require 'ds-git)
+(require 'ds-markdown)
+(require 'ds-auctex)
+(require 'ds-python-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Theme
