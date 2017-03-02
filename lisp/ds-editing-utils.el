@@ -122,9 +122,9 @@
 (require 'ds-outl-minor)
 
 ;; use C-u C-u C-s/r to trigger the flexible search action
-(require-package 'flex-isearch)
+;; (require-package 'flex-isearch)
 ;; (require 'flex-isearch-autoloads)
-(global-flex-isearch-mode t)
+;; (global-flex-isearch-mode t)
 
 ;; spell checking
 ;; (when (executable-find "hunspell")

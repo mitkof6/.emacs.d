@@ -6,6 +6,31 @@ Based on: Steve Purcell
 
 M-x irony-install-server
 
+### auto-complete-clang
+
+Note that the `ac-clang-flags` set in `init-ac-source.el` is platform-dependent. It's actually clang's include file search path. According to the [Troubleshooting section of auto-complete-clang](https://github.com/brianjcj/auto-complete-clang), you can use the following method to find the correct path:
+
+```
+echo "" | g++ -v -x c++ -E -
+```
+
+and you'll get something like this:
+
+```
+#include "..." search starts here：
+#include <...> search starts here：
+ /usr/include/c++/4.8
+ /usr/include/x86_64-linux-gnu/c++/4.8
+ /usr/include/c++/4.8/backward
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+```
+Just use them to replace the corresponding string.
+
 ## Important note about `ido`
 
 This config enables `ido-mode` completion in the minibuffer wherever

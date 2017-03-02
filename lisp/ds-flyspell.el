@@ -28,4 +28,18 @@
 
 (global-set-key (kbd "C-c f") 'flycheck-mode)
 
+(global-set-key
+ [f1]
+ (lambda ()
+   (interactive)
+   (ispell-change-dictionary "en_US")))
+
+(global-set-key
+ [f2]
+ (lambda ()
+   (interactive)
+   (ispell-change-dictionary "greek")))
+
+(global-set-key (kbd "C-c s") 'ispell-word)
+
 (provide 'ds-flyspell)

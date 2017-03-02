@@ -7,6 +7,8 @@
 ;; =============
 ;; company mode
 ;; =============
+(require-package 'company-irony)
+(require-package 'company-irony-c-headers)
 (add-hook 'c++-mode-hook 'company-mode)
 (add-hook 'c-mode-hook 'company-mode)
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
@@ -36,6 +38,7 @@
 ;; =============
 ;; eldoc-mode
 ;; =============
+(require-package 'irony-eldoc)
 (add-hook 'irony-mode-hook 'irony-eldoc)
 
 ;; ==========================================
