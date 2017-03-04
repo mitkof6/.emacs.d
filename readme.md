@@ -10,13 +10,19 @@ Build irony-server
 M-x irony-install-server
 ```
 
-Build rtags
+Build and install rtags
 
 ```
 git clone --recursive https://github.com/Andersbakken/rtags.git
 cd rtags
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
-make
+sudo make install
+```
+
+Add yasnippet
+
+```
+git clone https://github.com/AndreaCrotti/yasnippet-snippets.git ~/.emacs.d/snippets/
 ```
 
 ### auto-complete-clang

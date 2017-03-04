@@ -4,6 +4,9 @@
 elpa/
 auto-save-list/
 eshell/
+irony/
+semanticdb/
+snippets/
 
 # ignore auto-generated file
 srecode-map.el
