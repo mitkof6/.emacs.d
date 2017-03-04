@@ -3,7 +3,6 @@
 ;;----------------------------------------------------------------------------
 
 (require-package 'cmake-ide)
-(require 'cmake-ide)
 (cmake-ide-setup)
 ;; Set cmake-ide-flags-c++ to use C++11
 (setq cmake-ide-flags-c++ (append '("-std=c++11")))
@@ -17,5 +16,12 @@
 (rtags-diagnostics)
 (setq rtags-completions-enabled t)
 (rtags-enable-standard-keybindings)
+
+(require-package 'cc-mode)
+;; Compiling:
+(define-key c++-mode-map (kbd "C-c C-c") 'compile)
+;; Change compilation command:
+(setq compile-command "make ")
+
 
 (provide 'ds-cmake-ide)

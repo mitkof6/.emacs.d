@@ -26,20 +26,18 @@
 (after-load 'flyspell
   (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
 
+;; toggle flycheck mode
 (global-set-key (kbd "C-c f") 'flycheck-mode)
 
-(global-set-key
- [f1]
- (lambda ()
-   (interactive)
-   (ispell-change-dictionary "en_US")))
-
-(global-set-key
- [f2]
- (lambda ()
-   (interactive)
-   (ispell-change-dictionary "greek")))
-
+;; set ispell complete word
 (global-set-key (kbd "C-c s") 'ispell-word)
+
+;; change dictionary toggle
+(lexical-let ((dictionaries '("en_US" "greek")))
+  (rplacd (last dictionaries) dictionaries)
+  (defun ispell-change-to-next-dictionary ()
+    (interactive)
+    (ispell-change-dictionary (pop dictionaries))))
+(global-set-key [f1] 'ispell-change-to-next-dictionary)
 
 (provide 'ds-flyspell)

@@ -58,8 +58,11 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; display time
-(display-time-mode t)
-(setq display-time-24hr-format t)
+;; (display-time-mode t)
+;; (setq display-time-24hr-format t)
+
+;; Show date and time in modeline
+(display-time)
 
 ;; display line number
 ;; (require 'linum)
@@ -125,15 +128,5 @@
 ;; (require-package 'flex-isearch)
 ;; (require 'flex-isearch-autoloads)
 ;; (global-flex-isearch-mode t)
-
-;; spell checking
-;; (when (executable-find "hunspell")
-;;   (setq-default ispell-program-name "hunspell")
-;;   (setq ispell-really-hunspell t)
-;;   (require 'init-flyspell))
-(when (executable-find "aspell")
-  (setq-default ispell-program-name "aspell")
-  (setq ispell-really-aspell t)
-  (require 'ds-flyspell))
 
 (provide 'ds-editing-utils)
