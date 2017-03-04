@@ -1,6 +1,5 @@
 ;; add ac-sources for latex mode
 (require-package 'ac-math)
-(require 'ac-math)
 (add-to-list 'ac-modes 'latex-mode)
 (defun ac-latex-mode-setup ()
   (setq ac-sources

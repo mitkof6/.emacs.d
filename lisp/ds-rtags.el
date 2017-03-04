@@ -19,7 +19,7 @@
 (setq rtags-autostart-diagnostics t)
 (rtags-enable-standard-keybindings)
 
-;; (setq rtags-use-helm t)
+(setq rtags-use-helm t)
 
 (require 'flycheck-rtags)
 (defun my-flycheck-rtags-setup ()
