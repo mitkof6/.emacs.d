@@ -92,4 +92,10 @@ Call a second time to restore the original window configuration."
   (windmove-default-keybindings 'control))
 
 
+;; show file path in frame title
+(setq-default frame-title-format "%b (%f)")
+
+;; save emacs sessions
+(desktop-save-mode 1)
+
 (provide 'ds-windows)

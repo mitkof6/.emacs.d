@@ -17,18 +17,23 @@
                 minibuffer-setup-hook))
   (add-hook hook #'sanityinc/no-trailing-whitespace))
 
-
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 
 (global-set-key [remap just-one-space] 'cycle-spacing)
 
-;; remove trailing whitespace after save
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; 80 char mark and utility for whitespace
-;; (require 'whitespace)
-;; (global-whitespace-mode t)
+(require-package 'whitespace)
+(global-whitespace-mode t)
 
+;; clear and auto-indent, hook before save
+(defun ds/clear-and-indent()
+  "Indents an entire buffer using the default intenting scheme."
+  (interactive)
+  (save-excursion
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))))
+(add-hook 'before-save-hook #'ds/clear-and-indent)
 
 (provide 'ds-whitespace)

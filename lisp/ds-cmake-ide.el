@@ -23,5 +23,4 @@
 ;; Change compilation command:
 (setq compile-command "make ")
 
-
 (provide 'ds-cmake-ide)

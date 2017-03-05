@@ -35,7 +35,7 @@
 
 ;; auto-revert
 (global-auto-revert-mode)
- (setq global-auto-revert-non-file-buffers t
+(setq global-auto-revert-non-file-buffers t
       auto-revert-verbose t)
 
 ;; enable auto-pairing
@@ -58,11 +58,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; display time
-;; (display-time-mode t)
-;; (setq display-time-24hr-format t)
-
-;; Show date and time in modeline
-(display-time)
+(display-time-mode t)
+(setq display-time-24hr-format t)
 
 ;; display line number
 ;; (require 'linum)
