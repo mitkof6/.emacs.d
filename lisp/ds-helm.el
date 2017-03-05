@@ -6,6 +6,11 @@
 (require 'helm-config)
 (require-package 'helm-ls-git)
 (require-package 'helm-ctest)
+
+(require-package 'helm-flycheck) ;; Not necessary if using ELPA package
+(eval-after-load 'flycheck
+  '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+
 ;; Use C-c h for helm instead of C-x c
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
@@ -32,9 +37,5 @@
 ;; Have helm automaticaly resize the window
 (helm-autoresize-mode 1)
 (setq rtags-use-helm t)
-
-(require-package 'helm-flycheck) ;; Not necessary if using ELPA package
-(eval-after-load 'flycheck
-  '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
 (provide 'ds-helm)

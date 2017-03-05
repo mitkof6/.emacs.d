@@ -7,6 +7,9 @@ eshell/
 irony/
 semanticdb/
 snippets/
+.python-environments/
+anaconda-mode/
+
 
 # ignore auto-generated file
 srecode-map.el

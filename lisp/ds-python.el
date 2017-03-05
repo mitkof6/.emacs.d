@@ -11,10 +11,12 @@
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
   (when (maybe-require-package 'company-anaconda)
     (after-load 'company
-      (add-hook 'python-mode-hook
-                (lambda ()
-                  (sanityinc/local-push-company-backend #'company-anaconda))))))
+      (after-load 'company
+        (add-hook 'python-mode-hook
+                  (lambda ()
+                    (sanityinc/local-push-company-backend #'company-anaconda)))))))
 
+;;use IPython (currently not working due to bug)
 (setq python-shell-interpreter "python2")'
 
 (require-package 'jedi)
@@ -34,7 +36,7 @@
 (require-package 'ein)
 (require-package 'py-autopep8)
 (elpy-enable)
-(elpy-use-ipython)
+;; (elpy-use-ipython)
 
 ;; use flycheck not flymake with elpy
 (when (require 'flycheck nil t)
