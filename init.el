@@ -36,7 +36,7 @@
 (require 'ds-irony)
 (require 'ds-rtags)
 (require 'ds-cmake-ide)
-(require 'ds-helm-everywhere)
+;; (require 'ds-helm-everywhere)
 (require 'ds-ivy)
 (require 'ds-windows)
 (require 'ds-spelling)

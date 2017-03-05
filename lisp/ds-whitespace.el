@@ -30,7 +30,11 @@
 (require-package 'fill-column-indicator)
 ;; number of characters until the fill column
 (define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda () (fci-mode 1)))
+  (lambda ()
+    (set-fill-column 80)
+    ;; (setq fci-rule-width 1)
+    (setq fci-rule-color "darkgrey")
+    (fci-mode 1)))
 (global-fci-mode t)
 
 ;; clear and auto-indent, hook before save

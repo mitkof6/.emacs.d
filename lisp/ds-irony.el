@@ -58,7 +58,8 @@
   (setq company-backends (delete '(company-irony-c-headers
                                    company-irony company-yasnippet
                                    company-clang company-rtags
-                                   company-semantic) company-backends))
+                                   company-semantic)
+                                 company-backends))
   (add-to-list
    'company-backends '(company-irony-c-headers
                        company-irony company-yasnippet
@@ -68,7 +69,8 @@
   (interactive)
   (setq company-backends (delete '(company-irony-c-headers
                                    company-irony company-yasnippet
-                                   company-clang) company-backends))
+                                   company-clang)
+                                 company-backends))
   (add-to-list
    'company-backends '(company-irony-c-headers
                        company-irony company-yasnippet company-clang)))
@@ -125,11 +127,11 @@
 ;; ;; c-mode-common-hook is also called by c++-mode
 ;; (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
-;; (eval-after-load 'flycheck
-;;   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;;(eval-after-load 'flycheck
+;;  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;; Add flycheck to helm
-(require 'helm-flycheck) ;; Not necessary if using ELPA package
+(require-package 'helm-flycheck) ;; Not necessary if using ELPA package
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
@@ -138,5 +140,9 @@
 ;; =============
 (require-package 'irony-eldoc)
 (add-hook 'irony-mode-hook 'irony-eldoc)
+
+;; function-args
+(require-package 'function-args)
+(fa-config-default)
 
 (provide 'ds-irony)
