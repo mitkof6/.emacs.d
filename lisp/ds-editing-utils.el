@@ -32,7 +32,6 @@
 (set-scroll-bar-mode nil)
 (tool-bar-mode 0)
 
-
 ;; auto-revert
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -121,9 +120,14 @@
 ;; outline-minor-mode
 (require 'ds-outl-minor)
 
-;; use C-u C-u C-s/r to trigger the flexible search action
-;; (require-package 'flex-isearch)
-;; (require 'flex-isearch-autoloads)
-;; (global-flex-isearch-mode t)
+;; don't show the startup screen
+;; (setq inhibit-startup-screen t)
+;; don't show the menu bar
+;; (menu-bar-mode nil)
+;; don't show the tool bar
+;; (require 'tool-bar)
+;; (tool-bar-mode nil)
+;; don't show the scroll bar
+;; (scroll-bar-mode nil)
 
 (provide 'ds-editing-utils)

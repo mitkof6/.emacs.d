@@ -23,8 +23,16 @@
 (global-set-key [remap just-one-space] 'cycle-spacing)
 
 ;; 80 char mark and utility for whitespace
-(require-package 'whitespace)
-(global-whitespace-mode t)
+;; (require-package 'whitespace)
+;; (global-whitespace-mode t)
+
+;; fill column indicator
+(require-package 'fill-column-indicator)
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda () (fci-mode 1)))
+(global-fci-mode t)
+;; number of characters until the fill column
+(setq fill-column 80)
 
 ;; clear and auto-indent, hook before save
 (defun ds/clear-and-indent()

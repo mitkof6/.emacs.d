@@ -13,7 +13,7 @@
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-hook 'after-init-hook
           (lambda ()
-	    (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+            (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap configure
@@ -36,7 +36,7 @@
 (require 'ds-irony)
 (require 'ds-rtags)
 (require 'ds-cmake-ide)
-(require 'ds-helm)
+;; (require 'ds-helm)
 ;; (require 'ds-ivy)
 (require 'ds-windows)
 (require 'ds-spelling)
@@ -52,8 +52,9 @@
 (require 'ds-git)
 (require 'ds-markdown)
 (require 'ds-auctex)
-(require 'ds-python-mode)
+(require 'ds-python)
 (require 'ds-lisp)
+
 ;;----------------------------------------------------------------------------
 ;; Theme
 ;;----------------------------------------------------------------------------
