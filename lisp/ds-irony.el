@@ -17,6 +17,7 @@
 
 ;; Setup irony-mode to load in c-modes
 (require-package 'irony)
+(require-package 'company-irony)
 (require-package 'company-irony-c-headers)
 (require-package 'cl)
 (add-hook 'c++-mode-hook 'irony-mode)

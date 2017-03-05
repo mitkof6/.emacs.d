@@ -38,6 +38,6 @@
   (defun ispell-change-to-next-dictionary ()
     (interactive)
     (ispell-change-dictionary (pop dictionaries))))
-(global-set-key [f1] 'ispell-change-to-next-dictionary)
+(global-set-key [f2] 'ispell-change-to-next-dictionary)
 
 (provide 'ds-flyspell)
