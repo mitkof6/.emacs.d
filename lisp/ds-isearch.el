@@ -37,6 +37,7 @@ This is useful when followed by an immediate kill."
   (isearch-exit)
   (goto-char isearch-other-end))
 
-(define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
+(define-key isearch-mode-map [(control return)]
+  'sanityinc/isearch-exit-other-end)
 
 (provide 'ds-isearch)

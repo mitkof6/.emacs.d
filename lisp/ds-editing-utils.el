@@ -45,25 +45,17 @@
 
 ;; newline behavior
 (global-set-key (kbd "RET") 'newline-and-indent)
-(defun sanityinc/newline-at-end-of-line ()
+(defun ds/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
 
-(global-set-key (kbd "<S-return>") 'sanityinc/newline-at-end-of-line)
-
-;; change yes-or-no to y-or-n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; display time
-(display-time-mode t)
-(setq display-time-24hr-format t)
+(global-set-key (kbd "<S-return>") 'ds/newline-at-end-of-line)
 
 ;; display line number
 ;; (require 'linum)
 (require-package 'hlinum)
-;; (require 'hlinum)
 (hlinum-activate)
 (global-linum-mode t)
 
@@ -87,9 +79,9 @@
 (make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; enable cua mode without prefix key
-(cua-selection-mode t)
+;; (cua-selection-mode t)
 
-;; use page-break-line to handle the ^L page-breaking symbol
+;; use page-break-line to handle the ^l page-breaking symbol
 (require-package 'page-break-lines)
 (global-page-break-lines-mode)
 (diminish 'page-break-lines-mode)
@@ -100,34 +92,20 @@
 ;; multiple-cursors-mode
 ;; (require-package 'multiple-cursors)
 ;; multiple-cursors
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-;; From active region to multiple cursors:
-;; (global-set-key (kbd "C-c c r") 'set-rectangular-region-anchor)
-;; (global-set-key (kbd "C-c c c") 'mc/edit-lines)
-;; (global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
-;; (global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
+;; (global-set-key (kbd "c-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "c->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "c-+") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "c-c c-<") 'mc/mark-all-like-this)
+;; from active region to multiple cursors:
+;; (global-set-key (kbd "c-c c r") 'set-rectangular-region-anchor)
+;; (global-set-key (kbd "c-c c c") 'mc/edit-lines)
+;; (global-set-key (kbd "c-c c e") 'mc/edit-ends-of-lines)
+;; (global-set-key (kbd "c-c c a") 'mc/edit-beginnings-of-lines)
 
 ;; undo-tree
 (require-package 'undo-tree)
-;; (require 'undo-tree-autoloads)
-(global-set-key "\C-xu" 'undo-tree-visualize)
+;; (global-set-key "\c-xu" 'undo-tree-visualize)
 (global-undo-tree-mode t)
 (diminish 'undo-tree-mode)
-
-;; outline-minor-mode
-(require 'ds-outl-minor)
-
-;; don't show the startup screen
-;; (setq inhibit-startup-screen t)
-;; don't show the menu bar
-;; (menu-bar-mode nil)
-;; don't show the tool bar
-;; (require 'tool-bar)
-;; (tool-bar-mode nil)
-;; don't show the scroll bar
-;; (scroll-bar-mode nil)
 
 (provide 'ds-editing-utils)

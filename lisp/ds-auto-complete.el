@@ -25,7 +25,7 @@
 (setq ac-quick-help-prefer-pos-tip t)
 ;; use quick-help to show the documents
 (setq ac-use-quick-help t)
-(setq ac-quick-help-delay 1.0)
+(setq ac-quick-help-delay 0.5)
 
 ;; use fuzzy matching. needs manually triggering.
 (setq ac-fuzzy-enable t)
@@ -34,12 +34,12 @@
       (cons 'backward-delete-char-untabify ac-trigger-commands))
 (after-load 'init-yasnippet
   (set-default 'ac-sources
-             '(ac-source-dictionary
-               ac-source-words-in-buffer
-               ac-source-words-in-same-mode-buffers
-               ac-source-words-in-all-buffer
-               ac-source-functions
-               ac-source-yasnippet)))
+               '(ac-source-dictionary
+                 ac-source-words-in-buffer
+                 ac-source-words-in-same-mode-buffers
+                 ac-source-words-in-all-buffer
+                 ac-source-functions
+                 ac-source-yasnippet)))
 
 ;; add custom sources
 (require 'ds-ac-source)

@@ -29,14 +29,13 @@
 ;; fill column indicator
 (require-package 'fill-column-indicator)
 ;; number of characters until the fill column
-(setq fill-column 80)
 (define-globalized-minor-mode global-fci-mode fci-mode
   (lambda () (fci-mode 1)))
 (global-fci-mode t)
 
 ;; clear and auto-indent, hook before save
 (defun ds/clear-and-indent()
-  "Indents an entire buffer using the default intenting scheme."
+  "Indents an entire buffer using the default intending scheme."
   (interactive)
   (save-excursion
     (delete-trailing-whitespace)
