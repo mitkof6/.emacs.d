@@ -4,6 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require-package 'company)
 ;; (require-package 'company-rtags) customly installed in ds-rtags
+(require-package 'rtags)
 (require 'company-rtags) ;; no need for require-package
 (global-company-mode)
 

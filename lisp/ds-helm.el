@@ -2,8 +2,8 @@
 ;; Set up helm
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load helm and set M-x to helm, buffer to helm, and find files to herm
-(require 'helm-config)
 (require-package 'helm)
+(require 'helm-config)
 (require-package 'helm-ls-git)
 (require-package 'helm-ctest)
 ;; Use C-c h for helm instead of C-x c

@@ -1,6 +1,6 @@
 (setq auto-mode-alist
       (append '(("SConstruct\\'" . python-mode)
-		("SConscript\\'" . python-mode))
+                ("SConscript\\'" . python-mode))
               auto-mode-alist))
 
 (require-package 'pip-requirements)
@@ -12,37 +12,37 @@
   (when (maybe-require-package 'company-anaconda)
     (after-load 'company
       (add-hook 'python-mode-hook
-                (lambda () (sanityinc/local-push-company-backend 'company-anaconda))))))
+                (lambda ()
+                  (sanityinc/local-push-company-backend 'company-anaconda))))))
 
+(setq python-shell-interpreter "python2")'
 
-(require-package 'company-jedi)
 (require-package 'jedi)
-(require 'company-jedi)
+(require-package 'company-jedi) ;; part of jedi
 
-(defun my/python-mode-hook ()
+(defun ds/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'my/python-mode-hook)
+(add-hook 'python-mode-hook 'ds/python-mode-hook)
 (add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
+(setq jedi:complete-on-dot t)
 
-
-;; PYTHON CONFIGURATION
+;; --------------------------------------
+;; elpy
 ;; --------------------------------------
 
-(require-package 'elpy)
-(require-package 'ein)
-(require-package 'py-autopep8)
-(elpy-enable)
-(elpy-use-ipython)
+;; (require-package 'elpy)
+;; (require-package 'ein)
+;; (require-package 'py-autopep8)
+;; (elpy-enable)
+;; (elpy-use-ipython)
 
-;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; ;; use flycheck not flymake with elpy
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-
+;; ;; enable autopep8 formatting on save
+;; (require 'py-autopep8)
+;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (provide 'ds-python-mode)
