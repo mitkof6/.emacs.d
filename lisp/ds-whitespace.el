@@ -2,7 +2,7 @@
 
 ;; Whitespace
 
-(defun sanityinc/no-trailing-whitespace ()
+(defun ds/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
   (setq show-trailing-whitespace nil))
 
@@ -15,7 +15,7 @@
                 compilation-mode-hook
                 twittering-mode-hook
                 minibuffer-setup-hook))
-  (add-hook hook #'sanityinc/no-trailing-whitespace))
+  (add-hook hook #'ds/no-trailing-whitespace))
 
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
@@ -31,11 +31,12 @@
 ;; number of characters until the fill column
 (define-globalized-minor-mode global-fci-mode fci-mode
   (lambda ()
-    (set-fill-column 80)
+    ;; (set-fill-column 80)
     ;; (setq fci-rule-width 1)
     (setq fci-rule-color "darkgrey")
     (fci-mode 1)))
 (global-fci-mode t)
+(setq-default fill-column 80)
 
 ;; clear and auto-indent, hook before save
 (defun ds/clear-and-indent()

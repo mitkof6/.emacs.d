@@ -86,9 +86,6 @@ Call a second time to restore the original window configuration."
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
 
-;; show file path in frame title
-(setq-default frame-title-format "%b (%f)")
-
 ;; save emacs sessions
 (desktop-save-mode 1)
 

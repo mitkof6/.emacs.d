@@ -9,7 +9,7 @@ semanticdb/
 snippets/
 .python-environments/
 anaconda-mode/
-
+bookmarks
 
 # ignore auto-generated file
 srecode-map.el

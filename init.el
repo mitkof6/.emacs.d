@@ -1,7 +1,3 @@
-;;------------------------------------------------------------------------------
-;; Temporarily reduce garbage collection during startup
-;;------------------------------------------------------------------------------
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -36,7 +32,7 @@
 (require 'ds-irony)
 (require 'ds-rtags)
 (require 'ds-cmake-ide)
-;; (require 'ds-helm-everywhere)
+(require 'ds-helm-everywhere)
 (require 'ds-ivy)
 (require 'ds-windows)
 (require 'ds-spelling)
@@ -54,29 +50,8 @@
 (require 'ds-auctex)
 (require 'ds-python)
 (require 'ds-lisp)
-
-;;------------------------------------------------------------------------------
-;; Customization
-;;------------------------------------------------------------------------------
-(require-package 'afternoon-theme)
-(require 'afternoon-theme)
-
-;; change yes-or-no to y-or-n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; display time
-(display-time-mode t)
-(setq display-time-24hr-format t)
-
-;; don't show the startup screen
-(setq inhibit-startup-screen t)
-;; don't show the menu bar
-;; (menu-bar-mode nil)
-;; don't show the tool bar
-;; (require 'tool-bar)
-;; (tool-bar-mode nil)
-;; don't show the scroll bar
-;; (scroll-bar-mode nil)
+(require 'ds-ui)
+(require 'ds-global-key-bindings)
 
 ;;------------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface

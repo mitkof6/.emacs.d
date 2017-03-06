@@ -34,13 +34,7 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 sudo make install
 ```
 
-Add yasnippet
-
-```
-git clone https://github.com/AndreaCrotti/yasnippet-snippets.git ~/.emacs.d/snippets/
-```
-
-Python
+Python (TODO not properly working due to ipython version)
 
 ```
 virutalenv

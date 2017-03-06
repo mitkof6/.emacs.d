@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set up code completion with company and irony
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,7 +12,11 @@
 (require 'semantic) ;; no need for require-package
 (global-semanticdb-minor-mode 1)
 (global-semantic-idle-scheduler-mode 1)
+(global-semantic-idle-summary-mode 1) ;; for c code only
 (semantic-mode 1)
+
+(require-package 'stickyfunc-enhance)
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 
 ;; Setup irony-mode to load in c-modes
 (require-package 'irony)
@@ -76,7 +79,7 @@
                        company-irony company-yasnippet company-clang)))
 
 ;; Zero delay when pressing tab
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.5)
 
 ;; ==========================================
 ;; bind TAB for indent-or-complete
@@ -118,22 +121,14 @@
 
 ;; rtags Seems to be really slow sometimes so I disable using
 ;; it with irony mode
-;; (require 'flycheck-rtags)
-;; (defun my-flycheck-rtags-setup ()
-;;   (flycheck-select-checker 'rtags)
-;;   ;; RTags creates more accurate overlays.
-;;   (setq-local flycheck-highlighting-mode nil)
-;;   (setq-local flycheck-check-syntax-automatically nil))
-;; ;; c-mode-common-hook is also called by c++-mode
-;; (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
-
-;;(eval-after-load 'flycheck
-;;  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-;; Add flycheck to helm
-(require-package 'helm-flycheck) ;; Not necessary if using ELPA package
-(eval-after-load 'flycheck
-  '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+(require 'flycheck-rtags)
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  ;; RTags creates more accurate overlays.
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+;; c-mode-common-hook is also called by c++-mode
+(add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
 ;; =============
 ;; eldoc-mode

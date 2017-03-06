@@ -17,7 +17,6 @@
 (setq rtags-completions-enabled t)
 (rtags-enable-standard-keybindings)
 
-(require-package 'cc-mode)
 ;; Compiling:
 (define-key c++-mode-map (kbd "C-c C-c") 'compile)
 ;; Change compilation command:
