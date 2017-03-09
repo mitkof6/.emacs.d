@@ -48,6 +48,7 @@
 (require 'ds-git)
 (require 'ds-markdown)
 (require 'ds-auctex)
+(require 'ds-pdf-tools)
 (require 'ds-python)
 (require 'ds-lisp)
 (require 'ds-ui)

@@ -19,7 +19,7 @@
             (TeX-global-PDF-mode t)       ; PDF mode enable, not plain
             (setq TeX-save-query nil)
             (imenu-add-menubar-index)
-            ;;(define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
+            ;; (local-set-key ["TAB"] 'TeX-complete-symbol)
             ))
 
 ;; configuration for TeX-fold-mode

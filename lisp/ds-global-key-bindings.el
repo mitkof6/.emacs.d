@@ -8,4 +8,7 @@
 ;; kill all buffers
 (global-set-key (kbd "C-c C-k") 'ds/close-all-buffers)
 
+;; eval-buffer
+(global-set-key (kbd "C-c C-b") 'eval-buffer)
+
 (provide 'ds-global-key-bindings)

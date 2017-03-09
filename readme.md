@@ -51,6 +51,12 @@ and set the c.NotebookApp.password password.
 
 [jedi](http://tkf.github.io/emacs-jedi/latest/)
 
+pdf-tools
+
+```
+package: poppler
+```
+
 ### Auto-complete-clang
 
 Note that the `ac-clang-flags` set in `init-ac-source.el` is

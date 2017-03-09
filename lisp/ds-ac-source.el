@@ -3,10 +3,15 @@
 (add-to-list 'ac-modes 'latex-mode)
 (defun ac-latex-mode-setup ()
   (setq ac-sources
-        (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+        (append '(ac-source-math-unicode
+                  ac-source-math-latex
+                  ac-source-latex-commands)
                 ac-sources)))
 (add-hook 'latex-mode-hook 'ac-latex-mode-setup)
 (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+
+;; org mode
+(add-to-list 'ac-modes 'org-mode)
 
 ;; add ac-source for clang
 (require-package 'auto-complete-clang)

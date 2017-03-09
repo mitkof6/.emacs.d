@@ -25,7 +25,7 @@
 (setq ac-quick-help-prefer-pos-tip t)
 ;; use quick-help to show the documents
 (setq ac-use-quick-help t)
-(setq ac-quick-help-delay 0.5)
+(setq ac-quick-help-delay 0.2)
 
 ;; use fuzzy matching. needs manually triggering.
 (setq ac-fuzzy-enable t)
