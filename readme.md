@@ -34,13 +34,22 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 sudo make install
 ```
 
-Python (TODO not properly working due to ipython version)
+Python
+
+[elpy](https://github.com/jorgenschaefer/elpy)
+
+[ein](https://github.com/millejoh/emacs-ipython-notebook)
+
+In order to configure ein you need to generate the jupyter conf
 
 ```
-virutalenv
+jupyter notebook --generate-config
 
-"M-x jedi:install-server"
 ```
+
+and set the c.NotebookApp.password password.
+
+[jedi](http://tkf.github.io/emacs-jedi/latest/)
 
 ### Auto-complete-clang
 

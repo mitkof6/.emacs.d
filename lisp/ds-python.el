@@ -1,50 +1,40 @@
-(setq auto-mode-alist
-      (append '(("SConstruct\\'" . python-mode)
-                ("SConscript\\'" . python-mode))
-              auto-mode-alist))
-
-(require-package 'pip-requirements)
-
-(when (maybe-require-package 'anaconda-mode)
-  (after-load 'python
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-  (when (maybe-require-package 'company-anaconda)
-    (after-load 'company
-      (after-load 'company
-        (add-hook 'python-mode-hook
-                  (lambda ()
-                    (sanityinc/local-push-company-backend #'company-anaconda)))))))
-
-;;use IPython (currently not working due to bug)
-(setq python-shell-interpreter "python2")'
-
-(require-package 'jedi)
-(require-package 'company-jedi) ;; part of jedi
-
-(defun ds/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'ds/python-mode-hook)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
-
 ;;--------------------------------------
 ;; elpy
 ;; --------------------------------------
-(package-initialize)
 (require-package 'elpy)
-(require-package 'ein)
 (require-package 'py-autopep8)
+(package-initialize)
 (elpy-enable)
-;; (elpy-use-ipython)
+(elpy-use-ipython)
 
-;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; this should be set in due to ipython v5
+;; https://github.com/jorgenschaefer/elpy/issues/949
+(setq python-shell-interpreter "ipython2"
+      python-shell-interpreter-args "--simple-prompt --pprint")
+(setq elpy-rpc-python-command "python2")
 
-;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'python-mode-hook 'elpy-mode)
+(with-eval-after-load 'elpy
+  (remove-hook 'elpy-modules 'elpy-module-flymake)
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+
+;;--------------------------------------
+;; ein
+;; --------------------------------------
+(require-package 'ein)
+(setq ein:use-auto-complete t)
+;; Or, to enable "superpack" (a little bit hacky improvements):
+;; (setq ein:use-auto-complete-superpack t)
+
+(require-package 'smartrep)
+(setq ein:use-smartrep t)
+
+
+;;--------------------------------------
+;; jedi
+;; --------------------------------------
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)                 ; optional
 
 (provide 'ds-python)

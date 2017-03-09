@@ -10,6 +10,7 @@ snippets/
 .python-environments/
 anaconda-mode/
 bookmarks
+request/
 
 # ignore auto-generated file
 srecode-map.el
