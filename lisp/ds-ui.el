@@ -1,4 +1,4 @@
-;;; prelude-ui.el --- Emacs Prelude: UI optimizations and tweaks.
+;;; ds-ui.el --- Emacs Prelude: UI optimizations and tweaks.
 ;;
 ;; Copyright © 2011-2017 Bozhidar Batsov
 ;;
@@ -69,7 +69,7 @@
       '("" invocation-name " DS - "
         (:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
+                   "%b"))))
 
 ;; theme
 (require-package 'afternoon-theme)
@@ -90,26 +90,7 @@
 (require-package 'which-key)
 (which-key-mode +1)
 
+;; save emacs sessions
+(desktop-save-mode 1)
+
 (provide 'ds-ui)
-;; ;;------------------------------------------------------------------------------
-;; ;; Customization
-;; ;;------------------------------------------------------------------------------
-;; (require-package 'afternoon-theme)
-;; (require 'afternoon-theme)
-
-;; ;; change yes-or-no to y-or-n
-;; (fset 'yes-or-no-p 'y-or-n-p)
-
-;; ;; display time
-;; (display-time-mode t)
-;; (setq display-time-24hr-format t)
-
-;; ;; don't show the startup screen
-;; (setq inhibit-startup-screen t)
-;; ;; don't show the menu bar
-;; ;; (menu-bar-mode nil)
-;; ;; don't show the tool bar
-;; (require 'tool-bar)
-;; (tool-bar-mode nil)
-;; ;; don't show the scroll bar
-;; (scroll-bar-mode nil)

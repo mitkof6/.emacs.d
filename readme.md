@@ -62,7 +62,7 @@ package: poppler
 Note that the `ac-clang-flags` set in `init-ac-source.el` is
 platform-dependent. It's actually clang's include file search
 path. According to
-the
+inthe
 [Troubleshooting section of auto-complete-clang](https://github.com/brianjcj/auto-complete-clang),
 you can use the following method to find the correct path:
 

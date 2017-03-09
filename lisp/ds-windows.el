@@ -1,7 +1,14 @@
 ;;----------------------------------------------------------------------------
-;; Navigate window layouts with "C-c <left>" and "C-c <right>"
+;; Navigate window layouts with "C-c n" and "C-c p"
 ;;----------------------------------------------------------------------------
-(add-hook 'after-init-hook 'winner-mode)
+(require-package 'tabbar)
+(tabbar-mode 't)
+(global-set-key (kbd "C-c n") 'tabbar-forward)
+(global-set-key (kbd "C-c p") 'tabbar-backward)
+
+;; Navigate window layouts with "C-c <left>" and "C-c <right>"
+;;(add-hook 'after-init-hook 'winner-mode)
+
 
 ;; Make "C-x o" prompt for a target window when there are more than 2
 (require-package 'switch-window)
@@ -12,21 +19,21 @@
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
 ;;----------------------------------------------------------------------------
-(defun split-window-func-with-other-buffer (split-function)
+(defun ds/split-window-func-with-other-buffer (split-function)
   (lexical-let ((s-f split-function))
-    (lambda (&optional arg)
-      "Split this window and switch to the new window unless ARG is provided."
-      (interactive "P")
-      (funcall s-f)
-      (let ((target-window (next-window)))
-        (set-window-buffer target-window (other-buffer))
-        (unless arg
-          (select-window target-window))))))
+               (lambda (&optional arg)
+                 "Split this window and switch to the new window unless ARG is provided."
+                 (interactive "P")
+                 (funcall s-f)
+                 (let ((target-window (next-window)))
+                   (set-window-buffer target-window (other-buffer))
+                   (unless arg
+                     (select-window target-window))))))
 
 (global-set-key (kbd "C-x 2")
-                (split-window-func-with-other-buffer 'split-window-vertically))
+                (ds/split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key (kbd "C-x 3")
-                (split-window-func-with-other-buffer 'split-window-horizontally))
+                (ds/split-window-func-with-other-buffer 'split-window-horizontally))
 
 (defun ds/toggle-delete-other-windows ()
   "Delete other windows in frame if any, or restore previous window config."
@@ -34,28 +41,28 @@
   (if (and winner-mode
            (equal (selected-window) (next-window)))
       (winner-undo)
-    (delete-other-windows)))
+      (delete-other-windows)))
 
 (global-set-key (kbd "C-x 1") 'ds/toggle-delete-other-windows)
 
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
 ;;----------------------------------------------------------------------------
-(defun split-window-horizontally-instead ()
+(defun ds/split-window-horizontally-instead ()
   (interactive)
   (save-excursion
-    (delete-other-windows)
-    (funcall
-     (split-window-func-with-other-buffer 'split-window-horizontally))))
+   (delete-other-windows)
+   (funcall
+    (ds/split-window-func-with-other-buffer 'split-window-horizontally))))
 
-(defun split-window-vertically-instead ()
+(defun ds/split-window-vertically-instead ()
   (interactive)
   (save-excursion
-    (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
+   (delete-other-windows)
+   (funcall (ds/split-window-func-with-other-buffer 'split-window-vertically))))
 
-(global-set-key (kbd "C-x |") 'split-window-horizontally-instead)
-(global-set-key (kbd "C-x _") 'split-window-vertically-instead)
+(global-set-key (kbd "C-x |") 'ds/split-window-horizontally-instead)
+(global-set-key (kbd "C-x _") 'ds/split-window-vertically-instead)
 
 ;; Borrowed from http://postmomentum.ch/blog/201304/blog-on-emacs
 (defun ds/split-window()
@@ -66,8 +73,8 @@ Call a second time to restore the original window configuration."
       (progn
         (jump-to-register :ds/split-window)
         (setq this-command 'ds/unsplit-window))
-    (window-configuration-to-register :ds/split-window)
-    (switch-to-buffer-other-window nil)))
+      (window-configuration-to-register :ds/split-window)
+      (switch-to-buffer-other-window nil)))
 
 (global-set-key (kbd "<f7>") 'ds/split-window)
 
@@ -85,8 +92,5 @@ Call a second time to restore the original window configuration."
 
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
-
-;; save emacs sessions
-(desktop-save-mode 1)
 
 (provide 'ds-windows)
