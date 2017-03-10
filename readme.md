@@ -11,7 +11,7 @@ Features
 - spell checking: en, gr
 - magit
 - w3m: integrated web-browser
-- mail: [gnus](https://www.emacswiki.org/emacs/GnusTutorial)
+- mail: [gnus](https://www.emacswiki.org/emacs/GnusGmail)
 - markdown support
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex
@@ -19,13 +19,13 @@ Features
 
 ## Installation
 
-Build irony-server
+Build irony-server:
 
 ```
 M-x irony-install-server
 ```
 
-Build and install rtags
+Build and install rtags:
 
 ```
 git clone --recursive https://github.com/Andersbakken/rtags.git
@@ -34,13 +34,13 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 sudo make install
 ```
 
-Python
+Python:
 
 [elpy](https://github.com/jorgenschaefer/elpy)
 
 [ein](https://github.com/millejoh/emacs-ipython-notebook)
 
-In order to configure ein you need to generate the jupyter conf
+In order to configure ein you need to generate the jupyter configureation:
 
 ```
 jupyter notebook --generate-config
@@ -51,7 +51,7 @@ and set the c.NotebookApp.password password.
 
 [jedi](http://tkf.github.io/emacs-jedi/latest/)
 
-pdf-tools
+pdf-tools:
 
 ```
 package: poppler, poppler-utils
@@ -62,6 +62,13 @@ w3m (web-browser):
 ```
 package: w3m
 ```
+
+
+gnus setup auth:
+
+~/.authinfo.gpg
+machine imap.gmail.com login <USER> password <PASSWORD> port imaps
+machine smtp.gmail.com login <USER> password <PASSWORD> port 587
 
 ### Auto-complete-clang
 

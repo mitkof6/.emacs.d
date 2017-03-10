@@ -43,7 +43,7 @@
 (require 'ds-auctex)
 (require 'ds-markdown)
 (require 'ds-org)
-;; (require 'ds-pdf-tools)
+(require 'ds-pdf-tools)
 (require 'ds-python)
 (require 'ds-lisp)
 (require 'ds-ui)

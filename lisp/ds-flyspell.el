@@ -29,11 +29,16 @@
                     crontab-mode-hook
                     perl-mode-hook
                     tcl-mode-hook
-                    javascript-mode-hook))
+                    javascript-mode-hook
+                    ))
       (add-hook hook 'flyspell-prog-mode)))
 
 (after-load 'flyspell
             (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
 
+(add-to-list 'ispell-skip-region-alist
+             '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+(add-to-list 'ispell-skip-region-alist
+             '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 
 (provide 'ds-flyspell)

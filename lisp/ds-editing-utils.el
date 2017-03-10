@@ -165,8 +165,7 @@
       (setq fci-rule-color "darkgrey")
       (setq fill-column 80)
       (fci-mode 1))))
-(global-fci-mode 1)
-
+;; (global-fci-mode 1)
 
 ;; Paredit
 (require-package 'paredit)

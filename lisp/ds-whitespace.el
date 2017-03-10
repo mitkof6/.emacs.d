@@ -1,4 +1,8 @@
 ;; Whitespace
+;; 80 char mark and utility for whitespace
+(require-package 'whitespace)
+(global-whitespace-mode t)
+
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 (global-set-key [remap just-one-space] 'cycle-spacing)
