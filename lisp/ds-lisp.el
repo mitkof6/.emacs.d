@@ -36,12 +36,4 @@
       geiser-debug-show-debug-p nil
       geiser-debug-jump-to-debug-p nil)
 
-;; Paredit
-(require-package 'paredit)
-(defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
-(defun lisp-mode-paredit-hook ()
-  (enable-paredit-mode)
-  (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
-               'paredit-space-for-delimiter-p-lisp))
-
 (provide 'ds-lisp)

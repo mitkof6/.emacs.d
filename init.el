@@ -42,11 +42,14 @@
 (require 'ds-git)
 (require 'ds-auctex)
 (require 'ds-markdown)
-(require 'ds-pdf-tools)
+;; (require 'ds-pdf-tools)
 (require 'ds-python)
 (require 'ds-lisp)
 (require 'ds-ui)
+(require 'ds-w3m)
+(require 'ds-gnus)
 (require 'ds-global-key-bindings)
+
 
 ;;------------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface

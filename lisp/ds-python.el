@@ -23,19 +23,20 @@
 ;; ein
 ;; --------------------------------------
 (require-package 'ein)
-(setq ein:use-auto-complete t)
+;; (setq ein:use-auto-complete t)
 ;; Or, to enable "superpack" (a little bit hacky improvements):
-;; (setq ein:use-auto-complete-superpack t)
+(setq ein:use-auto-complete-superpack t)
 
 (require-package 'smartrep)
 (setq ein:use-smartrep t)
+(setq elpy-rpc-backend "jedi")
 
 ;;--------------------------------------
 ;; jedi
 ;; --------------------------------------
-(require-package 'jedi)
-(require-package 'company-jedi)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
+;; (require-package 'jedi)
+;; (require-package 'company-jedi)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)                 ; optional
 
 (provide 'ds-python)

@@ -158,15 +158,23 @@
 
 ;; fill column indicator
 (require-package 'fill-column-indicator)
-;; number of characters until the fill column
 (define-globalized-minor-mode global-fci-mode fci-mode
   (lambda ()
-    ;; (set-fill-column 80)
-    ;; (setq fci-rule-width 1)
-    (setq fci-rule-color "darkgrey")
-    (fci-mode 1)))
-(global-fci-mode t)
-(setq-default fill-column 80)
+    (when (and (not (string-match "^\*.*\*$" (buffer-name)))
+               (not (eq major-mode 'dired-mode)))
+      (setq fci-rule-color "darkgrey")
+      (setq fill-column 80)
+      (fci-mode 1))))
+(global-fci-mode 1)
 
+
+;; Paredit
+(require-package 'paredit)
+(defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
+(defun lisp-mode-paredit-hook ()
+  (enable-paredit-mode)
+  (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
+               'paredit-space-for-delimiter-p-lisp))
+(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
 
 (provide 'ds-editing-utils)

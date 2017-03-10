@@ -5,16 +5,16 @@ Based on: Steve Purcell and xyguo
 Features
 
 - C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
-- python: elpy, ein (jython), jedi
+- python: elpy, ein (jupiter notebook), jedi
 - lisp: sline, racket-mode, scheme
 - latex: auctex
-- spellchecking: en, gr
+- spell checking: en, gr
 - magit
-- markdown
-- whitespace: autocleanup, 80 column rule
-- save desktop
-- ido
-
+- w3m: integrated web-browser
+- mail: [gnus](https://www.emacswiki.org/emacs/GnusTutorial)
+- markdown support
+- mini-buffer: ivy, smex
+- misc:  whitespace autocleanup, 80 column rule save desktop
 
 ## Installation
 
@@ -53,7 +53,13 @@ and set the c.NotebookApp.password password.
 pdf-tools
 
 ```
-package: poppler
+package: poppler, poppler-utils
+```
+
+w3m (web-browser):
+
+```
+package: w3m
 ```
 
 ### Auto-complete-clang
