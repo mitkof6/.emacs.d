@@ -16,15 +16,42 @@
 (setq rtags-completions-enabled t)
 (rtags-enable-standard-keybindings)
 
+;;---------------------------------------------------------------------
 ;; Compiling:
-(define-key c++-mode-map (kbd "C-c C-c") 'compile)
+;;---------------------------------------------------------------------
+(require-package 'compile)
+
 ;; Change compilation command:
 (setq compile-command "make ")
 
-(global-set-key (kbd "<f5>")
-                (lambda ()
-                  (interactive)
-                  (setq-local compilation-read-command nil)
-                  (call-interactively 'compile)))
+;; if there are no errors make the compilation window vanish
+(setq compilation-finish-function
+      (lambda (buf str)
+        (if (null (string-match ".*exited abnormally.*" str))
+            ;;no errors, make the compilation window go away in a few seconds
+            (progn
+              (run-at-time
+               "2 sec" nil 'delete-windows-on
+               (get-buffer-create "*compilation*"))
+              (message "No Compilation Errors!")))))
+
+(defun ds/compile ()
+  "Run compile and resize the compile window"
+  (interactive)
+  (progn
+    (call-interactively 'compile)
+    (setq w (get-buffer-window "*compilation*"))
+    (setq cur (selected-window))
+    (select-window w)
+    (setq h (window-height w))
+    (shrink-window (- h 15))
+    (select-window cur)))
+(global-set-key [f9] 'ds/compile)
+(define-key c++-mode-map (kbd "C-c C-c") #'ds/compile)
+
+(defadvice compile (around split-horizontally activate)
+  (let ((split-width-threshold nil)
+        (split-height-threshold 0))
+    ad-do-it))
 
 (provide 'ds-cmake-ide)

@@ -174,6 +174,20 @@
   (enable-paredit-mode)
   (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
                'paredit-space-for-delimiter-p-lisp))
-(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
+
+;; hide and show
+(load-library "hideshow")
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+
 
 (provide 'ds-editing-utils)
