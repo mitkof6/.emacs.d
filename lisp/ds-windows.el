@@ -93,4 +93,13 @@ Call a second time to restore the original window configuration."
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
 
+;;; View tags other window
+(defun ds/view-tag-other-window (tagname &optional next-p regexp-p)
+  "Same as `find-tag-other-window' but doesn't move the point"
+  (interactive (find-tag-interactive "View tag other window: "))
+  (let ((window (get-buffer-window)))
+    (find-tag-other-window tagname next-p regexp-p)
+    (recenter 0)
+    (select-window window)))
+
 (provide 'ds-windows)

@@ -13,6 +13,7 @@ Features
 - w3m: integrated web-browser
 - mail: [gnus](https://www.emacswiki.org/emacs/GnusTutorial)
 - markdown support
+- [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex
 - misc:  whitespace autocleanup, 80 column rule save desktop
 
