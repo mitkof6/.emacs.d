@@ -30,10 +30,11 @@
 (require-package 'smartrep)
 (setq ein:use-smartrep t)
 
-
 ;;--------------------------------------
 ;; jedi
 ;; --------------------------------------
+(require-package 'jedi)
+(require-package 'company-jedi)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)                 ; optional
 

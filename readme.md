@@ -5,15 +5,14 @@ Based on: Steve Purcell and xyguo
 Features
 
 - C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
-- python jedi, ein, elpy, jython (TODO)
-- lisp: sline, racket-mode
+- python: elpy, ein (jython), jedi
+- lisp: sline, racket-mode, scheme
 - latex: auctex
 - spellchecking: en, gr
 - magit
 - markdown
 - whitespace: autocleanup, 80 column rule
 - save desktop
-- helm
 - ido
 
 
