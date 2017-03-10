@@ -21,7 +21,6 @@
 
 ;; use pos-tip instead of popup
 (require-package 'pos-tip)
-(require 'pos-tip)
 (setq ac-quick-help-prefer-pos-tip t)
 ;; use quick-help to show the documents
 (setq ac-use-quick-help t)
@@ -33,15 +32,52 @@
 (setq ac-trigger-commands
       (cons 'backward-delete-char-untabify ac-trigger-commands))
 (after-load 'init-yasnippet
-  (set-default 'ac-sources
-               '(ac-source-dictionary
-                 ac-source-words-in-buffer
-                 ac-source-words-in-same-mode-buffers
-                 ac-source-words-in-all-buffer
-                 ac-source-functions
-                 ac-source-yasnippet)))
+            (set-default 'ac-sources
+                         '(ac-source-dictionary
+                           ac-source-words-in-buffer
+                           ac-source-words-in-same-mode-buffers
+                           ac-source-words-in-all-buffer
+                           ac-source-functions
+                           ac-source-yasnippet)))
 
+;;------------------------------------------------------------------------------
 ;; add custom sources
-(require 'ds-ac-source)
+;;------------------------------------------------------------------------------
+
+;; add ac-sources for latex mode
+(require-package 'ac-math)
+(add-to-list 'ac-modes 'latex-mode)
+(defun ac-latex-mode-setup ()
+  (setq ac-sources
+        (append '(ac-source-math-unicode
+                  ac-source-math-latex
+                  ac-source-latex-commands)
+                ac-sources)))
+(add-hook 'latex-mode-hook 'ac-latex-mode-setup)
+(add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+
+;; org mode
+(add-to-list 'ac-modes 'org-mode)
+
+;; add ac-source for clang
+(require-package 'auto-complete-clang)
+(setq ac-clang-flags
+      (append '("-std=c++11")
+              (mapcar (lambda (item) (concat "-I" item))
+                      (split-string
+                       "
+/usr/include/c++/5
+/usr/include/x86_64-linux-gnu/c++/5
+/usr/include/c++/5/backward
+/usr/lib/gcc/x86_64-linux-gnu/5/include
+/usr/local/include
+/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed
+/usr/include/x86_64-linux-gnu
+/usr/include
+"))))
+
+(defun ds/ac-cc-mode-setup ()
+  (setq ac-sources (append '(ac-source-clang) ac-sources)))
+(add-hook 'c-mode-common-hook 'ds/ac-cc-mode-setup)
 
 (provide 'ds-auto-complete)
