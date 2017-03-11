@@ -11,7 +11,4 @@
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
 
-;; agenda files
-(setq org-agenda-files (file-expand-wildcards "~/dev/agenda/*.org"))
-
 (provide 'ds-org)

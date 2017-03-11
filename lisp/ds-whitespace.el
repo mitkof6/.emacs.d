@@ -29,6 +29,7 @@
    (untabify (point-min) (point-max))))
 ;; too slow for big files
 ;; (add-hook 'before-save-hook #'ds/clear-and-indent)
+(global-set-key (kbd "C-c c i") #'ds/clear-and-indent)
 
 (defun ds/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
