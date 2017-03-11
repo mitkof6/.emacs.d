@@ -2,27 +2,28 @@
 ;; Semantics
 ;;------------------------------------------------------------------------------
 ;; enable semantics mode for auto-completion
-(require-package 'cc-mode)
-(require 'semantic) ;; no need for require-package
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(global-semantic-idle-summary-mode 1) ;; for c code only
-(semantic-mode 1)
 
-(require-package 'stickyfunc-enhance)
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+;; (require-package 'cc-mode)
+;; (require 'semantic) ;; no need for require-package
+;; (global-semanticdb-minor-mode 1)
+;; (global-semantic-idle-scheduler-mode 1)
+;; (global-semantic-idle-summary-mode 1) ;; for c code only
+;; (semantic-mode 1)
 
-;; Prohibit semantic from searching through system headers. We want
-;; company-clang to do that for us.
-(setq-mode-local c-mode semanticdb-find-default-throttle
-                 '(local project unloaded recursive))
-(setq-mode-local c++-mode semanticdb-find-default-throttle
-                 '(local project unloaded recursive))
+;; (require-package 'stickyfunc-enhance)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 
-(semantic-remove-system-include "/usr/include/" 'c++-mode)
-(semantic-remove-system-include "/usr/local/include/" 'c++-mode)
-(add-hook 'semantic-init-hooks
-          'semantic-reset-system-include)
+;; ;; Prohibit semantic from searching through system headers. We want
+;; ;; company-clang to do that for us.
+;; (setq-mode-local c-mode semanticdb-find-default-throttle
+;;                  '(local project unloaded recursive))
+;; (setq-mode-local c++-mode semanticdb-find-default-throttle
+;;                  '(local project unloaded recursive))
+
+;; (semantic-remove-system-include "/usr/include/" 'c++-mode)
+;; (semantic-remove-system-include "/usr/local/include/" 'c++-mode)
+;; (add-hook 'semantic-init-hooks
+;;           'semantic-reset-system-include)
 
 ;;------------------------------------------------------------------------------
 ;; set up code completion with company and irony
@@ -95,7 +96,7 @@
                        company-irony company-yasnippet company-clang)))
 
 ;; Zero delay when pressing tab
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 0.5)
 
 ;;------------------------------------------------------------------------------
 ;; bind TAB for indent-or-complete

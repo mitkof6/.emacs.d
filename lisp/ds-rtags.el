@@ -20,13 +20,13 @@
 (setq rtags-use-helm t)
 
 ;; flycheck rtags
-(require 'flycheck-rtags)
-(defun ds/flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
-  ;; RTags creates more accurate overlays.
-  (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil))
-;; c-mode-common-hook is also called by c++-mode
-(add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
+;; (require 'flycheck-rtags)
+;; (defun ds/flycheck-rtags-setup ()
+;;   (flycheck-select-checker 'rtags)
+;;   ;; RTags creates more accurate overlays.
+;;   (setq-local flycheck-highlighting-mode nil)
+;;   (setq-local flycheck-check-syntax-automatically nil))
+;; ;; c-mode-common-hook is also called by c++-mode
+;; (add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
 
 (provide 'ds-rtags)

@@ -1,7 +1,7 @@
 ;; Whitespace
 ;; 80 char mark and utility for whitespace
-(require-package 'whitespace)
-(global-whitespace-mode t)
+;; (require-package 'whitespace)
+;; (global-whitespace-mode t)
 
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
@@ -27,7 +27,8 @@
    (delete-trailing-whitespace)
    (indent-region (point-min) (point-max) nil)
    (untabify (point-min) (point-max))))
-(add-hook 'before-save-hook #'ds/clear-and-indent)
+;; too slow for big files
+;; (add-hook 'before-save-hook #'ds/clear-and-indent)
 
 (defun ds/no-trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
