@@ -1,3 +1,7 @@
+;;------------------------------------------------------------------------------
+;; auctex
+;;------------------------------------------------------------------------------
+
 (require-package 'auctex)
 ;; (require 'auctex-autoloads)
 (mapc (lambda (mode)
@@ -42,5 +46,14 @@
 (setq reftex-toc-split-windows-horizontally t)
 ;; adjust the fraction
 (setq reftex-toc-split-windows-fraction 0.3)
+
+;;------------------------------------------------------------------------------
+;; preview-pane
+;;------------------------------------------------------------------------------
+
+(require-package 'latex-preview-pane)
+(add-hook 'LaTeX-mode-hook 'latex-preview-pane-mode)
+;; add this hook so that when the file is updated the pane is updated
+(add-hook 'latex-preview-pane-hook 'auto-revert-mode)
 
 (provide 'ds-auctex)

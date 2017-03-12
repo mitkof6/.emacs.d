@@ -1,34 +1,31 @@
-;; enhanced help mechanism
-(require-package 'help-fns+)
-
 ;; dimish minor mode name to save mode line space
 (require-package 'diminish)
 
 ;; some default value
-(setq-default
- blink-cursor-delay 0.5
- blink-cursor-interval 0.4
- buffers-menu-max-size 20
- case-fold-search t
- column-number-mode t
- compilation-scroll-output t
- delete-selection-mode t
- grep-scroll-output t
- indent-tabs-mode nil
- line-spacing 0.2
- make-backup-files nil
- mouse-yank-at-point t
- save-interprogram-paste-before-kill t
- scroll-preserve-screen-position 'always
- scroll-step 1
- scroll-margin 3
- scroll-conservatively 10000
- set-mark-command-repeat-pop t
- show-trailing-whitespace t
- tooltip-delay 1.5
- truncate-lines nil
- truncate-partial-width-windows nil
- visible-bell t)
+;; (setq-default
+;;  blink-cursor-delay 0.5
+;;  blink-cursor-interval 0.4
+;;  buffers-menu-max-size 20
+;;  case-fold-search t
+;;  column-number-mode t
+;;  compilation-scroll-output t
+;;  delete-selection-mode t
+;;  grep-scroll-output t
+;;  indent-tabs-mode nil
+;;  line-spacing 0.2
+;;  make-backup-files nil
+;;  mouse-yank-at-point t
+;;  save-interprogram-paste-before-kill t
+;;  scroll-preserve-screen-position 'always
+;;  scroll-step 1
+;;  scroll-margin 3
+;;  scroll-conservatively 10000
+;;  set-mark-command-repeat-pop t
+;;  show-trailing-whitespace t
+;;  tooltip-delay 1.5
+;;  truncate-lines nil
+;;  truncate-partial-width-windows nil
+;;  visible-bell t)
 
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
 (setq tab-width 4)
@@ -58,6 +55,7 @@
 ;; (global-auto-revert-mode)
 ;; (setq global-auto-revert-non-file-buffers t
 ;;       auto-revert-verbose t)
+;; (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
@@ -149,7 +147,7 @@
 ;; (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
 
 ;; hide and show
-(load-library "hideshow")
+;; (load-library "hideshow")
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-hook 'java-mode-hook       'hs-minor-mode)

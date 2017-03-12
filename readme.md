@@ -7,7 +7,7 @@ Features
 - C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
 - python: elpy, ein (jupiter notebook), jedi
 - lisp: cl, racket, scheme
-- latex: auctex
+- latex: auctex, latex-pane-mode
 - spell checking: en, gr
 - magit
 - w3m: integrated web-browser
@@ -68,7 +68,9 @@ package: w3m
 gnus setup auth:
 
 ~/.authinfo.gpg
+
 machine imap.gmail.com login <USER> password <PASSWORD> port imaps
+
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587
 
 ### Auto-complete-clang
