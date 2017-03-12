@@ -1,7 +1,7 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;;------------------------------------------------------------------------------
+;; init.el
+;;------------------------------------------------------------------------------
+
 (package-initialize)
 
 (defconst ds/initial-gc-cons-threshold gc-cons-threshold
@@ -12,8 +12,9 @@
             (setq gc-cons-threshold ds/initial-gc-cons-threshold)))
 
 ;;------------------------------------------------------------------------------
-;; Bootstrap configure
+;; general
 ;;------------------------------------------------------------------------------
+
 ;; add lisp directory that contains custom configurations
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -52,6 +53,7 @@
 ;;------------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;------------------------------------------------------------------------------
+
 (when (file-exists-p custom-file)
   (load custom-file))
 

@@ -28,7 +28,6 @@
                 (ido-mode -1))
               (ivy-mode 1))))
 
-
 (when (maybe-require-package 'counsel)
   (setq-default counsel-mode-override-describe-bindings t)
   (when (maybe-require-package 'diminish)

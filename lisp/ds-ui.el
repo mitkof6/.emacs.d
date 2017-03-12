@@ -37,10 +37,6 @@
                    (abbreviate-file-name (buffer-file-name))
                    "%b"))))
 
-;; theme
-(require-package 'afternoon-theme)
-(require 'afternoon-theme)
-
 ;; recent
 (require 'recentf)
 (recentf-mode 1)
@@ -65,5 +61,19 @@
 ;; show available keybindings after you start typing
 (require-package 'which-key)
 (which-key-mode +1)
+
+;;------------------------------------------------------------------------------
+;; theme
+;; -----------------------------------------------------------------------------
+
+;; (require-package 'afternoon-theme)
+;; (require 'afternoon-theme)
+
+(require-package 'powerline)
+(powerline-default-theme)
+;; (powerline-center-evil-theme)
+;; (powerline-center-theme)
+;; (powerline-vim-theme)
+;; (powerline-nano-theme)
 
 (provide 'ds-ui)
