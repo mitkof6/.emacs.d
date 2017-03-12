@@ -4,12 +4,12 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
+(defconst ds/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-hook 'after-init-hook
           (lambda ()
-            (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+            (setq gc-cons-threshold ds/initial-gc-cons-threshold)))
 
 ;;------------------------------------------------------------------------------
 ;; Bootstrap configure
@@ -32,22 +32,21 @@
 (require 'ds-dired)
 (require 'ds-flycheck)
 (require 'ds-flyspell)
-(require 'ds-cpp)
 (require 'ds-yasnippet)
 (require 'ds-auto-complete) ;; always after yasnippet
-;; (require 'ds-windows)
-(require 'ds-whitespace)
+(require 'ds-windows)
 (require 'ds-editing-utils)
 (require 'ds-git)
-(require 'ds-auctex)
-(require 'ds-markdown)
-(require 'ds-org)
 (require 'ds-pdf-tools)
-(require 'ds-python)
-(require 'ds-lisp)
 (require 'ds-ui)
 (require 'ds-w3m)
 (require 'ds-gnus)
+(require 'ds-cpp)
+(require 'ds-python)
+(require 'ds-lisp)
+(require 'ds-auctex)
+(require 'ds-org)
+(require 'ds-markdown)
 (require 'ds-global-key-bindings)
 
 ;;------------------------------------------------------------------------------

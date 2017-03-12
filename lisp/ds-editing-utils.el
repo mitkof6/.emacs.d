@@ -54,18 +54,10 @@
             ;; (hs-minor-mode t)
             ))
 
-
 ;; ;; auto-revert
 ;; (global-auto-revert-mode)
 ;; (setq global-auto-revert-non-file-buffers t
 ;;       auto-revert-verbose t)
-
-;; recent
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-saved-items 100
-      recentf-exclude '("/tmp/" "/ssh:"))
-(setq recentf-max-menu-item 100)
 
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
@@ -96,28 +88,23 @@
 (show-paren-mode t)
 (diminish 'autopair-mode)
 
-;; display line number
-(require-package 'hlinum)
-;; (hlinum-activate)
-;; (global-linum-mode t)
-
 ;; visual line
-(global-visual-line-mode t)
-(diminish 'visual-line-mode)
+;; (global-visual-line-mode t)
+;; (diminish 'visual-line-mode)
 
 ;; expand-region
 ;; (require-package 'expand-region)
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; enable uppercase and lowercase transform for region
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+;; (put 'upcase-region 'disabled nil)
+;; (put 'downcase-region 'disabled nil)
 
 ;; whole-line-or-region-mode
-(require-package 'whole-line-or-region)
-(whole-line-or-region-mode t)
-(diminish 'whole-line-or-region-mode)
-(make-variable-buffer-local 'whole-line-or-region-mode)
+;; (require-package 'whole-line-or-region)
+;; (whole-line-or-region-mode t)
+;; (diminish 'whole-line-or-region-mode)
+;; (make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; enable cua mode without prefix key
 ;; used to have C-v C-c C-x for copy paste etc.
@@ -150,16 +137,16 @@
 (diminish 'undo-tree-mode)
 
 ;; Paredit
-(require-package 'paredit)
-(defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
-(defun lisp-mode-paredit-hook ()
-  (enable-paredit-mode)
-  (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
-               'paredit-space-for-delimiter-p-lisp))
-(add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
-(add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
-(add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
-(add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
+;; (require-package 'paredit)
+;; (defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
+;; (defun lisp-mode-paredit-hook ()
+;;   (enable-paredit-mode)
+;;   (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
+;;                'paredit-space-for-delimiter-p-lisp))
+;; (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
+;; (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
+;; (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
+;; (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
 
 ;; hide and show
 (load-library "hideshow")
@@ -169,5 +156,25 @@
 (add-hook 'lisp-mode-hook       'hs-minor-mode)
 (add-hook 'perl-mode-hook       'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
+
+;; whitespace
+(require-package 'whitespace-cleanup-mode)
+(global-whitespace-cleanup-mode t)
+(global-set-key [remap just-one-space] 'cycle-spacing)
+(setq-default show-trailing-whitespace t)
+
+;; but don't show trailing whitespace in SQLi, inf-ruby etc.
+(dolist (hook '(special-mode-hook
+                Info-mode-hook
+                eww-mode-hook
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook
+                twittering-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook #'ds/no-trailing-whitespace))
+(defun ds/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
 
 (provide 'ds-editing-utils)

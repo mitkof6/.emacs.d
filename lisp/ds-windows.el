@@ -1,25 +1,30 @@
 ;;----------------------------------------------------------------------------
-;; Navigate window layouts with "C-c n" and "C-c p"
+;; Define windows handling
 ;;----------------------------------------------------------------------------
+
+;; navigate window layouts with "C-c n" and "C-c p"
 (require-package 'tabbar)
 (tabbar-mode 't)
-(global-set-key (kbd "C-c n") 'tabbar-forward)
-(global-set-key (kbd "C-c p") 'tabbar-backward)
 
-;; Navigate window layouts with "C-c <left>" and "C-c <right>"
+;; navigate window layouts with "C-c <left>" and "C-c <right>"
 ;;(add-hook 'after-init-hook 'winner-mode)
 
-
-;; Make "C-x o" prompt for a target window when there are more than 2
+;; make "C-x o" prompt for a target window when there are more than 2
 (require-package 'switch-window)
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)
-(global-set-key (kbd "C-x o") 'switch-window)
 
-;;----------------------------------------------------------------------------
-;; When splitting window, show (other-buffer) in the new window
-;;----------------------------------------------------------------------------
-(defun ds/split-window-func-with-other-buffer (split-function)
+;; override C-x 1
+(defun ds/toggle-delete-other-windows ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode
+           (equal (selected-window) (next-window)))
+      (winner-undo)
+      (delete-other-windows)))
+
+;; when splitting window, show (other-buffer) in the new window
+(defun ds/split-window-with-other-buffer (split-function)
   (lexical-let ((s-f split-function))
                (lambda (&optional arg)
                  "Split this window and switch to the new window unless ARG is provided."
@@ -30,24 +35,7 @@
                    (unless arg
                      (select-window target-window))))))
 
-(global-set-key (kbd "C-x 2")
-                (ds/split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key (kbd "C-x 3")
-                (ds/split-window-func-with-other-buffer 'split-window-horizontally))
-
-(defun ds/toggle-delete-other-windows ()
-  "Delete other windows in frame if any, or restore previous window config."
-  (interactive)
-  (if (and winner-mode
-           (equal (selected-window) (next-window)))
-      (winner-undo)
-      (delete-other-windows)))
-
-(global-set-key (kbd "C-x 1") 'ds/toggle-delete-other-windows)
-
-;;----------------------------------------------------------------------------
-;; Rearrange split windows
-;;----------------------------------------------------------------------------
+;; rearrange split windows
 (defun ds/split-window-horizontally-instead ()
   (interactive)
   (save-excursion
@@ -61,10 +49,7 @@
    (delete-other-windows)
    (funcall (ds/split-window-func-with-other-buffer 'split-window-vertically))))
 
-(global-set-key (kbd "C-x |") 'ds/split-window-horizontally-instead)
-(global-set-key (kbd "C-x _") 'ds/split-window-vertically-instead)
-
-;; Borrowed from http://postmomentum.ch/blog/201304/blog-on-emacs
+;; borrowed from http://postmomentum.ch/blog/201304/blog-on-emacs
 (defun ds/split-window()
   "Split the window to see the most recent buffer in the other window.
 Call a second time to restore the original window configuration."
@@ -76,8 +61,6 @@ Call a second time to restore the original window configuration."
       (window-configuration-to-register :ds/split-window)
       (switch-to-buffer-other-window nil)))
 
-(global-set-key (kbd "<f7>") 'ds/split-window)
-
 (defun ds/toggle-current-window-dedication ()
   "Toggle whether the current window is dedicated to its current buffer."
   (interactive)
@@ -88,12 +71,10 @@ Call a second time to restore the original window configuration."
              (if was-dedicated "no longer " "")
              (buffer-name))))
 
-(global-set-key (kbd "C-c <down>") 'ds/toggle-current-window-dedication)
-
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
 
-;;; View tags other window
+;; view tags other window
 (defun ds/view-tag-other-window (tagname &optional next-p regexp-p)
   "Same as `find-tag-other-window' but doesn't move the point"
   (interactive (find-tag-interactive "View tag other window: "))
