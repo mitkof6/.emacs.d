@@ -1,3 +1,7 @@
+;;------------------------------------------------------------------------------
+;; common lisp
+;;------------------------------------------------------------------------------
+
 ;; setup sbcl slime
 (require-package 'slime)
 (add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
@@ -20,14 +24,21 @@
       inferior-lisp-program "sbcl --dynamic-space-size 4096"
       ;; "ccl -K utf-8" "ecl" "alisp" "ccl" "clisp" "abcl"
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-      ;; common-lisp-hyperspec-root (concat "file://"
-      ;;                                 (expand-file-name "~/src/lisp/clhs/"))
+      common-lisp-hyperspec-root (concat "file://"
+                                         (expand-file-name
+                                          "~/dev/work/archlinux-config/lisp/HyperSpec/"))
       )
 
-;; setup racket
+;;------------------------------------------------------------------------------
+;; racket
+;;------------------------------------------------------------------------------
+
 (require-package 'racket-mode)
 
+;;------------------------------------------------------------------------------
 ;; scheme
+;;------------------------------------------------------------------------------
+
 (add-hook 'geiser-repl-mode-hook 'lisp-mode-paredit-hook)
 (add-hook 'slime-repl-mode-hook 'lisp-mode-paredit-hook)
 (add-hook 'scheme-mode-hook 'lisp-mode-paredit-hook)

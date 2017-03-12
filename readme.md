@@ -6,7 +6,7 @@ Features
 
 - C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
 - python: elpy, ein (jupiter notebook), jedi
-- lisp: sline, racket-mode, scheme
+- lisp: cl, racket, scheme
 - latex: auctex
 - spell checking: en, gr
 - magit
@@ -14,8 +14,9 @@ Features
 - mail: [gnus](https://www.emacswiki.org/emacs/GnusGmail)
 - markdown support
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
-- mini-buffer: ivy, smex
-- misc:  whitespace autocleanup, 80 column rule save desktop
+- mini-buffer: ivy, smex, swiper
+- misc:  whitespace autocleanup, 80 column rule, save desktop
+
 
 ## Installation
 

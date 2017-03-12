@@ -10,7 +10,6 @@
 ;; get local email, and store it in nnml; connect via IMAP to imap.mcom.com,
 ;; and also via IMAP to imap.gmail.com:
 (setq gnus-secondary-select-methods '((nnml "")
-                                      (nnimap "imap.mcom.com")
-                                      (nnimap "imap.gmail.com")))
+                                         (nnimap "imap.gmail.com")))
 
 (provide 'ds-gnus)

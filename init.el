@@ -37,9 +37,8 @@
 (require 'ds-auto-complete) ;; always after yasnippet
 (require 'ds-windows)
 (require 'ds-editing-utils)
-(require 'ds-git)
-(require 'ds-pdf-tools)
 (require 'ds-ui)
+(require 'ds-pdf-tools)
 (require 'ds-w3m)
 (require 'ds-gnus)
 (require 'ds-cpp)

@@ -6,10 +6,13 @@
 (global-set-key (kbd "C-x m") 'eshell)
 
 ;; kill all buffers
-(defun ds/close-all-buffers ()
+(defun ds/kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
-(global-set-key (kbd "C-x C-k") 'ds/close-all-buffers)
+(global-set-key (kbd "C-x C-k") 'ds/kill-all-buffers)
+
+;; kill current buffer without confirmation
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; eval-buffer
 (global-set-key (kbd "C-c C-b") 'eval-buffer)
@@ -117,11 +120,10 @@
 ;; Toggle whether the current window is dedicated to its current buffer.
 (global-set-key (kbd "C-c <down>") 'ds/toggle-current-window-dedication)
 
-
-
 ;;------------------------------------------------------------------------------
 ;; w3m binding (see ds-w3m.el)
 ;;------------------------------------------------------------------------------
+
 ;; (add-hook 'w3m-mode-hook 'scroll-lock-mode)
 (global-set-key (kbd "C-c w") 'w3m)
 
@@ -138,5 +140,22 @@
   (define-key w3m-mode-map (kbd "Q") 'w3m-close-window)
   (define-key w3m-mode-map (kbd "C-c C-w") 'w3m-quit))
 (add-hook 'w3m-mode-hook 'w3m-apply-custom-map)
+
+;;------------------------------------------------------------------------------
+;; magit binding
+;;------------------------------------------------------------------------------
+
+(require-package 'magit)
+(global-set-key (kbd "C-c g s") 'magit-status)
+(global-set-key (kbd "C-c g l") 'magit-log)
+(global-set-key (kbd "C-c g c") 'magit-commit)
+(global-set-key (kbd "C-c g p") 'magit-push)
+(global-set-key (kbd "C-c g u") 'magit-pull)
+(global-set-key (kbd "C-c g d") 'magit-diff)
+(global-set-key (kbd "C-c g o") 'magit-checkout)
+(global-set-key (kbd "C-c g m") 'magit-merge)
+(global-set-key (kbd "C-c g a") 'magit-remote-add)
+(global-set-key (kbd "C-c g r") 'magit-remote-remove)
+(global-set-key (kbd "C-c g n") 'magit-clone)
 
 (provide 'ds-global-key-bindings)
