@@ -45,9 +45,10 @@
 (after-load 'flyspell
             (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
 
-(add-to-list 'ispell-skip-region-alist
-             '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
-(add-to-list 'ispell-skip-region-alist
-             '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+;; ;; org-mode
+;; (add-to-list 'ispell-skip-region-alist
+;;              '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+;; (add-to-list 'ispell-skip-region-alist
+;;              '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 
 (provide 'ds-flyspell)

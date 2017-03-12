@@ -14,9 +14,4 @@
   "Return the directory in which the `LIBRARY-NAME' load file is found."
   (file-name-as-directory (file-name-directory (find-library-name library-name))))
 
-
-(defun ds/close-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
-
 (provide 'ds-utils)

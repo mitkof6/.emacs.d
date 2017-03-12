@@ -30,38 +30,65 @@
  truncate-partial-width-windows nil
  visible-bell t)
 
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
+(setq tab-width 4)
+(setq indent-tabs-mode nil)  ; use spaces only if nil
+
+;; cc-mode
+(require-package 'cc-mode)
+(setq c++-tab-always-indent t)
+(setq c-basic-offset 4)
+(setq c-indent-level 4)
+
+(add-hook 'c-mode-common-hook
+          (lambda()
+            ;;
+            (c-set-offset 'substatement-open 0)
+            ;; long argument layout
+            (c-set-offset 'arglist-intro '+)
+            ;; show-hide region
+            ;; (local-set-key (kbd "C-c h [") 'hs-show-block)
+            ;; (local-set-key (kbd "C-c h ]")  'hs-hide-block)
+            ;; (local-set-key (kbd "C-c h {")    'hs-hide-all)
+            ;; (local-set-key (kbd "C-c h }")  'hs-show-all)
+            ;; (hs-minor-mode t)
+            ))
+
+
 ;; ;; auto-revert
 ;; (global-auto-revert-mode)
 ;; (setq global-auto-revert-non-file-buffers t
 ;;       auto-revert-verbose t)
 
+;; recent
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-saved-items 25
+(setq recentf-max-saved-items 100
       recentf-exclude '("/tmp/" "/ssh:"))
-(setq recentf-max-menu-item 25)
+(setq recentf-max-menu-item 100)
 
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev
-                                         try-expand-dabbrev-all-buffers
-                                         try-expand-dabbrev-from-kill
-                                         try-complete-file-name-partially
-                                         try-complete-file-name
-                                         try-expand-all-abbrevs
-                                         try-expand-list
-                                         try-expand-line
-                                         try-complete-lisp-symbol-partially
-                                         try-complete-lisp-symbol))
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
 
-;; smart pairing for all
-(require-package 'smartparens)
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-(show-smartparens-global-mode +1)
+;; ;; smart pairing for all
+;; (require-package 'smartparens)
+;; (require 'smartparens-config)
+;; (setq sp-base-key-bindings 'paredit)
+;; (setq sp-autoskip-closing-pair 'always)
+;; (setq sp-hybrid-kill-entire-symbol nil)
+;; (sp-use-paredit-bindings)
+;; (show-smartparens-global-mode +1)
 
 ;; enable auto-pairing
 (require-package 'autopair)
@@ -69,29 +96,18 @@
 (show-paren-mode t)
 (diminish 'autopair-mode)
 
-;; newline behavior
-(global-set-key (kbd "RET") 'newline-and-indent)
-(defun ds/newline-at-end-of-line ()
-  "Move to end of line, enter a newline, and reindent."
-  (interactive)
-  (move-end-of-line 1)
-  (newline-and-indent))
-
-(global-set-key (kbd "<S-return>") 'ds/newline-at-end-of-line)
-
 ;; display line number
-;; (require-package 'hlinum)
+(require-package 'hlinum)
 ;; (hlinum-activate)
 ;; (global-linum-mode t)
 
 ;; visual line
 (global-visual-line-mode t)
-;; (diminish 'global-visual-line-mode)
 (diminish 'visual-line-mode)
 
 ;; expand-region
-(require-package 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+;; (require-package 'expand-region)
+;; (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; enable uppercase and lowercase transform for region
 (put 'upcase-region 'disabled nil)
@@ -104,6 +120,7 @@
 (make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; enable cua mode without prefix key
+;; used to have C-v C-c C-x for copy paste etc.
 ;; (cua-selection-mode t)
 
 ;; ;; use page-break-line to handle the ^l page-breaking symbol
@@ -129,20 +146,8 @@
 
 ;; undo-tree
 (require-package 'undo-tree)
-;; (global-set-key "\c-xu" 'undo-tree-visualize)
 (global-undo-tree-mode t)
 (diminish 'undo-tree-mode)
-
-;; fill column indicator
-(require-package 'fill-column-indicator)
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-    (when (and (not (string-match "^\*.*\*$" (buffer-name)))
-               (not (eq major-mode 'dired-mode)))
-      (setq fci-rule-color "darkgrey")
-      (setq fill-column 80)
-      (fci-mode 1))))
-;; (global-fci-mode 1)
 
 ;; Paredit
 (require-package 'paredit)
@@ -158,13 +163,11 @@
 
 ;; hide and show
 (load-library "hideshow")
-
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-hook 'java-mode-hook       'hs-minor-mode)
 (add-hook 'lisp-mode-hook       'hs-minor-mode)
 (add-hook 'perl-mode-hook       'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
-
 
 (provide 'ds-editing-utils)

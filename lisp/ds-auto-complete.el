@@ -1,3 +1,6 @@
+;;------------------------------------------------------------------------------
+;; setup auto-complete
+;;------------------------------------------------------------------------------
 ;; should be loaded after yasnippet
 (require-package 'fuzzy)
 (require-package 'popup)
@@ -17,7 +20,6 @@
 ;; use TAB to explicitily trigger the auto-complete func
 (ac-set-trigger-key "TAB")
 ;; (setq-default ac-dwim nil)
-
 
 ;; use pos-tip instead of popup
 (require-package 'pos-tip)
@@ -43,7 +45,6 @@
 ;;------------------------------------------------------------------------------
 ;; add custom sources
 ;;------------------------------------------------------------------------------
-
 ;; add ac-sources for latex mode
 (require-package 'ac-math)
 (add-to-list 'ac-modes 'latex-mode)

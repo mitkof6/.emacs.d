@@ -1,5 +1,5 @@
 ;;------------------------------------------------------------------------------
-;; Semantics
+;; semantics
 ;;------------------------------------------------------------------------------
 ;; enable semantics mode for auto-completion
 
@@ -29,7 +29,6 @@
 ;; set up code completion with company and irony
 ;;------------------------------------------------------------------------------
 (require-package 'company)
-;; (require-package 'company-rtags) customly installed in ds-rtags
 (require-package 'rtags)
 (require 'company-rtags) ;; no need for require-package
 (global-company-mode)
@@ -50,7 +49,6 @@
     'irony-completion-at-point-async)
   (define-key irony-mode-map [remap complete-symbol]
     'irony-completion-at-point-async))
-
 (add-hook 'irony-mode-hook 'ds/irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
@@ -98,6 +96,13 @@
 ;; Zero delay when pressing tab
 (setq company-idle-delay 0.5)
 
+;; Windows performance tweaks
+(when (boundp 'w32-pipe-read-delay)
+  (setq w32-pipe-read-delay 0))
+;; Set the buffer size to 64K on Windows (from the original 4K)
+(when (boundp 'w32-pipe-buffer-size)
+  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
+
 ;;------------------------------------------------------------------------------
 ;; bind TAB for indent-or-complete
 ;;------------------------------------------------------------------------------
@@ -124,15 +129,14 @@
   "Modify keymaps used by `irony-mode'."
   (local-set-key (kbd "TAB") 'ds/irony-indent-or-complete)
   (local-set-key [tab] 'ds/irony-indent-or-complete))
-
 (add-hook 'c-mode-common-hook 'ds/irony-mode-keys)
 
-;; Windows performance tweaks
-(when (boundp 'w32-pipe-read-delay)
-  (setq w32-pipe-read-delay 0))
-;; Set the buffer size to 64K on Windows (from the original 4K)
-(when (boundp 'w32-pipe-buffer-size)
-  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
+;;------------------------------------------------------------------------------
+;; flycheck-irony
+;;------------------------------------------------------------------------------
+(require-package 'flycheck-irony)
+(eval-after-load 'flycheck
+                 '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;;------------------------------------------------------------------------------
 ;; eldoc-mode
@@ -146,4 +150,105 @@
 (require-package 'function-args)
 (fa-config-default)
 
-(provide 'ds-irony)
+;;------------------------------------------------------------------------------
+;; setup rtags
+;;------------------------------------------------------------------------------
+;; load custom files
+(add-to-list 'load-path "~/.emacs.d/lisp/rtags")
+(load "rtags.el")
+(load "company-rtags.el")
+(load "flycheck-rtags.el")
+(require 'rtags)
+(require 'company-rtags)
+
+(require-package 'company)
+
+(setq rtags-completions-enabled t)
+(setq rtags-autostart-diagnostics t)
+(rtags-enable-standard-keybindings)
+(eval-after-load 'company
+                 '(add-to-list
+                   'company-backends 'company-rtags))
+
+;;------------------------------------------------------------------------------
+;; setup flycheck-rtags
+;;------------------------------------------------------------------------------
+;; flycheck rtags
+;; (require 'flycheck-rtags)
+;; (defun ds/flycheck-rtags-setup ()
+;;   (flycheck-select-checker 'rtags)
+;;   ;; RTags creates more accurate overlays.
+;;   (setq-local flycheck-highlighting-mode nil)
+;;   (setq-local flycheck-check-syntax-automatically nil))
+;; ;; c-mode-common-hook is also called by c++-mode
+;; (add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
+
+;;------------------------------------------------------------------------------
+;; setup rtags-helm
+;;------------------------------------------------------------------------------
+;; (require-package 'rtags-helm)
+;; (setq rtags-use-helm t)
+
+
+;; setup cmake-ide
+;;---------------------------------------------------------------------
+(require-package 'cmake-ide)
+(cmake-ide-setup)
+;; Set cmake-ide-flags-c++ to use C++11
+(setq cmake-ide-flags-c++ (append '("-std=c++11")))
+;; We want to be able to compile with a keyboard shortcut
+(global-set-key (kbd "C-c m") 'cmake-ide-compile)
+
+;; Set rtags to enable completions and use the standard keybindings.
+;; A list of the keybindings can be found at:
+;; http://syamajala.github.io/c-ide.html
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(rtags-enable-standard-keybindings)
+
+;;---------------------------------------------------------------------
+;; compiling
+;;---------------------------------------------------------------------
+(require-package 'compile)
+
+;; Change compilation command:
+(setq compile-command "make ")
+
+;; if there are no errors make the compilation window vanish
+(setq compilation-finish-function
+      (lambda (buf str)
+        (if (null (string-match ".*exited abnormally.*" str))
+            ;;no errors, make the compilation window go away in a few seconds
+            (progn
+              (run-at-time
+               "2 sec" nil 'delete-windows-on
+               (get-buffer-create "*compilation*"))
+              (message "No Compilation Errors!")))))
+
+(defun ds/compile ()
+  "Run compile and resize the compile window"
+  (interactive)
+  (progn
+    (call-interactively 'compile)
+    (setq w (get-buffer-window "*compilation*"))
+    (setq cur (selected-window))
+    (select-window w)
+    (setq h (window-height w))
+    (shrink-window (- h 15))
+    (select-window cur)))
+;; (global-set-key [f9] 'ds/compile)
+(define-key c++-mode-map (kbd "C-c C-c") #'ds/compile)
+
+;; when the compile window shows always split vertically
+(defadvice compile (around split-horizontally activate)
+  (let ((split-width-threshold nil)
+        (split-height-threshold 0))
+    ad-do-it))
+
+(setq compilation-ask-about-save nil  ; Just save before compiling
+      compilation-always-kill t       ; Just kill old compile processes before
+      compilation-scroll-output 'first-error ; Automatically scroll to first
+      )
+
+(provide 'ds-cpp)

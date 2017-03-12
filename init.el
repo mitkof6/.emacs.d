@@ -14,10 +14,12 @@
 ;;------------------------------------------------------------------------------
 ;; Bootstrap configure
 ;;------------------------------------------------------------------------------
-;; add lisp directory
+;; add lisp directory that contains custom configurations
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; set custom.el file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
 (require 'ds-utils)
 (require 'ds-elpa)      ;; Machinery for installing required packages
 (require 'ds-exec-path) ;; Set up $PATH
@@ -26,18 +28,15 @@
 ;; Load configs for specific features and modes
 ;;------------------------------------------------------------------------------
 
+(require 'ds-ivy)
 (require 'ds-dired)
 (require 'ds-flycheck)
-(require 'ds-c-style)
-(require 'ds-irony)
-(require 'ds-rtags)
-(require 'ds-cmake-ide)
-(require 'ds-ivy)
-(require 'ds-windows)
 (require 'ds-flyspell)
-(require 'ds-whitespace)
+(require 'ds-cpp)
 (require 'ds-yasnippet)
-(require 'ds-auto-complete)
+(require 'ds-auto-complete) ;; always after yasnippet
+;; (require 'ds-windows)
+(require 'ds-whitespace)
 (require 'ds-editing-utils)
 (require 'ds-git)
 (require 'ds-auctex)
@@ -50,7 +49,6 @@
 (require 'ds-w3m)
 (require 'ds-gnus)
 (require 'ds-global-key-bindings)
-
 
 ;;------------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
