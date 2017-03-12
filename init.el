@@ -43,6 +43,7 @@
 (require 'ds-gnus)
 (require 'ds-cpp)
 (require 'ds-python)
+(require 'ds-octave)
 (require 'ds-lisp)
 (require 'ds-auctex)
 (require 'ds-org)

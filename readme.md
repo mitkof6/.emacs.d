@@ -1,6 +1,4 @@
-# An Emacs config
-
-Based on: Steve Purcell and xyguo
+# Emacs Configuration
 
 Features
 
@@ -8,6 +6,7 @@ Features
 - python: elpy, ein (jupiter notebook), jedi
 - lisp: cl, racket, scheme
 - latex: auctex, latex-pane-mode
+- octave support
 - spell checking: en, gr
 - magit
 - w3m: integrated web-browser
@@ -16,7 +15,6 @@ Features
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex, swiper
 - misc:  whitespace autocleanup, 80 column rule, save desktop
-
 
 ## Installation
 
@@ -64,47 +62,21 @@ w3m (web-browser):
 package: w3m
 ```
 
-
-gnus setup auth:
+setup gnus mail authentication:
 
 ~/.authinfo.gpg
 
 machine imap.gmail.com login <USER> password <PASSWORD> port imaps
 
+or
+
+machine imap.gmail.com login <USER> password <PASSWORD> port 993
+
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587
 
-### Auto-complete-clang
+find ac-sources (ds-auto-complete.el) for c++ completion:
 
-Note that the `ac-clang-flags` set in `init-ac-source.el` is
-platform-dependent. It's actually clang's include file search
-path. According to
-inthe
-[Troubleshooting section of auto-complete-clang](https://github.com/brianjcj/auto-complete-clang),
-you can use the following method to find the correct path:
 
 ```
 echo "" | g++ -v -x c++ -E -
 ```
-
-and you'll get something like this:
-
-```
-/usr/include/c++/4.8
-/usr/include/x86_64-linux-gnu/c++/4.8
-/usr/include/c++/4.8/backward
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include
-/usr/local/include
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed
-/usr/include/x86_64-linux-gnu
-/usr/include
-```
-Just use them to replace the corresponding string.
-
-## Important note about `ido`
-
-This config enables `ido-mode` completion in the minibuffer wherever
-possible, which might confuse you when trying to open files using
-<kbd>C-x C-f</kbd>, e.g. when you want to open a directory to use
-`dired` -- if you get stuck, use <kbd>C-f</kbd> to drop into the
-regular `find-file` prompt. (You might want to customize the
-`ido-show-dot-for-dired` variable if this is an issue for you.)
