@@ -6,7 +6,7 @@
 (global-set-key (kbd "C-c u e") 'eshell)
 
 ;; find and open file
-(global-set-key (kbd "C-c u f") 'ffop)
+(global-set-key (kbd "C-c u f") 'ffap)
 
 ;; kill all buffers
 (defun ds/kill-all-buffers ()
