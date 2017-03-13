@@ -38,7 +38,7 @@
 (require 'ds-windows)
 (require 'ds-editing-utils)
 (require 'ds-ui)
-(require 'ds-pdf-tools)
+;; (require 'ds-pdf-tools)
 (require 'ds-w3m)
 (require 'ds-gnus)
 (require 'ds-cpp)

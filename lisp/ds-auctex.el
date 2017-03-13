@@ -10,7 +10,6 @@
        'LaTeX-math-mode
        'turn-on-reftex
        'TeX-fold-mode
-       'linum-mode
        'auto-complete-mode
        'autopair-mode
        'outline-minor-mode))
@@ -18,12 +17,13 @@
 (add-hook 'LaTeX-mode-hook
           (lambda ()
             (setq ;;TeX-auto-untabify t     ; remove all tabs before saving
-             TeX-engine 'xetex       ; use xelatex default
-             TeX-show-compilation nil) ; display compilation windows
-            (TeX-global-PDF-mode t)       ; PDF mode enable, not plain
+             TeX-engine 'xetex		; use xelatex default
+             TeX-show-compilation nil)	; display compilation windows
+            (TeX-global-PDF-mode t)	; PDF mode enable, not plain
             (setq TeX-save-query nil)
             (imenu-add-menubar-index)
-            ;; (local-set-key ["TAB"] 'TeX-complete-symbol)
+	    (setq-default TeX-master nil)
+	    ;; (local-set-key ["TAB"] 'TeX-complete-symbol)
             ))
 
 ;; configuration for TeX-fold-mode
@@ -52,8 +52,16 @@
 ;;------------------------------------------------------------------------------
 
 (require-package 'latex-preview-pane)
-(add-hook 'LaTeX-mode-hook 'latex-preview-pane-mode)
+
+(defun ds/latex-preview-pane-hook ()
+  "Sets latex-preview-pane variables"
+  (latex-preview-pane-mode 1)
+  (setq latex-preview-pane-multifile-mode 'auctex)
+  )
+(add-hook 'LaTeX-mode-hook
+	  'ds/latex-preview-pane-hook)
 ;; add this hook so that when the file is updated the pane is updated
 (add-hook 'latex-preview-pane-hook 'auto-revert-mode)
+
 
 (provide 'ds-auctex)
