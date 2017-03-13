@@ -86,9 +86,10 @@
 (show-paren-mode t)
 (diminish 'autopair-mode)
 
-;; visual line
-;; (global-visual-line-mode t)
-;; (diminish 'visual-line-mode)
+;; visual line (for good world wrapping when lines are long)
+(global-visual-line-mode t)
+;; (setq line-move-visual nil)
+(diminish 'visual-line-mode)
 
 ;; expand-region
 ;; (require-package 'expand-region)
@@ -99,19 +100,19 @@
 ;; (put 'downcase-region 'disabled nil)
 
 ;; whole-line-or-region-mode
-;; (require-package 'whole-line-or-region)
-;; (whole-line-or-region-mode t)
-;; (diminish 'whole-line-or-region-mode)
-;; (make-variable-buffer-local 'whole-line-or-region-mode)
+(require-package 'whole-line-or-region)
+(whole-line-or-region-mode t)
+(diminish 'whole-line-or-region-mode)
+(make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; enable cua mode without prefix key
 ;; used to have C-v C-c C-x for copy paste etc.
 ;; (cua-selection-mode t)
 
 ;; ;; use page-break-line to handle the ^l page-breaking symbol
-;; (require-package 'page-break-lines)
-;; (global-page-break-lines-mode)
-;; (diminish 'page-break-lines-mode)
+(require-package 'page-break-lines)
+(global-page-break-lines-mode)
+(diminish 'page-break-lines-mode)
 
 ;; enable subword-mode
 ;; (global-subword-mode t)

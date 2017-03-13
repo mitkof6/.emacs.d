@@ -18,13 +18,13 @@ Features
 
 ## Installation
 
-Build irony-server:
+### Build irony-server
 
 ```
 M-x irony-install-server
 ```
 
-Build and install rtags:
+### Build and install rtags
 
 ```
 git clone --recursive https://github.com/Andersbakken/rtags.git
@@ -33,7 +33,7 @@ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 sudo make install
 ```
 
-Python:
+### Python
 
 [elpy](https://github.com/jorgenschaefer/elpy)
 
@@ -50,19 +50,29 @@ and set the c.NotebookApp.password password.
 
 [jedi](http://tkf.github.io/emacs-jedi/latest/)
 
-pdf-tools:
+### Java (through eclipse/eclim)
+
+```
+packages: eclipse-java, eclim, eclim-git
+```
+
+[eclim](http://eclim.org/install.html)
+
+[emacs-eclim](https://github.com/senny/emacs-eclim)
+
+### pdf-tools
 
 ```
 package: poppler, poppler-utils
 ```
 
-w3m (web-browser):
+### w3m (web-browser)
 
 ```
 package: w3m
 ```
 
-setup gnus mail authentication:
+### setup gnus mail authentication
 
 ~/.authinfo.gpg
 
@@ -74,7 +84,8 @@ machine imap.gmail.com login <USER> password <PASSWORD> port 993
 
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587
 
-find ac-sources (ds-auto-complete.el) for c++ completion:
+
+### find ac-sources (ds-auto-complete.el) for c++ completion
 
 
 ```

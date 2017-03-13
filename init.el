@@ -45,6 +45,7 @@
 (require 'ds-python)
 (require 'ds-octave)
 (require 'ds-lisp)
+(require 'ds-java)
 (require 'ds-auctex)
 (require 'ds-org)
 (require 'ds-markdown)
