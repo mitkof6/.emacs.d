@@ -4,6 +4,7 @@ Features
 
 - C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
 - python: elpy, ein (jupiter notebook), jedi
+- java: eclim
 - lisp: cl, racket, scheme
 - latex: auctex, latex-pane-mode
 - octave support
