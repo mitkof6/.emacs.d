@@ -1,28 +1,31 @@
-;; Font size
+;; font size
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-;; Start eshell or switch to it if it's active.
-(global-set-key (kbd "C-x m") 'eshell)
+;; start eshell or switch to it if it's active.
+(global-set-key (kbd "C-c u e") 'eshell)
+
+;; find and open file
+(global-set-key (kbd "C-c u f") 'ffop)
 
 ;; kill all buffers
 (defun ds/kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
-(global-set-key (kbd "C-x C-k") 'ds/kill-all-buffers)
+(global-set-key (kbd "C-c b a") 'ds/kill-all-buffers)
 
 ;; kill current buffer without confirmation
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-c b k") 'kill-this-buffer)
 
 ;; eval-buffer
-(global-set-key (kbd "C-c C-b") 'eval-buffer)
+(global-set-key (kbd "C-c b e") 'eval-buffer)
 
 ;; use hippie-expand instead of dabbrev
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; newline behavior
 (defun ds/newline-at-end-of-line ()
-  "Move to end of line, enter a newline, and reindent."
+  "Move to end of line, enter a newline, and re-indent."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
@@ -49,7 +52,7 @@
   (interactive)
   (dolist (window (window-at-side-list))
     (quit-window nil window)))
-(global-set-key (kbd "C-c q") 'ds/quit-bottom-side-windows)
+(global-set-key (kbd "C-c u q") 'ds/quit-bottom-side-windows)
 
 ;; toggle flycheck mode
 (global-set-key [f4] 'flycheck-mode)
@@ -148,6 +151,7 @@
 
 (require-package 'magit)
 (global-set-key (kbd "C-c g s") 'magit-status)
+(global-set-key (kbd "C-c g t") 'magit-stash)
 (global-set-key (kbd "C-c g l") 'magit-log)
 (global-set-key (kbd "C-c g c") 'magit-commit)
 (global-set-key (kbd "C-c g p") 'magit-push)
@@ -158,5 +162,15 @@
 (global-set-key (kbd "C-c g a") 'magit-remote-add)
 (global-set-key (kbd "C-c g r") 'magit-remote-remove)
 (global-set-key (kbd "C-c g n") 'magit-clone)
+
+;;------------------------------------------------------------------------------
+;; hide-show
+;;------------------------------------------------------------------------------
+
+(global-set-key (kbd "C-c u H") 'hs-hide-all)
+(global-set-key (kbd "C-c u h") 'hs-hide-block)
+(global-set-key (kbd "C-c u S") 'hs-show-all)
+(global-set-key (kbd "C-c u s") 'hs-show-block)
+(global-set-key (kbd "C-c u t") 'hs-toggle-hiding)
 
 (provide 'ds-global-key-bindings)
