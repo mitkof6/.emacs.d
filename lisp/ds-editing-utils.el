@@ -27,35 +27,32 @@
 ;;  truncate-partial-width-windows nil
 ;;  visible-bell t)
 
-(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
-(setq tab-width 4)
-(setq indent-tabs-mode nil)  ; use spaces only if nil
+;; global default indentation
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60)
+      tab-width 4
+      indent-tabs-mode nil)  ; use spaces only if nil
 
-;; cc-mode
-(require-package 'cc-mode)
-(setq c++-tab-always-indent t)
-(setq c-basic-offset 4)
-(setq c-indent-level 4)
+(defun ds/code-indentation ()
+  "Preferences for indentation"
+  ;; close statement
+  (c-set-offset 'substatement-open 0)
+  ;; long argument names
+  (c-set-offset 'arglist-intro '+)
+  ;; indentation
+  (setq c++-tab-always-indent t
+        c-basic-offset 4
+        c-indent-level 4))
 
-(add-hook 'c-mode-common-hook
-          (lambda()
-            ;;
-            (c-set-offset 'substatement-open 0)
-            ;; long argument layout
-            (c-set-offset 'arglist-intro '+)
-            ;; show-hide region
-            ;; (local-set-key (kbd "C-c h [") 'hs-show-block)
-            ;; (local-set-key (kbd "C-c h ]")  'hs-hide-block)
-            ;; (local-set-key (kbd "C-c h {")    'hs-hide-all)
-            ;; (local-set-key (kbd "C-c h }")  'hs-show-all)
-            ;; (hs-minor-mode t)
-            ))
+;; (require 'cc-mode)
+(add-hook 'c-mode-common-hook 'ds/code-indentation)
+(add-hook 'java-mode-hook 'ds/code-indentation)
+(add-hook 'python-mode-hook 'ds/code-indentation)
 
-;; ;; auto-revert
-;; (global-auto-revert-mode)
-;; (setq global-auto-revert-non-file-buffers t
-;;       auto-revert-verbose t)
-;; (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+;; auto-revert (changes to files are seen by emacs)
+(global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-verbose t)
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
@@ -71,14 +68,14 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-;; ;; smart pairing for all
-;; (require-package 'smartparens)
-;; (require 'smartparens-config)
-;; (setq sp-base-key-bindings 'paredit)
-;; (setq sp-autoskip-closing-pair 'always)
-;; (setq sp-hybrid-kill-entire-symbol nil)
-;; (sp-use-paredit-bindings)
-;; (show-smartparens-global-mode +1)
+;; smart pairing for all
+(require-package 'smartparens)
+(require 'smartparens-config)
+(setq sp-base-key-bindings 'paredit)
+(setq sp-autoskip-closing-pair 'always)
+(setq sp-hybrid-kill-entire-symbol nil)
+(sp-use-paredit-bindings)
+(show-smartparens-global-mode +1)
 
 ;; enable auto-pairing
 (require-package 'autopair)
@@ -87,22 +84,22 @@
 (diminish 'autopair-mode)
 
 ;; visual line
-;; (global-visual-line-mode t)
-;; (diminish 'visual-line-mode)
+(global-visual-line-mode t)
+(diminish 'visual-line-mode)
 
 ;; expand-region
-;; (require-package 'expand-region)
-;; (global-set-key (kbd "C-=") 'er/expand-region)
+(require-package 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; enable uppercase and lowercase transform for region
-;; (put 'upcase-region 'disabled nil)
-;; (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; whole-line-or-region-mode
-;; (require-package 'whole-line-or-region)
-;; (whole-line-or-region-mode t)
-;; (diminish 'whole-line-or-region-mode)
-;; (make-variable-buffer-local 'whole-line-or-region-mode)
+(require-package 'whole-line-or-region)
+(whole-line-or-region-mode t)
+(diminish 'whole-line-or-region-mode)
+(make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; enable cua mode without prefix key
 ;; used to have C-v C-c C-x for copy paste etc.
@@ -113,8 +110,8 @@
 ;; (global-page-break-lines-mode)
 ;; (diminish 'page-break-lines-mode)
 
-;; enable subword-mode
-;; (global-subword-mode t)
+;; enable subword-mode (move between camel case words)
+(global-subword-mode t)
 
 ;; multiple-cursors-mode
 ;; (require-package 'multiple-cursors)
@@ -135,7 +132,7 @@
 (diminish 'undo-tree-mode)
 
 ;; Paredit
-;; (require-package 'paredit)
+(require-package 'paredit)
 ;; (defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
 ;; (defun lisp-mode-paredit-hook ()
 ;;   (enable-paredit-mode)
@@ -152,27 +149,44 @@
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-hook 'java-mode-hook       'hs-minor-mode)
 (add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'LaTeX-mode-hook      'hs-minor-mode)
+(add-hook 'python-mode-hook     'hs-minor-mode)
 (add-hook 'perl-mode-hook       'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
+(setq hs-hide-comments nil)
 
 ;; whitespace
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 (global-set-key [remap just-one-space] 'cycle-spacing)
-(setq-default show-trailing-whitespace t)
+;; (setq-default show-trailing-whitespace t)
 
 ;; but don't show trailing whitespace in SQLi, inf-ruby etc.
+(defun ds/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
 (dolist (hook '(special-mode-hook
                 Info-mode-hook
                 eww-mode-hook
                 term-mode-hook
                 comint-mode-hook
                 compilation-mode-hook
-                twittering-mode-hook
+                twittebring-mode-hook
                 minibuffer-setup-hook))
-  (add-hook hook #'ds/no-trailing-whitespace))
-(defun ds/no-trailing-whitespace ()
-  "Turn off display of trailing whitespace in this buffer."
-  (setq show-trailing-whitespace nil))
+  (add-hook hook 'ds/no-trailing-whitespace))
+
+;; predictive mode
+;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive/latex")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive/texinfo"XS)
+;; (require 'predictive)
+;; (autoload 'predictive-mode "~/.emacs.d/lisp/predictive/predictive"
+;;                "Turn on Predictive Completion Mode." t)
+;; (set-default 'predictive-auto-add-to-dict t)
+;; (setq predictive-main-dict 'rpg-dictionary
+;;       predictive-auto-learn t
+;;       predictive-add-to-dict-ask nil
+;;       predictive-use-auto-learn-cache nil
+;;       predictive-which-dict t)
 
 (provide 'ds-editing-utils)
