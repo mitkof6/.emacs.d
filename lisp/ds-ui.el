@@ -76,14 +76,17 @@
 ;; (powerline-vim-theme)
 ;; (powerline-nano-theme)
 
-;; (require-package 'moe-theme)
-;; (require 'moe-theme)
-;; (load-theme 'moe-dark t)
+;; moe theme
+(require-package 'moe-theme)
+(require 'moe-theme)
+(load-theme 'moe-dark t)
 ;; (load-theme 'moe-light t)
 ;; Choose a color for mode-line.(Default: blue)
 ;; (moe-theme-set-color 'black)
 
-(require-package 'afternoon-theme)
-(require 'afternoon-theme)
+;; afternoon-theme
+;; (require-package 'afternoon-theme)
+;; (require 'afternoon-theme)
+;; (load-theme 'afternoon-theme)
 
 (provide 'ds-ui)
