@@ -14,6 +14,7 @@
   (setq ispell-extra-args '("--sug-mode=fast"))
   (setq ispell-extra-args '("--sug-mode=ultra"))
   (setq ispell-really-aspell t)
+  (setq ispell-personal-dictionary "~/.emacs.d/personal-dict")
   (setq flyspell-issue-message-flag nil)
   (setq flyspell-issue-welcome-flag nil)
   (setq ispell-parser 'tex)
@@ -44,6 +45,7 @@
 
 (after-load 'flyspell
             (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
+
 
 ;; ;; org-mode
 ;; (add-to-list 'ispell-skip-region-alist

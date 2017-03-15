@@ -89,4 +89,7 @@
 ;; (require 'afternoon-theme)
 ;; (load-theme 'afternoon-theme)
 
+;; sets text selection visibility
+;; (transient-mark-mode nil)
+
 (provide 'ds-ui)

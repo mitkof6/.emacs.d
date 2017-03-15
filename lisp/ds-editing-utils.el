@@ -47,6 +47,7 @@
 (add-hook 'c-mode-common-hook 'ds/code-indentation)
 (add-hook 'java-mode-hook 'ds/code-indentation)
 (add-hook 'python-mode-hook 'ds/code-indentation)
+(add-hook 'LaTeX-mode-hook 'ds/code-indentation)
 
 ;; auto-revert (changes to files are seen by emacs)
 (global-auto-revert-mode)
@@ -68,14 +69,14 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-;; smart pairing for all
-(require-package 'smartparens)
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-(show-smartparens-global-mode +1)
+;; ;; smart pairing for all
+;; (require-package 'smartparens)
+;; (require 'smartparens-config)
+;; (setq sp-base-key-bindings 'paredit)
+;; (setq sp-autoskip-closing-pair 'always)
+;; (setq sp-hybrid-kill-entire-symbol nil)
+;; (sp-use-paredit-bindings)
+;; (show-smartparens-global-mode +1)
 
 ;; enable auto-pairing
 (require-package 'autopair)
@@ -88,28 +89,14 @@
 ;; (setq line-move-visual nil)
 (diminish 'visual-line-mode)
 
-;; expand-region
-(require-package 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-;; enable uppercase and lowercase transform for region
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-
-;; whole-line-or-region-mode
-(require-package 'whole-line-or-region)
-(whole-line-or-region-mode t)
-(diminish 'whole-line-or-region-mode)
-(make-variable-buffer-local 'whole-line-or-region-mode)
-
-;; enable cua mode without prefix key
-;; used to have C-v C-c C-x for copy paste etc.
-;; (cua-selection-mode t)
+;; ;; enable uppercase and lowercase transform for region
+;; (put 'upcase-region 'disabled nil)
+;; (put 'downcase-region 'disabled nil)
 
 ;; ;; use page-break-line to handle the ^l page-breaking symbol
-(require-package 'page-break-lines)
-(global-page-break-lines-mode)
-(diminish 'page-break-lines-mode)
+;; (require-package 'page-break-lines)
+;; (global-page-break-lines-mode)
+;; (diminish 'page-break-lines-mode)
 
 ;; enable subword-mode (move between camel case words)
 (global-subword-mode t)
