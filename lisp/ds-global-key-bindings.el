@@ -44,7 +44,20 @@
 (global-set-key [f3] 'flyspell-mode)
 
 ;; set ispell complete word
-(global-set-key (kbd "C-c s") 'ispell-word)
+(global-set-key (kbd "C-c u s") 'ispell-word)
+
+;; save word to dictionary
+(defun ds/save-word-to-dict ()
+  "Saves a word to a dictionary"
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)    
+      (flyspell-do-correct 'save nil (car word)
+			   current-location (cadr word)
+			   (caddr word) current-location))))
+(global-set-key (kbd "C-c u d") 'ds/save-word-to-dict)
+;; (global-set-key (kbd "C-c u d") 'ispell-pdict-save)
 
 ;; this function is used to close the buffer (e.g. flyckeck error list)
 (defun ds/quit-bottom-side-windows ()
