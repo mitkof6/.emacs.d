@@ -86,4 +86,7 @@
 (require-package 'afternoon-theme)
 (require 'afternoon-theme)
 
+;; sets text selection visibility
+;; (transient-mark-mode nil)
+
 (provide 'ds-ui)

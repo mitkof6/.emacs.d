@@ -8,6 +8,39 @@
 ;; find and open file
 (global-set-key (kbd "C-c u f") 'ffap)
 
+;; expand-region
+(require-package 'expand-region)
+(global-set-key (kbd "C-c u r") 'er/expand-region)
+
+;; copy/cut whole line without selecting (better than whole-line-or-region-mode)
+(defun ds/string-chomp (str)
+      "Chomp leading and tailing whitespace from str."
+      (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'"
+                           str)
+        (setq str (replace-match "" t t str)))
+      str)
+
+(defun ds/chomp-kill-ring-car ()
+  "Clear whitespaces from first element of kill ring."
+  (let ((str (pop kill-ring)))
+    (push (ds/string-chomp str) kill-ring)))
+
+(defun ds/copy-whole-line ()
+  "Place current line in kill ring."
+  (interactive)
+  (kill-whole-line)
+  (yank)
+  (ds/chomp-kill-ring-car))
+(global-set-key (kbd "C-c u c") 'ds/copy-whole-line)
+
+(defun ds/cut-whole-line ()
+  "Place current line in kill ring and kill."
+  (interactive)
+  (kill-whole-line)
+  (ds/chomp-kill-ring-car))
+(global-set-key (kbd "C-c u x") 'ds/cut-whole-line)
+
+
 ;; kill all buffers
 (defun ds/kill-all-buffers ()
   (interactive)
@@ -43,21 +76,21 @@
 ;; toggle flyspell mode
 (global-set-key [f3] 'flyspell-mode)
 
-;; set ispell complete word
-(global-set-key (kbd "C-c u s") 'ispell-word)
+;; ;; set ispell complete word
+;; (global-set-key (kbd "C-c u s") 'ispell-word)
 
-;; save word to dictionary
-(defun ds/save-word-to-dict ()
-  "Saves a word to a dictionary"
-  (interactive)
-  (let ((current-location (point))
-         (word (flyspell-get-word)))
-    (when (consp word)    
-      (flyspell-do-correct 'save nil (car word)
-			   current-location (cadr word)
-			   (caddr word) current-location))))
-(global-set-key (kbd "C-c u d") 'ds/save-word-to-dict)
-;; (global-set-key (kbd "C-c u d") 'ispell-pdict-save)
+;; ;; save word to dictionary
+;; (defun ds/save-word-to-dict ()
+;;   "Saves a word to a dictionary"
+;;   (interactive)
+;;   (let ((current-location (point))
+;;          (word (flyspell-get-word)))
+;;     (when (consp word)    
+;;       (flyspell-do-correct 'save nil (car word)
+;; 			   current-location (cadr word)
+;; 			   (caddr word) current-location))))
+;; (global-set-key (kbd "C-c u d") 'ds/save-word-to-dict)
+;; ;; (global-set-key (kbd "C-c u d") 'ispell-pdict-save)
 
 ;; this function is used to close the buffer (e.g. flyckeck error list)
 (defun ds/quit-bottom-side-windows ()
@@ -163,6 +196,9 @@
 ;;------------------------------------------------------------------------------
 
 (require-package 'magit)
+;; show word by word difference
+(setq magit-diff-refine-hunk 'all)
+
 (global-set-key (kbd "C-c g s") 'magit-status)
 (global-set-key (kbd "C-c g t") 'magit-stash)
 (global-set-key (kbd "C-c g l") 'magit-log)
