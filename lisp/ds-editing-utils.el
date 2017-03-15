@@ -33,7 +33,7 @@
       indent-tabs-mode nil)  ; use spaces only if nil
 
 (defun ds/code-indentation ()
-  "Preferences for indentation"
+  "Preferences for indentation."
   ;; close statement
   (c-set-offset 'substatement-open 0)
   ;; long argument names
@@ -47,7 +47,6 @@
 (add-hook 'c-mode-common-hook 'ds/code-indentation)
 (add-hook 'java-mode-hook 'ds/code-indentation)
 (add-hook 'python-mode-hook 'ds/code-indentation)
-(add-hook 'LaTeX-mode-hook 'ds/code-indentation)
 
 ;; auto-revert (changes to files are seen by emacs)
 (global-auto-revert-mode)

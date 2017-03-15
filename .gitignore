@@ -22,6 +22,7 @@ smex-items
 recentf
 .emacs.desktop
 .emacs.desktop.lock
+network-security.data
 
 # ignore custom settings
 lisp/init-local.el

@@ -6,6 +6,7 @@
 (setq eclimd-executable "/usr/lib/eclipse/eclimd")
 (setq eclimd-default-workspace "~/dev/eclipse")
 (setq eclimd-wait-for-process nil)
+
 ;; displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
