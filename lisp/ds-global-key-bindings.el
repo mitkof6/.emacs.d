@@ -76,7 +76,7 @@
 ;; toggle flyspell mode
 (global-set-key [f3] 'flyspell-mode)
 
-;; ;; set ispell complete word
+;; ;; set ispell complete word (M-$ default)
 ;; (global-set-key (kbd "C-c u s") 'ispell-word)
 
 ;; ;; save word to dictionary
