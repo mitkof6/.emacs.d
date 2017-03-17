@@ -2,11 +2,12 @@
 
 Features
 
-- C++ IDE (irony, company, auto-complete, semantics, rtags, cmake-ide)
+- C++ IDE (irony, company, auto-complete, rtags, cmake-ide, semantics (optional))
 - python: elpy, ein (jupiter notebook), jedi
 - java: eclim
 - lisp: cl, racket, scheme
 - latex: auctex, latex-pane-mode
+- pdf-tools
 - octave support
 - spell checking: en, gr
 - magit
@@ -15,7 +16,8 @@ Features
 - markdown support
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex, swiper
-- misc:  whitespace autocleanup, 80 column rule, save desktop
+- misc:  whitespace cleanup/show, 80 column rule, save desktop
+- global bindings in seperate file
 
 ## Installation
 

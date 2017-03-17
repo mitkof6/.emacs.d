@@ -52,7 +52,7 @@
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose t)
-(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
 
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
@@ -136,9 +136,7 @@
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-hook 'java-mode-hook       'hs-minor-mode)
 (add-hook 'lisp-mode-hook       'hs-minor-mode)
-(add-hook 'LaTeX-mode-hook      'hs-minor-mode)
 (add-hook 'python-mode-hook     'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
 (setq hs-hide-comments nil)
 
