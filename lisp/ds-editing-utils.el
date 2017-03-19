@@ -1,4 +1,4 @@
-;; dimish minor mode name to save mode line space
+;; diminsh minor mode name to save mode line space
 (require-package 'diminish)
 
 ;; some default value
@@ -46,7 +46,7 @@
 ;; (require 'cc-mode)
 (add-hook 'c-mode-common-hook 'ds/code-indentation)
 (add-hook 'java-mode-hook 'ds/code-indentation)
-(add-hook 'python-mode-hook 'ds/code-indentation)
+;; (add-hook 'python-mode-hook 'ds/code-indentation)
 
 ;; auto-revert (changes to files are seen by emacs)
 (global-auto-revert-mode)

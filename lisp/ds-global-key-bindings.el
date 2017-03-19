@@ -134,7 +134,7 @@
 (global-set-key [f8] 'global-linum-mode)
 
 ;; toggle save emacs sessions
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 (global-set-key [f9] 'desktop-save-mode)
 
 ;;------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ Features
 - spell checking: en, gr
 - magit
 - w3m: integrated web-browser
-- mail: [gnus](https://www.emacswiki.org/emacs/GnusGmail)
+- mail: multiple mails through gnus
 - markdown support
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex, swiper
@@ -79,14 +79,11 @@ package: w3m
 
 ~/.authinfo.gpg
 
-machine imap.gmail.com login <USER> password <PASSWORD> port imaps
-
-or
-
 machine imap.gmail.com login <USER> password <PASSWORD> port 993
-
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587
+...
 
+In case of multiple mails, additional entries can be added.
 
 ### find ac-sources (ds-auto-complete.el) for c++ completion
 
