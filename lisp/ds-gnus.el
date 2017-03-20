@@ -7,7 +7,11 @@
 ;; use as mail only
 (setq gnus-select-method '(nnml ""))
 
-;; ask encryption p
+;; test rss (needs configuration)
+;; (add-to-list 'gnus-secondary-select-methods '(nnrss "https://www.rt.com/rss/"))
+
+;; ask encryption password once
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 ;; auto-complete emacs address using bbdb UI
 (add-hook 'message-mode-hook
@@ -38,15 +42,15 @@
 ;; lists.  This helps a ton!
 (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject)
 
-;; also, I prefer to see only the top level message.  If a message has
+;; I prefer to see only the top level message.  If a message has
 ;; several replies or is part of a thread, only show the first message.
 ;; `gnus-thread-ignore-subject' will ignore the subject and
 ;; look at 'In-Reply-To:' and 'References:' headers.
 (setq gnus-thread-hide-subtree t)
 (setq gnus-thread-ignore-subject t)
 
-;; Read HTML mail
-;; You need install the command line web browser 'w3m' and Emacs plugin 'w3m'
+;; read HTML mail
+;; you need install the command line web browser 'w3m' and Emacs plugin 'w3m'
 (setq mm-text-html-renderer 'w3m)
 
 ;; don't delete mails on server (POP3)
@@ -209,12 +213,14 @@
                             ("Email" ; the key of topic
                              ;; "nnfolder+archive:sent.2017"
                              "nndraft:drafts")
-                            ("Gnus")))
-   ))
+                            ("Gnus")))))
 
 ;;------------------------------------------------------------------------------
 ;; gnus hydra
 ;;------------------------------------------------------------------------------
+
+;; after some time will remove hydra
+(require-package 'hydra)
 
 (eval-after-load 'gnus-group
                  '(progn

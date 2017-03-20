@@ -118,14 +118,16 @@
 (global-undo-tree-mode t)
 (diminish 'undo-tree-mode)
 
-;; Paredit
+;; paredit
 (require-package 'paredit)
-;; (defun paredit-space-for-delimiter-p-lisp (endp delimiter) nil)
-;; (defun lisp-mode-paredit-hook ()
-;;   (enable-paredit-mode)
-;;   (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
-;;                'paredit-space-for-delimiter-p-lisp))
-;; (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
+(defun paredit-space-for-delimiter-p-lisp (endp delimiter)
+  "Don't add space after #/."
+  nil)
+(defun lisp-mode-paredit-hook ()
+  (enable-paredit-mode)
+  (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
+               'paredit-space-for-delimiter-p-lisp))
+(add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
 ;; (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
 ;; (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
 ;; (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
