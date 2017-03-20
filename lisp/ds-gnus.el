@@ -7,11 +7,24 @@
 ;; use as mail only
 (setq gnus-select-method '(nnml ""))
 
-;; test rss (needs configuration)
-;; (add-to-list 'gnus-secondary-select-methods '(nnrss "https://www.rt.com/rss/"))
-
 ;; ask encryption password once
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
+(setq gnus-thread-sort-functions
+      '(gnus-thread-sort-by-most-recent-date
+        (not gnus-thread-sort-by-number)))
+
+;; use cache and store into folders
+(setq gnus-use-cache t)
+(setq gnus-directory "~/.emacs.d/news/")
+(setq nnfolder-directory "~/.emacs.d/mail/")
+
+;; BBDB: Address list
+(require-package 'bbdb)
+(bbdb-initialize 'message 'gnus 'sendmail)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(setq bbdb/mail-auto-create-p t
+      bbdb/news-auto-create-p t)
 
 ;; auto-complete emacs address using bbdb UI
 (add-hook 'message-mode-hook
@@ -56,6 +69,33 @@
 ;; don't delete mails on server (POP3)
 ;; (setq pop3-leave-mail-on-server t)
 
+;; gnus summary line format
+(setq gnus-summary-line-format "%U%R%z%d %I%(%[ %F %] %s %)\n")
+
+;;------------------------------------------------------------------------------
+;; RSS
+;;------------------------------------------------------------------------------
+
+;; test rss (needs configuration)
+(add-to-list 'gnus-secondary-select-methods
+	     '(nnrss "https://www.rt.com/rss/"))
+
+;; configure atom RSS
+(require 'mm-url)
+(defadvice mm-url-insert (after DE-convert-atom-to-rss () )
+  "Converts atom to RSS by calling xsltproc."
+  (when (re-search-forward "xmlns=\"http://www.w3.org/.*/Atom\""
+                           nil t)
+    (goto-char (point-min))
+    (message "Converting Atom to RSS... ")
+    (call-process-region (point-min) (point-max)
+                         "xsltproc"
+                         t t nil
+                         (expand-file-name "~/.emacs.d/atom2rss.xsl") "-")
+    (goto-char (point-min))
+    (message "Converting Atom to RSS... done")))
+(ad-activate 'mm-url-insert)
+
 ;;------------------------------------------------------------------------------
 ;; setup for multiple mails
 ;;------------------------------------------------------------------------------
@@ -87,7 +127,7 @@
                    :port 110
                    :user "stanev@ece"
                    :password nil
-		   :leave 365))
+                   :leave 365))
 
 ;; default
 (setq user-full-name "Dimitar Stanev"
@@ -100,7 +140,7 @@
       '(
         ("gmail" (address "jimstanev@gmail.com"))
         ("ece.upatras" (address "stanev@ece.upatras.gr"))
-        ("upatras " (address "stanev@upatras.gr"))
+        ("upatras" (address "stanev@upatras.gr"))
         ))
 
 ;; available SMTP accounts
@@ -186,6 +226,7 @@
        (nnfolder-inhibit-expiry t))))
 
    (setq gnus-topic-topology '(("Gnus" visible)
+                               (("RSS" visible))
                                (("Email" visible)
                                 (("gmail" visible nil nil))
                                 (("ece.upatras" visible nil nil))
@@ -211,8 +252,10 @@
                              "nnimap+upatras:INBOX.Junk"
                              "nnimap+upatras:INBOX.Trash")
                             ("Email" ; the key of topic
-                             ;; "nnfolder+archive:sent.2017"
+                             "nnfolder+archive:sent.2017"
                              "nndraft:drafts")
+			    ("RSS"	; the key of topic
+			     "nnrss:RT - Daily news")
                             ("Gnus")))))
 
 ;;------------------------------------------------------------------------------

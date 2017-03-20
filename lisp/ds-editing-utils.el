@@ -128,9 +128,9 @@
   (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
                'paredit-space-for-delimiter-p-lisp))
 (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
-;; (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
-;; (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
-;; (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
+(add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook)
 
 ;; hide and show
 ;; (load-library "hideshow")
