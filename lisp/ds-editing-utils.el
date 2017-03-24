@@ -53,7 +53,6 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose t)
 
-
 ;; hippie expand is dabbrev expand on steroids
 ;;(require 'hippie-expand)
 (setq hippie-expand-try-functions-list
@@ -84,9 +83,12 @@
 (diminish 'autopair-mode)
 
 ;; visual line (for good world wrapping when lines are long)
-(global-visual-line-mode t)
+;; (global-visual-line-mode t)
 ;; (setq line-move-visual nil)
-(diminish 'visual-line-mode)
+;; (diminish 'visual-line-mode)
+
+;; auto-fill mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; ;; enable uppercase and lowercase transform for region
 ;; (put 'upcase-region 'disabled nil)

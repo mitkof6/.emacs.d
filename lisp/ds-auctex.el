@@ -68,16 +68,16 @@
 ;; preview-pane
 ;;------------------------------------------------------------------------------
 
-(require-package 'latex-preview-pane)
-(diminish 'latex-preview-pane-mode "Preview-Pane")
-(defun ds/latex-preview-pane-hook ()
-  "Sets latex-preview-pane variables."
-  (latex-preview-pane-mode 1)
-  (setq latex-preview-pane-multifile-mode 'auctex)
-  )
-(add-hook 'LaTeX-mode-hook 'ds/latex-preview-pane-hook)
-;; add this hook so that when the file is updated the pane is updated
-(add-hook 'latex-preview-pane-hook 'auto-revert-mode)
+;; (require-package 'latex-preview-pane)
+;; (diminish 'latex-preview-pane-mode "Preview-Pane")
+;; (defun ds/latex-preview-pane-hook ()
+;;   "Sets latex-preview-pane variables."
+;;   (latex-preview-pane-mode 1)
+;;   (setq latex-preview-pane-multifile-mode 'auctex)
+;;   )
+;; (add-hook 'LaTeX-mode-hook 'ds/latex-preview-pane-hook)
+;; ;; add this hook so that when the file is updated the pane is updated
+;; (add-hook 'latex-preview-pane-hook 'auto-revert-mode)
 
 
 (provide 'ds-auctex)
