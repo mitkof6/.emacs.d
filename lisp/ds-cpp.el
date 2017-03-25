@@ -20,6 +20,7 @@
 ;; (setq-mode-local c++-mode semanticdb-find-default-throttle
 ;;                  '(local project unloaded recursive))
 
+
 ;; (semantic-remove-system-include "/usr/include/" 'c++-mode)
 ;; (semantic-remove-system-include "/usr/local/include/" 'c++-mode)
 ;; (add-hook 'semantic-init-hooks
@@ -206,6 +207,9 @@
 (rtags-diagnostics)
 (setq rtags-completions-enabled t)
 (rtags-enable-standard-keybindings)
+
+;; make sure cmake-mode is installed for viewing CMake files
+(require-package 'cmake-mode)
 
 ;;---------------------------------------------------------------------
 ;; compiling

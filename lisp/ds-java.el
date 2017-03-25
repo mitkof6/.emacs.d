@@ -1,32 +1,45 @@
-(require-package 'eclim)
-(global-eclim-mode)
+;;------------------------------------------------------------------------------
+;; jdee
+;;------------------------------------------------------------------------------
+;; (require-package 'jdee)
 
-;; control eclimd from emacs
-(require 'eclimd)
-(setq eclimd-executable "/usr/lib/eclipse/eclimd")
-(setq eclimd-default-workspace "~/dev/eclipse")
-(setq eclimd-wait-for-process nil)
+;;------------------------------------------------------------------------------
+;; eclim
+;;------------------------------------------------------------------------------
 
-;; displaying compilation error messages in the echo area
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
+;; (require-package 'eclim)
+;; (global-eclim-mode)
 
-;; configuring auto-complete-mode
-;; regular auto-complete initialization
-(require 'auto-complete-config)
-(ac-config-default)
+;; ;; control eclimd from emacs
+;; (require 'eclimd)
+;; (setq eclimd-executable "/usr/lib/eclipse/eclimd")
+;; (setq eclimd-default-workspace "~/dev/eclipse")
+;; (setq eclimd-wait-for-process nil)
 
-;; add the emacs-eclim source
-(require-package 'ac-emacs-eclim)
-;; (require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
+;; ;; displaying compilation error messages in the echo area
+;; (setq help-at-pt-display-when-idle t)
+;; (setq help-at-pt-timer-delay 0.1)
+;; (help-at-pt-set-timer)
 
-;; configuring company-mode
-(require-package 'company)
-(require-package 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-(global-company-mode t)
+;; ;; configuring auto-complete-mode
+;; ;; regular auto-complete initialization
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+
+;; ;; add the emacs-eclim source
+;; (require-package 'ac-emacs-eclim)
+;; ;; (require 'ac-emacs-eclim-source)
+;; (ac-emacs-eclim-config)
+
+;; ;; configuring company-mode
+;; (require-package 'company)
+;; (require-package 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
+;; (global-company-mode t)
+
+;;------------------------------------------------------------------------------
+;; unused
+;;------------------------------------------------------------------------------
 
 ;; ;; use gradle for build
 ;; (require-package 'gradle-mode)
