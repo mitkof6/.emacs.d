@@ -21,7 +21,8 @@
 (setq gnus-article-save-directory "~/.emacs.d/gnus/article/")
 (setq gnus-cache-directory "~/.emacs.d/gnus/cache/")
 (setq gnus-kill-files-directory "~/.emacs.d/gnus/kill-files/")
-
+(setq gnus-default-directory "~/.emacs.d/gnus/")
+(setq nnml-directory "~/.emacs.d/gnus/nnml/")
 
 ;; BBDB: Address list
 (require-package 'bbdb)
@@ -76,13 +77,19 @@
 ;; gnus summary line format
 (setq gnus-summary-line-format "%U%R%z%d %I%(%[ %F %] %s %)\n")
 
+;; message fill column
+(defun ds/message-mode-setup ()
+       (setq fill-column 80)
+       (turn-on-auto-fill))
+     (add-hook 'message-mode-hook 'ds/message-mode-setup)
+
 ;;------------------------------------------------------------------------------
 ;; RSS
 ;;------------------------------------------------------------------------------
 
 ;; test rss (needs configuration)
-(add-to-list 'gnus-secondary-select-methods
-             '(nnrss "https://www.rt.com/rss/"))
+;; (add-to-list 'gnus-secondary-select-methods
+;;              '(nnrss "https://www.rt.com/rss/"))
 
 ;; configure atom RSS
 (require 'mm-url)
@@ -147,10 +154,6 @@
         ("upatras" (address "stanev@upatras.gr"))
         ))
 
-;; message signature
-(setq message-signature nil)
-(setq message-signature-directory "~/.emacs.d/signature/")
-(setq message-signature-file "upatras")
 
 ;; available SMTP accounts
 (defvar smtp-accounts
@@ -159,6 +162,11 @@
     (ssl   "stanev@upatras.gr" "mail.upatras.gr" 465 "stanev" nil "key" "cert")
     (ssl   "jimstanev@gmail.com" "smtp.gmail.com" 587 "jimstanev" nil "key" "cert")
     ))
+
+;; message signature
+(setq message-signature nil)
+(setq message-signature-directory "~/.emacs.d/signature/")
+(setq message-signature-file "upatras")
 
 ;;------------------------------------------------------------------------------
 ;; utility function for choosing the send server from 'FROM' field
@@ -229,8 +237,8 @@
    (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
    (setq gnus-server-alist
     '(("archive" nnfolder "archive"
-       (nnfolder-directory "~/.emacs.d/mail/archive")
-       (nnfolder-active-file "~/.emacs.d/mail/archive/active")
+       (nnfolder-directory "~/.emacs.d/gnus/mail/archive")
+       (nnfolder-active-file "~/.emacs.d/gnus/mail/archive/active")
        (nnfolder-get-new-mail nil)
        (nnfolder-inhibit-expiry t))))
 
