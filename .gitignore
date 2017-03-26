@@ -11,8 +11,7 @@ snippets/
 anaconda-mode/
 bookmarks
 request/
-mail/
-news/
+gnus/
 
 # ignore auto-generated file
 srecode-map.el

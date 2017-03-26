@@ -95,6 +95,7 @@
 
 
 ;; function that changes to next theme
+(require 'cl)
 (lexical-let ((themes '(moe-light moe-dark)))
              (rplacd (last themes) themes)
              (defun ds/change-to-next-theme ()
