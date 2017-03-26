@@ -78,7 +78,7 @@
 
 ;; test rss (needs configuration)
 (add-to-list 'gnus-secondary-select-methods
-	     '(nnrss "https://www.rt.com/rss/"))
+             '(nnrss "https://www.rt.com/rss/"))
 
 ;; configure atom RSS
 (require 'mm-url)
@@ -112,6 +112,18 @@
                ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
                (nnmail-expiry-wait 90)))
 
+;; ;; gmail-upatras
+;; (add-to-list 'gnus-secondary-select-methods
+;;              '(nnimap "gmail-upatras"
+;;                (nnimap-address "imap.gmail.com")
+;;                (nnimap-server-port 993)
+;;                (nnimap-stream ssl)
+;;                (nnir-search-engine imap)
+;;                ;; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
+;;                ;; press 'E' to expire email
+;;                ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+;;                (nnmail-expiry-wait 90)))
+
 ;; upatras
 (add-to-list 'gnus-secondary-select-methods
              '(nnimap "upatras"
@@ -139,9 +151,15 @@
 (setq gnus-posting-styles
       '(
         ("gmail" (address "jimstanev@gmail.com"))
+        ;; ("gmail-upatras" (address "stanev@g.upatras.gr"))
         ("ece.upatras" (address "stanev@ece.upatras.gr"))
         ("upatras" (address "stanev@upatras.gr"))
         ))
+
+;; message signature
+(setq message-signature nil)
+(setq message-signature-directory "~/.emacs.d/signature/")
+(setq message-signature-file "upatras")
 
 ;; available SMTP accounts
 (defvar smtp-accounts
@@ -149,6 +167,7 @@
     (plain "stanev@ece.upatras.gr" "mailgate.ece.upatras.gr" 25 "stanev@ece" nil)
     (ssl   "stanev@upatras.gr" "mail.upatras.gr" 465 "stanev" nil "key" "cert")
     (ssl   "jimstanev@gmail.com" "smtp.gmail.com" 587 "jimstanev" nil "key" "cert")
+    ;; (ssl   "stanev@g.upatras.gr" "smtp.gmail.com" 587 "stanev@g.upatras.gr" nil "key" "cert")
     ))
 
 ;;------------------------------------------------------------------------------
@@ -229,6 +248,7 @@
                                (("RSS" visible))
                                (("Email" visible)
                                 (("gmail" visible nil nil))
+                                ;; (("gmail-upatras" visible nil nil))
                                 (("ece.upatras" visible nil nil))
                                 (("upatras" visible nil nil)))
                                ))
@@ -243,6 +263,8 @@
                              "nnimap+gmail:[Gmail]/Spam"
                              "nnimap+gmail:[Gmail]/Trash"
                              "nnimap+gmail:[Gmail]/Sent Mail")
+                            ;; ("gmail-upatras" ; the key of this topic
+                            ;;  )
                             ("ece.upatras" ; the key of topic
                              "mail.misc")
                             ("upatras" ; the key of topic
@@ -254,8 +276,8 @@
                             ("Email" ; the key of topic
                              "nnfolder+archive:sent.2017"
                              "nndraft:drafts")
-			    ("RSS"	; the key of topic
-			     "nnrss:RT - Daily news")
+                            ("RSS"      ; the key of topic
+                             "nnrss:RT - Daily news")
                             ("Gnus")))))
 
 ;;------------------------------------------------------------------------------
