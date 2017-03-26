@@ -27,29 +27,21 @@
 ;;           'semantic-reset-system-include)
 
 ;;------------------------------------------------------------------------------
-;; set up code completion with company and irony + rtags for finding symbols
+;; set up code completion with company and irony
 ;;------------------------------------------------------------------------------
-
 (require-package 'company)
 (require-package 'rtags)
+(require 'company-rtags) ;; no need for require-package
+(global-company-mode)
+
+;; setup irony-mode to load in c-modes
 (require-package 'irony)
 (require-package 'company-irony)
 (require-package 'company-irony-c-headers)
-(require 'company-rtags)
-(require 'cl)
-(require 'rtags)
-
-(global-company-mode)
-
+(require-package 'cl)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 ;; (add-hook 'objc-mode-hook 'irony-mode)
-
-;; setup rtags
-(setq rtags-completions-enabled t)
-(setq rtags-autostart-diagnostics t)
-(rtags-diagnostics)
-(rtags-enable-standard-keybindings)
 
 ;; irony-mode hook that is called when irony is triggered
 (defun ds/irony-mode-hook ()
@@ -75,44 +67,35 @@
 (eval-after-load 'company
                  '(add-to-list
                    'company-backends '(company-irony-c-headers
-                                       company-irony
-                                       company-yasnippet
-                                       company-clang
-                                       company-rtags)))
+                                       company-irony company-yasnippet
+                                       company-clang company-rtags)))
 
 (defun ds/disable-semantic ()
   "Disable the company-semantic backend."
   (interactive)
   (setq company-backends (delete '(company-irony-c-headers
-                                   company-irony
-                                   company-yasnippet
-                                   company-clang
-                                   company-rtags
+                                   company-irony company-yasnippet
+                                   company-clang company-rtags
                                    company-semantic)
                                  company-backends))
   (add-to-list
    'company-backends '(company-irony-c-headers
-                       company-irony
-                       company-yasnippet
-                       company-clang
-                       company-rtags)))
+                       company-irony company-yasnippet
+                       company-clang company-rtags)))
 
 (defun ds/enable-semantic ()
   "Enable the company-semantic backend."
   (interactive)
   (setq company-backends (delete '(company-irony-c-headers
-                                   company-irony
-                                   company-yasnippet
+                                   company-irony company-yasnippet
                                    company-clang)
                                  company-backends))
   (add-to-list
    'company-backends '(company-irony-c-headers
-                       company-irony
-                       company-yasnippet
-                       company-clang)))
+                       company-irony company-yasnippet company-clang)))
 
 ;; Zero delay when pressing tab
-(setq company-idle-delay 0.3)
+(setq company-idle-delay 0.5)
 
 ;; Windows performance tweaks
 (when (boundp 'w32-pipe-read-delay)
@@ -124,7 +107,6 @@
 ;;------------------------------------------------------------------------------
 ;; bind TAB for indent-or-complete
 ;;------------------------------------------------------------------------------
-
 (defun ds/irony-check-expansion ()
   (save-excursion
    (if (looking-at "\\_>") t
@@ -134,7 +116,7 @@
            (if (looking-at "->") t nil)))))
 
 (defun ds/irony-indent-or-complete ()
-  "Indent or Complete."
+  "Indent or Complete"
   (interactive)
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
@@ -153,13 +135,46 @@
 ;;------------------------------------------------------------------------------
 ;; flycheck-irony
 ;;------------------------------------------------------------------------------
-
 (require-package 'flycheck-irony)
 (eval-after-load 'flycheck
                  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
+;;------------------------------------------------------------------------------
+;; eldoc-mode
+;;------------------------------------------------------------------------------
+(require-package 'irony-eldoc)
+(add-hook 'irony-mode-hook 'irony-eldoc)
 
-;; ;; setup flycheck-rtags
+;;------------------------------------------------------------------------------
+;; function-args
+;;------------------------------------------------------------------------------
+(require-package 'function-args)
+(fa-config-default)
+
+;;------------------------------------------------------------------------------
+;; setup rtags
+;;------------------------------------------------------------------------------
+;; load custom files
+(add-to-list 'load-path "~/.emacs.d/lisp/rtags")
+(load "rtags.el")
+(load "company-rtags.el")
+(load "flycheck-rtags.el")
+(require 'rtags)
+(require 'company-rtags)
+
+(require-package 'company)
+
+(setq rtags-completions-enabled t)
+(setq rtags-autostart-diagnostics t)
+(rtags-enable-standard-keybindings)
+(eval-after-load 'company
+                 '(add-to-list
+                   'company-backends 'company-rtags))
+
+;;------------------------------------------------------------------------------
+;; setup flycheck-rtags
+;;------------------------------------------------------------------------------
+;; flycheck rtags
 ;; (require 'flycheck-rtags)
 ;; (defun ds/flycheck-rtags-setup ()
 ;;   (flycheck-select-checker 'rtags)
@@ -169,40 +184,29 @@
 ;; ;; c-mode-common-hook is also called by c++-mode
 ;; (add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
 
-
-;;------------------------------------------------------------------------------
-;; eldoc-mode
-;;------------------------------------------------------------------------------
-
-(require-package 'irony-eldoc)
-(add-hook 'irony-mode-hook 'irony-eldoc)
-
-;;------------------------------------------------------------------------------
-;; function-args
-;;------------------------------------------------------------------------------
-
-(require-package 'function-args)
-(fa-config-default)
-
 ;;------------------------------------------------------------------------------
 ;; setup rtags-helm
 ;;------------------------------------------------------------------------------
-
 ;; (require-package 'rtags-helm)
 ;; (setq rtags-use-helm t)
 
-;;------------------------------------------------------------------------------
-;; setup cmake-ide
-;;------------------------------------------------------------------------------
 
+;; setup cmake-ide
+;;---------------------------------------------------------------------
 (require-package 'cmake-ide)
 (cmake-ide-setup)
-
 ;; Set cmake-ide-flags-c++ to use C++11
 (setq cmake-ide-flags-c++ (append '("-std=c++11")))
-
 ;; We want to be able to compile with a keyboard shortcut
 (global-set-key (kbd "C-c m") 'cmake-ide-compile)
+
+;; Set rtags to enable completions and use the standard keybindings.
+;; A list of the keybindings can be found at:
+;; http://syamajala.github.io/c-ide.html
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(rtags-enable-standard-keybindings)
 
 ;; make sure cmake-mode is installed for viewing CMake files
 (require-package 'cmake-mode)
@@ -210,7 +214,6 @@
 ;;---------------------------------------------------------------------
 ;; compiling
 ;;---------------------------------------------------------------------
-
 (require-package 'compile)
 
 ;; Change compilation command:

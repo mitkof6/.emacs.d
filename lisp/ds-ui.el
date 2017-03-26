@@ -93,7 +93,6 @@
 ;; (powerline-vim-theme)
 ;; (powerline-nano-theme)
 
-
 ;; function that changes to next theme
 (require 'cl)
 (lexical-let ((themes '(moe-light moe-dark)))

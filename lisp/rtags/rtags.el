@@ -62,19 +62,31 @@
 (declare-function yas-expand-snippet "ext:yasnippet" t)
 (declare-function popup-tip "ext:popup" t)
 (declare-function helm "ext:helm" t)
+(declare-function rtags-ivy-read "ext:ivy" t)
 (declare-function rtags-helm-get-candidate-line 'rtags (candidate))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Constants
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defconst rtags-protocol-version 121)
+(defconst rtags-protocol-version 122)
 (defconst rtags-popup-available (require 'popup nil t))
 (defconst rtags-supported-major-modes '(c-mode c++-mode objc-mode) "Major modes RTags supports.")
 (defconst rtags-verbose-results-delimiter "------------------------------------------")
 (defconst rtags-buffer-name "*RTags*")
 (defconst rtags-diagnostics-buffer-name "*RTags Diagnostics*")
 (defconst rtags-diagnostics-raw-buffer-name " *RTags Raw*")
+
+(defconst rtags-exit-code-success 0)
+(defconst rtags-exit-code-general-failure 32)
+(defconst rtags-exit-code-network-failure 33)
+(defconst rtags-exit-code-timeout-failure 34)
+(defconst rtags-exit-code-not-indexed 35)
+(defconst rtags-exit-code-connection-failure 36)
+(defconst rtags-exit-code-protocol-failure 37)
+(defconst rtags-exit-code-argument-parse-error 38)
+(defconst rtags-return-value-unexpected-message-error 39)
+(defconst rtags-return-value-unknown-message-error 40)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -556,6 +568,12 @@ Note: It is recommended to run each sandbox is separate Emacs process."
 
 (defcustom rtags-use-helm nil
   "If t, use helm to display results when appropriate."
+  :group 'rtags
+  :type 'boolean
+  :safe 'booleanp)
+
+(defcustom rtags-use-ivy nil
+  "If t, use ivy to display results when appropriate."
   :group 'rtags
   :type 'boolean
   :safe 'booleanp)
@@ -1198,30 +1216,24 @@ to only call this when `rtags-socket-file' is defined.
             ;; synchronous
             (goto-char (point-min))
             (save-excursion
-              (and (cond ((re-search-forward "^Can't seem to connect to server" nil t)
-                          (erase-buffer)
-                          (setq rtags-last-request-not-connected t)
-                          (unless noerror
-                            (error "Can't seem to connect to server. Is rdm running?"))
-                          nil)
-                         ((re-search-forward "^Protocol version mismatch" nil t)
-                          (erase-buffer)
-                          (unless noerror
-                            (error (concat "RTags protocol version mismatch. This is usually caused by getting rtags.el from melpa\n"
-                                           "and installing a new rtags build that modified the protocol. They need to be in sync.")))
-                          nil)
-                         ((re-search-forward "^Not indexed" nil t)
-                          (erase-buffer)
-                          (setq rtags-last-request-not-indexed t)
-                          nil)
-                         ((looking-at "Project loading")
-                          (erase-buffer)
-                          (message "Project loading...")
-                          t)
-                         (t))
-                   (eq result 0)
-                   rtags-autostart-diagnostics (rtags-diagnostics)))))
-        (or async (> (point-max) (point-min)))))))
+              (cond ((= result rtags-exit-code-success)
+                     (when rtags-autostart-diagnostics
+                       (rtags-diagnostics)))
+                    ((= result rtags-exit-code-connection-failure)
+                     (erase-buffer)
+                     (setq rtags-last-request-not-connected t)
+                     (unless noerror
+                       (error "Can't seem to connect to server. Is rdm running?")))
+                    ((= result rtags-exit-code-protocol-failure)
+                     (erase-buffer)
+                     (unless noerror
+                       (error (concat "RTags protocol version mismatch. This is usually caused by getting rtags.el from melpa\n"
+                                      "and installing a new rtags build that modified the protocol. They need to be in sync."))))
+                    ((= result rtags-exit-code-not-indexed)
+                     (erase-buffer)
+                     (setq rtags-last-request-not-indexed t))
+                    (t)))) ;; other error
+          (or async (and (> (point-max) (point-min)) (= result rtags-exit-code-success))))))))
 
 (defvar rtags-preprocess-mode-map (make-sparse-keymap))
 (define-key rtags-preprocess-mode-map (kbd "q") 'rtags-call-bury-or-delete)
@@ -3054,7 +3066,6 @@ This includes both declarations and definitions."
     (cancel-timer rtags-container-timer))
   (setq rtags-container-timer
         (and rtags-track-container
-
              (funcall rtags-is-indexable (current-buffer))
              (run-with-idle-timer rtags-container-timer-interval nil #'rtags-update-current-container-cache))))
 
@@ -3350,14 +3361,16 @@ other window instead of the current one."
            (message "RTags: Found %d locations."
                     (count-lines (point-min) (point-max))))
          ;; Optionally jump to first result and open results buffer
-         (when (and rtags-popup-results-buffer (not rtags-use-helm) (rtags-switch-to-buffer rtags-buffer-name t))
+         (when (and rtags-popup-results-buffer (not rtags-use-helm) (not rtags-use-ivy) (rtags-switch-to-buffer rtags-buffer-name t))
            (shrink-window-if-larger-than-buffer))
          (if rtags-use-helm
              (helm :sources '(rtags-helm-source))
-           (when (and rtags-jump-to-first-match (not noautojump))
-             (if rtags-popup-results-buffer
-                 (rtags-select-other-window)
-               (rtags-select other-window))))
+           (if rtags-use-ivy
+               (rtags-ivy-read)
+             (when (and rtags-jump-to-first-match (not noautojump))
+               (if rtags-popup-results-buffer
+                   (rtags-select-other-window)
+                 (rtags-select other-window)))))
          t)))
 
 (defun rtags-filename-complete (string predicate code)
@@ -4036,15 +4049,22 @@ definition."
                         (t (rtags-buffer-file-name)))))
       (with-temp-buffer
         (setq rtags-last-compiled-source source)
-        (rtags-call-rc :path source "--sources" source "--compilation-flags-only")
-        (let* ((lines (split-string (buffer-string) "\n" t))
+        (rtags-call-rc :path source "--sources" source "--compilation-flags-only" "--compilation-flags-split-line" "--compilation-flags-pwd")
+        (let* ((commands (mapcar (lambda (build)
+                                   (let ((lines (split-string build "\n" t)))
+                                     (cons (combine-and-quote-strings (cdr lines))
+                                           (substring (car lines) 5))))
+                                 (split-string (buffer-string) "(\n)?pwd: " t)))
                (old-compile-command compile-command)
-               (line (car lines)))
-          (when (cond ((> (length lines) 1)
-                       (setq line (or (completing-read "Choose build: " lines) line)))
-                      ((null lines) (message "RTags doesn't know how to compile this file") nil)
+               (command (car commands)))
+          (when (cond ((> (length commands) 1)
+                       (let ((answer (completing-read "Choose build: " commands)))
+                         (when answer
+                           (setq command (assoc answer commands)))))
+                      ((null commands) (message "RTags doesn't know how to compile this file") nil)
                       (t))
-            (compile line)
+            (cd (cdr command))
+            (compile (car command))
             (setq compile-command old-compile-command)))))))
 
 ;;;###autoload
