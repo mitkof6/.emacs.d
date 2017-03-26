@@ -69,27 +69,36 @@
 ;; theme
 ;; -----------------------------------------------------------------------------
 
-(require-package 'powerline)
-(powerline-default-theme)
-;; (powerline-center-evil-theme)
-;; (powerline-center-theme)
-;; (powerline-vim-theme)
-;; (powerline-nano-theme)
-
-;; moe theme
+;; moe-theme
 (require-package 'moe-theme)
 (require 'moe-theme)
 (load-theme 'moe-dark t)
-;; (load-theme 'moe-light t)
-;; Choose a color for mode-line.(Default: blue)
-;; (moe-theme-set-color 'black)
 
 ;; afternoon-theme
 ;; (require-package 'afternoon-theme)
 ;; (require 'afternoon-theme)
 ;; (load-theme 'afternoon-theme)
 
-;; sets text selection visibility
-;; (transient-mark-mode nil)
+;; solarized
+;; (require-package 'color-theme-solarized)
+;; (load-theme 'solarized t)
+;; (set-frame-parameter nil 'background-mode 'light)
+;; (set-frame-parameter nil 'background-mode 'dark)
+
+(require-package 'powerline)
+;; (powerline-default-theme)
+(powerline-moe-theme)
+;; (powerline-center-evil-theme)
+;; (powerline-center-theme)
+;; (powerline-vim-theme)
+;; (powerline-nano-theme)
+
+
+;; function that changes to next theme
+(lexical-let ((themes '(moe-light moe-dark)))
+             (rplacd (last themes) themes)
+             (defun ds/change-to-next-theme ()
+               (interactive)
+               (load-theme (pop themes) t)))
 
 (provide 'ds-ui)

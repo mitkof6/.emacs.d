@@ -137,6 +137,9 @@
 ;; (desktop-save-mode 1)
 (global-set-key [f9] 'desktop-save-mode)
 
+;; toggle next theme
+(global-set-key [f10] 'ds/change-to-next-theme)
+
 ;;------------------------------------------------------------------------------
 ;; windows binding (see ds-windows.el)
 ;;------------------------------------------------------------------------------
