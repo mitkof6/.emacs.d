@@ -200,6 +200,7 @@
 (setq magit-diff-refine-hunk 'all)
 
 (global-set-key (kbd "C-c g s") 'magit-status)
+(global-set-key (kbd "C-c g i") 'magit-init)
 (global-set-key (kbd "C-c g t") 'magit-stash)
 (global-set-key (kbd "C-c g l") 'magit-log)
 (global-set-key (kbd "C-c g c") 'magit-commit)

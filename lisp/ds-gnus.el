@@ -14,10 +14,14 @@
       '(gnus-thread-sort-by-most-recent-date
         (not gnus-thread-sort-by-number)))
 
-;; use cache and store into folders
+;; use cache and store into concrete folders
 (setq gnus-use-cache t)
-(setq gnus-directory "~/.emacs.d/news/")
-(setq nnfolder-directory "~/.emacs.d/mail/")
+(setq gnus-directory "~/.emacs.d/gnus/")
+(setq nnfolder-directory "~/.emacs.d/gnus/mail/")
+(setq gnus-article-save-directory "~/.emacs.d/gnus/article/")
+(setq gnus-cache-directory "~/.emacs.d/gnus/cache/")
+(setq gnus-kill-files-directory "~/.emacs.d/gnus/kill-files/")
+
 
 ;; BBDB: Address list
 (require-package 'bbdb)
@@ -112,18 +116,6 @@
                ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
                (nnmail-expiry-wait 90)))
 
-;; ;; gmail-upatras
-;; (add-to-list 'gnus-secondary-select-methods
-;;              '(nnimap "gmail-upatras"
-;;                (nnimap-address "imap.gmail.com")
-;;                (nnimap-server-port 993)
-;;                (nnimap-stream ssl)
-;;                (nnir-search-engine imap)
-;;                ;; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
-;;                ;; press 'E' to expire email
-;;                ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
-;;                (nnmail-expiry-wait 90)))
-
 ;; upatras
 (add-to-list 'gnus-secondary-select-methods
              '(nnimap "upatras"
@@ -151,7 +143,6 @@
 (setq gnus-posting-styles
       '(
         ("gmail" (address "jimstanev@gmail.com"))
-        ;; ("gmail-upatras" (address "stanev@g.upatras.gr"))
         ("ece.upatras" (address "stanev@ece.upatras.gr"))
         ("upatras" (address "stanev@upatras.gr"))
         ))
@@ -167,7 +158,6 @@
     (plain "stanev@ece.upatras.gr" "mailgate.ece.upatras.gr" 25 "stanev@ece" nil)
     (ssl   "stanev@upatras.gr" "mail.upatras.gr" 465 "stanev" nil "key" "cert")
     (ssl   "jimstanev@gmail.com" "smtp.gmail.com" 587 "jimstanev" nil "key" "cert")
-    ;; (ssl   "stanev@g.upatras.gr" "smtp.gmail.com" 587 "stanev@g.upatras.gr" nil "key" "cert")
     ))
 
 ;;------------------------------------------------------------------------------
@@ -248,7 +238,6 @@
                                (("RSS" visible))
                                (("Email" visible)
                                 (("gmail" visible nil nil))
-                                ;; (("gmail-upatras" visible nil nil))
                                 (("ece.upatras" visible nil nil))
                                 (("upatras" visible nil nil)))
                                ))
@@ -263,8 +252,6 @@
                              "nnimap+gmail:[Gmail]/Spam"
                              "nnimap+gmail:[Gmail]/Trash"
                              "nnimap+gmail:[Gmail]/Sent Mail")
-                            ;; ("gmail-upatras" ; the key of this topic
-                            ;;  )
                             ("ece.upatras" ; the key of topic
                              "mail.misc")
                             ("upatras" ; the key of topic
