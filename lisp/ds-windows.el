@@ -83,4 +83,7 @@ Call a second time to restore the original window configuration."
     (recenter 0)
     (select-window window)))
 
+;; transpose frames (mainly for function flop-frame)
+(require-package 'transpose-frame)
+
 (provide 'ds-windows)

@@ -6,7 +6,7 @@
 (global-set-key (kbd "C-c u e") 'eshell)
 
 ;; find and open file
-(global-set-key (kbd "C-c u f") 'ffap)
+(global-set-key (kbd "C-c b f") 'ffap)
 
 ;; expand-region
 (require-package 'expand-region)
@@ -14,11 +14,11 @@
 
 ;; copy/cut whole line without selecting (better than whole-line-or-region-mode)
 (defun ds/string-chomp (str)
-      "Chomp leading and tailing whitespace from str."
-      (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'"
-                           str)
-        (setq str (replace-match "" t t str)))
-      str)
+  "Chomp leading and tailing whitespace from str."
+  (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'"
+                       str)
+         (setq str (replace-match "" t t str)))
+  str)
 
 (defun ds/chomp-kill-ring-car ()
   "Clear whitespaces from first element of kill ring."
@@ -85,10 +85,10 @@
 ;;   (interactive)
 ;;   (let ((current-location (point))
 ;;          (word (flyspell-get-word)))
-;;     (when (consp word)    
+;;     (when (consp word)
 ;;       (flyspell-do-correct 'save nil (car word)
-;; 			   current-location (cadr word)
-;; 			   (caddr word) current-location))))
+;;                         current-location (cadr word)
+;;                         (caddr word) current-location))))
 ;; (global-set-key (kbd "C-c u d") 'ds/save-word-to-dict)
 ;; ;; (global-set-key (kbd "C-c u d") 'ispell-pdict-save)
 
@@ -172,6 +172,12 @@
 
 ;; Toggle whether the current window is dedicated to its current buffer.
 (global-set-key (kbd "C-c <down>") 'ds/toggle-current-window-dedication)
+
+;; transpose horizontal frames
+(global-set-key (kbd "C-c b t") 'flop-frame)
+
+;; frames can be recorded by 'window-configuration-to-register (C-x r w)
+;; frames that are registered can be recovered by (C-x r j 'char')
 
 ;;------------------------------------------------------------------------------
 ;; w3m binding (see ds-w3m.el)
