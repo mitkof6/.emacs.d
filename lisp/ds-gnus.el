@@ -23,6 +23,7 @@
 (setq gnus-kill-files-directory "~/.emacs.d/gnus/kill-files/")
 (setq gnus-default-directory "~/.emacs.d/gnus/")
 (setq nnml-directory "~/.emacs.d/gnus/nnml/")
+(setq smtpmail-queue-dir "~/.emacs.d/gnus/mail/")
 
 ;; BBDB: Address list
 (require-package 'bbdb)
@@ -74,9 +75,6 @@
 ;; don't delete mails on server (POP3)
 ;; (setq pop3-leave-mail-on-server t)
 
-;; gnus summary line format
-(setq gnus-summary-line-format "%U%R%z%d %I%(%[ %F %] %s %)\n")
-
 ;; message fill column
 (defun ds/message-mode-setup ()
        (setq fill-column 80)
@@ -89,7 +87,7 @@
 
 ;; test rss (needs configuration)
 ;; (add-to-list 'gnus-secondary-select-methods
-;;              '(nnrss "https://www.rt.com/rss/"))
+;;              '(nnrss "site"))
 
 ;; configure atom RSS
 (require 'mm-url)
@@ -112,6 +110,7 @@
 ;;------------------------------------------------------------------------------
 
 ;; gmail
+
 (add-to-list 'gnus-secondary-select-methods
              '(nnimap "gmail"
                (nnimap-address "imap.gmail.com")
@@ -143,8 +142,10 @@
 ;; default
 (setq user-full-name "Dimitar Stanev"
       user-mail-address "jimstanev@gmail.com"
+      ;; smtpmail-smtp-server ""
+      ;; smtpmail-smtp-service 0
+      ;; auth-sources "~/.authinfo.gpg"
       )
-
 
 ;; let gnus change the "From:" line by looking at current group we are in
 (setq gnus-posting-styles
@@ -154,6 +155,7 @@
         ("upatras" (address "stanev@upatras.gr"))
         ))
 
+;; (require-package 'smtpmail-multi)
 
 ;; available SMTP accounts
 (defvar smtp-accounts
@@ -173,7 +175,7 @@
 ;;------------------------------------------------------------------------------
 
 (require 'cl)
-(require-package 'smtpmail)
+(require 'smtpmail)
 
 (setq send-mail-function 'smtpmail-send-it
       message-send-mail-function 'smtpmail-send-it
