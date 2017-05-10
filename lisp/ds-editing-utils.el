@@ -32,6 +32,9 @@
       tab-width 4
       indent-tabs-mode nil)  ; use spaces only if nil
 
+;; the number of characters for fill command
+(set-fill-column 80)
+
 (defun ds/code-indentation ()
   "Preferences for indentation."
   ;; close statement
