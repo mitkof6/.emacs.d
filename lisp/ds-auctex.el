@@ -3,9 +3,13 @@
 ;;------------------------------------------------------------------------------
 
 (require-package 'auctex)
-;; (require 'auctex-autoloads)
+(require 'tex)
+
+;; treat all modes as LaTeX-mode
+(add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
+
 (mapc (lambda (mode)
-        (add-hook 'LaTeX-mode-hook mode))
+	(add-hook 'LaTeX-mode-hook mode))
       (list ;; 'auto-fill-mode
             'LaTeX-math-mode
             'turn-on-reftex
@@ -20,24 +24,27 @@
 (defun ds/latex-mode-hook ()
   "Latex custom preferences"
   (TeX-global-PDF-mode t)               ; PDF mode enable, not plain
-  (LaTeX-command "pdflatex")
   (TeX-fold-mode 1)                     ; TeX fold mode
-  (setq-default TeX-master nil)         ; set master file
   (reftex-mode 1)
   (TeX-fold-mode 1)
   ;;(local-set-key ["TAB"] 'TeX-complete-symbol)
+  (setq-default TeX-master nil)         ; set master file
   (setq
-   ;;TeX-auto-untabify t	        ; remove all tabs before saving
+   ;;TeX-auto-untabify t                ; remove all tabs before saving
    ;;TeX-engine 'xetex                  ; use xelatex default
-   TeX-show-compilation nil             ; display compilation windows
    ;; LaTeX-indent-level 4              ; indents with 4 tabs
+   LaTeX-command "pdflatex"
+   TeX-show-compilation nil             ; display compilation windows
    TeX-save-query nil
-   reftex-plug-into-AUCTeX t            ; reftex C-c =
+   TeX-auto-save t
+   TeX-parse-self t
+   reftex-plug-into-AUCTeX
+   TeX-PDF-mode t
    ))
 (add-hook 'LaTeX-mode-hook 'ds/latex-mode-hook)
 
 ;; automatically use fold buffer C-c C-o C-b
-(add-hook 'find-file-hook 'TeX-fold-buffer t)
+;; (add-hook 'find-file-hook 'TeX-fold-buffer t)
 
 ;; ensures that the pdf is reverted after compilation
 ;; this is the case when pdf-tools are used
