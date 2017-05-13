@@ -19,23 +19,30 @@
 
 (defun ds/latex-mode-hook ()
   "Latex custom preferences"
-  (setq
-   ;;TeX-auto-untabify t        ; remove all tabs before saving
-   TeX-engine 'xetex            ; use xelatex default
-   TeX-show-compilation nil     ; display compilation windows
-   ;; LaTeX-indent-level 4		; indents with 4 tabs
-   )
-  (TeX-global-PDF-mode t)       ; PDF mode enable, not plain
-  (setq TeX-save-query nil)
+  (TeX-global-PDF-mode t)               ; PDF mode enable, not plain
+  (LaTeX-command "pdflatex")
+  (TeX-fold-mode 1)                     ; TeX fold mode
   (setq-default TeX-master nil)         ; set master file
-  ;; (local-set-key ["TAB"] 'TeX-complete-symbol)
-  )
+  (reftex-mode 1)
+  (TeX-fold-mode 1)
+  ;;(local-set-key ["TAB"] 'TeX-complete-symbol)
+  (setq
+   ;;TeX-auto-untabify t	        ; remove all tabs before saving
+   ;;TeX-engine 'xetex                  ; use xelatex default
+   TeX-show-compilation nil             ; display compilation windows
+   ;; LaTeX-indent-level 4              ; indents with 4 tabs
+   TeX-save-query nil
+   reftex-plug-into-AUCTeX t            ; reftex C-c =
+   ))
 (add-hook 'LaTeX-mode-hook 'ds/latex-mode-hook)
+
+;; automatically use fold buffer C-c C-o C-b
+(add-hook 'find-file-hook 'TeX-fold-buffer t)
 
 ;; ensures that the pdf is reverted after compilation
 ;; this is the case when pdf-tools are used
 (add-hook 'TeX-after-compilation-finished-functions
-	  #'TeX-revert-document-buffer)
+          #'TeX-revert-document-buffer)
 
 ;; configuration for TeX-fold-mode
 ;; add entries you want to be fold, or comment that needn't to be fold.

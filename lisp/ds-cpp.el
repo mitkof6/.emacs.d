@@ -41,10 +41,6 @@
 
 (global-company-mode)
 
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-;; (add-hook 'objc-mode-hook 'irony-mode)
-
 ;; setup rtags
 (setq rtags-completions-enabled t)
 (setq rtags-autostart-diagnostics t)
@@ -52,6 +48,10 @@
 (rtags-enable-standard-keybindings)
 
 ;; irony-mode hook that is called when irony is triggered
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
 (defun ds/irony-mode-hook ()
   "Custom irony mode hook to remap keys."
   (define-key irony-mode-map [remap completion-at-point]
@@ -112,7 +112,7 @@
                        company-clang)))
 
 ;; Zero delay when pressing tab
-(setq company-idle-delay 0.3)
+(setq company-idle-delay 0.5)
 
 ;; Windows performance tweaks
 (when (boundp 'w32-pipe-read-delay)
@@ -159,15 +159,15 @@
                  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 
-;; ;; setup flycheck-rtags
-;; (require 'flycheck-rtags)
-;; (defun ds/flycheck-rtags-setup ()
-;;   (flycheck-select-checker 'rtags)
-;;   ;; RTags creates more accurate overlays.
-;;   (setq-local flycheck-highlighting-mode nil)
-;;   (setq-local flycheck-check-syntax-automatically nil))
-;; ;; c-mode-common-hook is also called by c++-mode
-;; (add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
+;; setup flycheck-rtags
+(require 'flycheck-rtags)
+(defun ds/flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  ;; RTags creates more accurate overlays.
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+;; c-mode-common-hook is also called by c++-mode
+(add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
 
 
 ;;------------------------------------------------------------------------------
