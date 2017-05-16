@@ -10,7 +10,7 @@
 
 (mapc (lambda (mode)
 	(add-hook 'LaTeX-mode-hook mode))
-      (list ;; 'auto-fill-mode
+      (list 'auto-fill-mode
             'LaTeX-math-mode
             'turn-on-reftex
             'TeX-fold-mode
@@ -27,8 +27,10 @@
   (TeX-fold-mode 1)                     ; TeX fold mode
   (reftex-mode 1)
   (TeX-fold-mode 1)
+  (flycheck-mode 0)
+  (flyspell-mode 1)
   ;;(local-set-key ["TAB"] 'TeX-complete-symbol)
-  (setq-default TeX-master nil)         ; set master file
+  ;; (setq-default TeX-master nil)         ; set master file
   (setq
    ;;TeX-auto-untabify t                ; remove all tabs before saving
    ;;TeX-engine 'xetex                  ; use xelatex default
@@ -95,3 +97,24 @@
 
 
 (provide 'ds-auctex)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -108,7 +108,6 @@
   "Indents an entire buffer using the default intending scheme."
   (interactive)
   (save-excursion
-   (set-fill-column 80)
    (delete-trailing-whitespace)
    (indent-region (point-min) (point-max) nil)
    (untabify (point-min) (point-max))))

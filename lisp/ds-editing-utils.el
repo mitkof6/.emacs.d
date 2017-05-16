@@ -33,7 +33,7 @@
       indent-tabs-mode nil)  ; use spaces only if nil
 
 ;; the number of characters for fill command
-(set-fill-column 80)
+(setq-default fill-column 80)
 
 (defun ds/code-indentation ()
   "Preferences for indentation."
