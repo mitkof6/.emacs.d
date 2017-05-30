@@ -86,6 +86,7 @@
 ;; (set-frame-parameter nil 'background-mode 'dark)
 
 (require-package 'powerline)
+(require-package 'smart-mode-line-powerline-theme)
 ;; (powerline-default-theme)
 (powerline-moe-theme)
 ;; (powerline-center-evil-theme)
