@@ -1,32 +1,4 @@
 ;;------------------------------------------------------------------------------
-;; semantics
-;;------------------------------------------------------------------------------
-;; enable semantics mode for auto-completion
-
-;; (require-package 'cc-mode)
-;; (require 'semantic) ;; no need for require-package
-;; (global-semanticdb-minor-mode 1)
-;; (global-semantic-idle-scheduler-mode 1)
-;; (global-semantic-idle-summary-mode 1) ;; for c code only
-;; (semantic-mode 1)
-
-;; (require-package 'stickyfunc-enhance)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-
-;; ;; Prohibit semantic from searching through system headers. We want
-;; ;; company-clang to do that for us.
-;; (setq-mode-local c-mode semanticdb-find-default-throttle
-;;                  '(local project unloaded recursive))
-;; (setq-mode-local c++-mode semanticdb-find-default-throttle
-;;                  '(local project unloaded recursive))
-
-
-;; (semantic-remove-system-include "/usr/include/" 'c++-mode)
-;; (semantic-remove-system-include "/usr/local/include/" 'c++-mode)
-;; (add-hook 'semantic-init-hooks
-;;           'semantic-reset-system-include)
-
-;;------------------------------------------------------------------------------
 ;; set up code completion with company and irony + rtags for finding symbols
 ;;------------------------------------------------------------------------------
 
@@ -36,14 +8,14 @@
 (require-package 'company-irony)
 (require-package 'company-irony-c-headers)
 (require 'company-rtags)
-(require 'cl)
 (require 'rtags)
+(require 'cl)
 
 (global-company-mode)
 
 ;; setup rtags
-(setq rtags-completions-enabled t)
-(setq rtags-autostart-diagnostics t)
+(setq rtags-completions-enabled t
+      rtags-autostart-diagnostics t)
 (rtags-diagnostics)
 (rtags-enable-standard-keybindings)
 
@@ -74,45 +46,16 @@
 ;; but some knowledge some knowledge of when best to trigger is still necessary.
 (eval-after-load 'company
                  '(add-to-list
-                   'company-backends '(company-irony-c-headers
+                   'company-backends '(;; company-irony-c-headers
                                        company-irony
-                                       company-yasnippet
-                                       company-clang
-                                       company-rtags)))
+                                       ;; company-yasnippet
+                                       ;; company-clang
+                                       ;; company-rtags
+				       )))
 
-(defun ds/disable-semantic ()
-  "Disable the company-semantic backend."
-  (interactive)
-  (setq company-backends (delete '(company-irony-c-headers
-                                   company-irony
-                                   company-yasnippet
-                                   company-clang
-                                   company-rtags
-                                   company-semantic)
-                                 company-backends))
-  (add-to-list
-   'company-backends '(company-irony-c-headers
-                       company-irony
-                       company-yasnippet
-                       company-clang
-                       company-rtags)))
-
-(defun ds/enable-semantic ()
-  "Enable the company-semantic backend."
-  (interactive)
-  (setq company-backends (delete '(company-irony-c-headers
-                                   company-irony
-                                   company-yasnippet
-                                   company-clang)
-                                 company-backends))
-  (add-to-list
-   'company-backends '(company-irony-c-headers
-                       company-irony
-                       company-yasnippet
-                       company-clang)))
 
 ;; Zero delay when pressing tab
-(setq company-idle-delay 0.5)
+(setq company-idle-delay 0)
 
 ;; Windows performance tweaks
 (when (boundp 'w32-pipe-read-delay)
@@ -138,16 +81,17 @@
   (interactive)
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
-         (message "complete")
-         (company-complete-common))
+         ;;(message "complete")
+	 (company-irony)		; better completion
+	 ;;(company-complete-common)
+	 )
         (t
-         (message "indent")
+         ;;(message "indent")
          (call-interactively 'c-indent-line-or-region))))
 
 (defun ds/irony-mode-keys ()
   "Modify keymaps used by `irony-mode'."
-  (local-set-key (kbd "TAB") 'ds/irony-indent-or-complete)
-  (local-set-key [tab] 'ds/irony-indent-or-complete))
+  (local-set-key (kbd "TAB") 'ds/irony-indent-or-complete))
 (add-hook 'c-mode-common-hook 'ds/irony-mode-keys)
 
 ;;------------------------------------------------------------------------------

@@ -24,51 +24,67 @@ Features
 
 ### Build irony-server
 
-``` M-x irony-install-server ```
+
+`` M-x irony-install-server ``
+
 
 ### Build and install rtags
 
-``` git clone --recursive https://github.com/Andersbakken/rtags.git cd
-rtags cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .  sudo make install ```
+
+`` M-x rtags-instal ``
+
 
 ### Python
 
+
 [elpy](https://github.com/jorgenschaefer/elpy)
+
 
 [ein](https://github.com/millejoh/emacs-ipython-notebook)
 
-In order to configure ein you need to generate the jupyter
-configureation:
 
-``` jupyter notebook --generate-config
+In order to configure ein you need to generate the jupyter configureation:
 
-```
 
-and set the c.NotebookApp.password password.
+`` jupyter notebook --generate-config``
+
+
+and set the c.NotebookApp.password password and port
+
 
 [jedi](http://tkf.github.io/emacs-jedi/latest/)
 
+
 ### Java (through eclipse/eclim)
 
-``` packages: eclipse-java, eclim, eclim-git ```
+
+`` packages: eclipse-java, eclim, eclim-git ``
+
 
 [eclim](http://eclim.org/install.html)
 
+
 [emacs-eclim](https://github.com/senny/emacs-eclim)
+
 
 ### pdf-tools
 
+
 ``` package: poppler, poppler-utils ```
+
 
 ### w3m (web-browser)
 
+
 ``` package: w3m ```
+
 
 ### setup gnus mail authentication
 
 ~/.authinfo.gpg
 
 machine imap.gmail.com login <USER> password <PASSWORD> port 993
+
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587 ...
 
 In case of multiple mails, additional entries can be added.
@@ -76,4 +92,4 @@ In case of multiple mails, additional entries can be added.
 ### find ac-sources (ds-auto-complete.el) for c++ completion
 
 
-``` echo "" | g++ -v -x c++ -E - ```
+`` echo "" | g++ -v -x c++ -E - ``

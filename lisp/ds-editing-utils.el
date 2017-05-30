@@ -167,18 +167,4 @@
                 minibuffer-setup-hook))
   (add-hook hook 'ds/no-trailing-whitespace))
 
-;; predictive mode
-;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive")
-;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive/latex")
-;; (add-to-list 'load-path "~/.emacs.d/lisp/predictive/texinfo"XS)
-;; (require 'predictive)
-;; (autoload 'predictive-mode "~/.emacs.d/lisp/predictive/predictive"
-;;                "Turn on Predictive Completion Mode." t)
-;; (set-default 'predictive-auto-add-to-dict t)
-;; (setq predictive-main-dict 'rpg-dictionary
-;;       predictive-auto-learn t
-;;       predictive-add-to-dict-ask nil
-;;       predictive-use-auto-learn-cache nil
-;;       predictive-which-dict t)
-
 (provide 'ds-editing-utils)
