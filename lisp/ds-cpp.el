@@ -7,7 +7,7 @@
 (require-package 'irony)
 (require-package 'company-irony)
 (require-package 'company-irony-c-headers)
-(require 'company-rtags)
+(require-package 'company-rtags)
 (require 'rtags)
 (require 'cl)
 
@@ -104,7 +104,7 @@
 
 
 ;; setup flycheck-rtags
-(require 'flycheck-rtags)
+(require-package 'flycheck-rtags)
 (defun ds/flycheck-rtags-setup ()
   (flycheck-select-checker 'rtags)
   ;; RTags creates more accurate overlays.
