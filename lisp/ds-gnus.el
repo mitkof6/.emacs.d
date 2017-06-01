@@ -15,22 +15,25 @@
         (not gnus-thread-sort-by-number)))
 
 ;; use cache and store into concrete folders
-(setq gnus-use-cache t)
-(setq gnus-directory "~/.emacs.d/gnus/")
-(setq nnfolder-directory "~/.emacs.d/gnus/mail/")
-(setq gnus-article-save-directory "~/.emacs.d/gnus/article/")
-(setq gnus-cache-directory "~/.emacs.d/gnus/cache/")
-(setq gnus-kill-files-directory "~/.emacs.d/gnus/kill-files/")
-(setq gnus-default-directory "~/.emacs.d/gnus/")
-(setq nnml-directory "~/.emacs.d/gnus/nnml/")
-(setq smtpmail-queue-dir "~/.emacs.d/gnus/mail/")
+(setq gnus-use-cache t
+      gnus-directory "~/.emacs.d/gnus/"
+      nnfolder-directory "~/.emacs.d/gnus/mail/"
+      gnus-article-save-directory "~/.emacs.d/gnus/article/"
+      gnus-cache-directory "~/.emacs.d/gnus/cache/"
+      gnus-kill-files-directory "~/.emacs.d/gnus/kill-files/"
+      gnus-default-directory "~/.emacs.d/gnus/"
+      nnml-directory "~/.emacs.d/gnus/nnml/"
+      smtpmail-queue-dir "~/.emacs.d/gnus/mail/")
 
 ;; BBDB: Address list
-(require-package 'bbdb)
-(bbdb-initialize 'message 'gnus 'sendmail)
-(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-(setq bbdb/mail-auto-create-p t
-      bbdb/news-auto-create-p t)
+(use-package bbdb
+             :ensure t
+             :defer t
+             :config
+             (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+             (bbdb-initialize 'message 'gnus 'sendmail)
+             (setq bbdb/mail-auto-create-p t
+                   bbdb/news-auto-create-p t))
 
 ;; auto-complete emacs address using bbdb UI
 (add-hook 'message-mode-hook
@@ -77,9 +80,9 @@
 
 ;; message fill column
 (defun ds/message-mode-setup ()
-       (setq fill-column 80)
-       (turn-on-auto-fill))
-     (add-hook 'message-mode-hook 'ds/message-mode-setup)
+  (setq fill-column 80)
+  (turn-on-auto-fill))
+(add-hook 'message-mode-hook 'ds/message-mode-setup)
 
 ;;------------------------------------------------------------------------------
 ;; RSS

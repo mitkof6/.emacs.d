@@ -1,6 +1,6 @@
-(require-package 'markdown-mode)
-
-(setq auto-mode-alist
-      (cons '("\\.\\(md\\|markdown\\)\\'" . markdown-mode) auto-mode-alist))
+(use-package markdown-mode
+  :mode "\\.\\(md\\|markdown\\)\\'"
+  :ensure t
+  :defer t)
 
 (provide 'ds-markdown)

@@ -1,36 +1,34 @@
-;;------------------------------------------------------------------------------
-;; eclim
-;;------------------------------------------------------------------------------
+(use-package eclim
+	     :ensure t
+	     :defer t
+	     :config
+	     (global-eclim-mode)
 
-(require-package 'eclim)
-(global-eclim-mode)
+	     ;; control eclimd from emacs
+	     (require 'eclimd)
+	     (setq eclimd-executable "/usr/lib/eclipse/eclimd"
+		   eclimd-default-workspace "~/dev/eclipse"
+		   eclimd-wait-for-process nil
+		   ;; displaying compilation error messages in the echo area
+		   help-at-pt-display-when-idle t
+		   help-at-pt-timer-delay 0.1)
+	     (help-at-pt-set-timer)
 
-;; control eclimd from emacs
-(require 'eclimd)
-(setq eclimd-executable "/usr/lib/eclipse/eclimd")
-(setq eclimd-default-workspace "~/dev/eclipse")
-(setq eclimd-wait-for-process nil)
+	     ;; ;; configuring auto-complete-mode
+	     ;; ;; regular auto-complete initialization
+	     ;; (require 'auto-complete-config)
+	     ;; (ac-config-default)
 
-;; displaying compilation error messages in the echo area
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
+	     ;; add the emacs-eclim source
+	     (require-package 'ac-emacs-eclim)
+	     ;; (require 'ac-emacs-eclim-source)
+	     (ac-emacs-eclim-config)
 
-;; configuring auto-complete-mode
-;; regular auto-complete initialization
-(require 'auto-complete-config)
-(ac-config-default)
-
-;; add the emacs-eclim source
-(require-package 'ac-emacs-eclim)
-;; (require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
-
-;; configuring company-mode
-(require-package 'company)
-(require-package 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-(global-company-mode t)
+	     ;; configuring company-mode
+	     (require-package 'company)
+	     (require-package 'company-emacs-eclim)
+	     (company-emacs-eclim-setup)
+	     (global-company-mode))
 
 ;;------------------------------------------------------------------------------
 ;; unused
@@ -41,8 +39,8 @@
 ;; (add-hook 'java-mode-hook '(lambda() (gradle-mode 1)))
 
 ;; (defun ds/java-build-and-run ()
-;;	(interactive)
-;;	(gradle-run "build run"))
+;; (interactive)
+;; (gradle-run "build run"))
 
 
 ;; ;; Add development sources of emacs-eclim to the load path
@@ -102,10 +100,10 @@
 
 ;; (defun ds/default-code-style-hook()
 ;;   (setq c-basic-offset 2
-;;	c-label-offset 0
-;;	indent-tabs-mode nil
-;;	compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
-;;	require-final-newline nil))
+;; c-label-offset 0
+;; indent-tabs-mode nil
+;; compile-command "cd ~/src/drifting/jms && mvn -q -o -DskipTests package"
+;; require-final-newline nil))
 ;; (add-hook 'java-mode-hook 'ds/default-code-style-hook)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,8 +115,8 @@
 ;; ;; On the fly checkstyle & pmd checking
 ;; (defun my-flymake-init ()
 ;;   (list "my-java-flymake-checks"
-;;	(list (flymake-init-create-temp-buffer-copy
-;;	       'flymake-create-temp-with-folder-structure))))
+;; (list (flymake-init-create-temp-buffer-copy
+;;        'flymake-create-temp-with-folder-structure))))
 ;; ;; (add-to-list 'flymake-allowed-file-name-masks
 ;; ;;             '("\\.java$" my-flymake-init flymake-simple-cleanup))
 
@@ -174,8 +172,8 @@
 ;;   (if (= 1 (length (window-list)))
 ;;       (jump-to-register '_)
 ;;       (progn
-;;	(window-configuration-to-register '_)
-;;	(delete-other-windows))))
+;; (window-configuration-to-register '_)
+;; (delete-other-windows))))
 
 ;; ;; TODO: get this into emacs-eclim
 ;; (add-to-list 'eclim--file-coding-system-mapping '("iso-latin-1-unix" . "iso-8859-1"))

@@ -7,18 +7,17 @@
 ;;   (setq-default ispell-program-name "hunspell")
 ;;   (setq ispell-really-hunspell t)
 ;;   (require 'init-flyspell))
+
 (when (executable-find "aspell")
   (setq-default ispell-program-name "aspell")
-  (setq ispell-really-aspell t)
-  (setq ispell-really-aspell t)
-  (setq ispell-extra-args '("--sug-mode=fast"))
-  (setq ispell-extra-args '("--sug-mode=ultra"))
-  (setq ispell-really-aspell t)
-  (setq ispell-personal-dictionary "~/.emacs.d/personal-dict")
-  (setq flyspell-issue-message-flag nil)
-  (setq flyspell-issue-welcome-flag nil)
-  (setq ispell-parser 'tex)
-;;  (flyspell-mode 0)
+  (setq ispell-really-aspell t
+	ispell-extra-args '("--sug-mode=fast")
+	ispell-personal-dictionary "~/.emacs.d/personal-dict"
+	flyspell-issue-message-flag nil
+	flyspell-issue-welcome-flag nil
+	ispell-parser 'tex
+	)
+ ;;  (flyspell-mode 0)
   )
 
 (if (fboundp 'prog-mode)

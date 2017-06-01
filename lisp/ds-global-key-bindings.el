@@ -6,7 +6,7 @@
 (global-set-key (kbd "C-c u e") 'eshell)
 
 ;; find and open file
-(global-set-key (kbd "C-c b f") 'ffap)
+(global-set-key (kbd "C-c b o") 'ffap)
 
 ;; expand-region
 (require-package 'expand-region)
@@ -177,7 +177,21 @@
 (global-set-key (kbd "C-c b t") 'flop-frame)
 
 ;; frames can be recorded by 'window-configuration-to-register (C-x r w)
+;; mouse point can be registered by C-x r C-space
 ;; frames that are registered can be recovered by (C-x r j 'char')
+
+;; move windows to buffers
+(global-set-key (kbd "C-c b p") 'windmove-up)
+(global-set-key (kbd "C-c b n") 'windmove-down)
+(global-set-key (kbd "C-c b b") 'windmove-left)
+(global-set-key (kbd "C-c b f") 'windmove-right)
+
+;; move windows
+(require-package 'buffer-move)
+(global-set-key (kbd "C-c b p") 'buf-move-up)
+(global-set-key (kbd "C-c b N") 'buf-move-down)
+(global-set-key (kbd "C-c b B") 'buf-move-left)
+(global-set-key (kbd "C-c b F") 'buf-move-right)
 
 ;;------------------------------------------------------------------------------
 ;; w3m binding (see ds-w3m.el)

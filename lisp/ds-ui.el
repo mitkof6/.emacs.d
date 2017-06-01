@@ -8,23 +8,24 @@
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
 
-;; disable the annoying bell ring
-(setq ring-bell-function 'ignore)
-
-;; disable startup screen
-(setq inhibit-startup-screen t)
-
-;; nice scrolling
-(setq scroll-margin 0
-      scroll-conservatively 100000
-      scroll-preserve-screen-position 1)
+(setq
+ ;; disable the annoying bell ring
+ ring-bell-function 'ignore
+ ;; disable startup screen
+ inhibit-startup-screen t
+ ;; nice scrolling
+ scroll-margin 0
+ scroll-conservatively 100000
+ scroll-preserve-screen-position 1)
 
 ;; mode line settings
-(require-package 'hlinum)
-;; (hlinum-activate)
-;; (global-linum-mode t)
-(column-number-mode t)
-(size-indication-mode t)
+(use-package hlinum
+  :ensure t
+  :config
+  ;; (hlinum-activate)
+  ;; (global-linum-mode t)
+  (column-number-mode t)
+  (size-indication-mode t))
 
 ;; enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -35,24 +36,29 @@
       '("" invocation-name " DS - "
         (:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
-                   "%b"))))
+                 "%b"))))
 
 ;; recent
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-saved-items 100
-      recentf-exclude '("/tmp/" "/ssh:"))
-(setq recentf-max-menu-item 100)
+(use-package recentf
+  :ensure t
+  :config
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 100
+        recentf-exclude '("/tmp/" "/ssh:")
+        recentf-max-menu-item 100))
 
 ;; smart mode line
-(require-package 'smart-mode-line)
-(setq sml/no-confirm-load-theme t)
-;; delegate theming to the currently active theme
-;; (setq sml/theme nil)
-(setq sml/theme 'dark)
-;; (setq sml/theme 'light)
-;; (setq sml/theme 'respectful)
-(add-hook 'after-init-hook #'sml/setup)
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (setq sml/no-confirm-load-theme t
+        ;; delegate theming to the currently active theme
+        ;;  sml/theme nil
+        sml/theme 'dark
+        ;;  sml/theme 'light
+        ;;  sml/theme 'respectful
+        )
+  (add-hook 'after-init-hook #'sml/setup))
 
 ;; show the cursor when moving after big movements in the window
 (require-package 'beacon)
@@ -66,7 +72,7 @@
 (require-package 'help-fns+)
 
 ;;------------------------------------------------------------------------------
-;; theme
+;; themes
 ;; -----------------------------------------------------------------------------
 
 ;; moe-theme
@@ -97,9 +103,9 @@
 ;; function that changes to next theme
 (require 'cl)
 (lexical-let ((themes '(moe-light moe-dark)))
-             (rplacd (last themes) themes)
-             (defun ds/change-to-next-theme ()
-               (interactive)
-               (load-theme (pop themes) t)))
+  (rplacd (last themes) themes)
+  (defun ds/change-to-next-theme ()
+    (interactive)
+    (load-theme (pop themes) t)))
 
 (provide 'ds-ui)

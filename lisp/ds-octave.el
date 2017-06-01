@@ -3,16 +3,16 @@
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
-(setq-default octave-auto-indent t)
-(setq-default octave-auto-newline t)
-(setq-default octave-blink-matching-block t)
-(setq-default octave-block-offset 4)
-(setq-default octave-continuation-offset 4)
-(setq-default octave-continuation-string "\\")
-(setq-default octave-mode-startup-message t)
-(setq-default octave-send-echo-input t)
-(setq-default octave-send-line-auto-forward t)
-(setq-default octave-send-show-buffer t)
+(setq-default octave-auto-indent t
+	      octave-auto-newline t
+	      octave-blink-matching-block t
+	      octave-block-offset 4
+	      octave-continuation-offset 4
+	      octave-continuation-string "\\"
+	      octave-mode-startup-message t
+	      octave-send-echo-input t
+	      octave-send-line-auto-forward t
+	      octave-send-show-buffer t)
 
 (defun ds/octave-mode-hook ()
   (abbrev-mode 1)

@@ -25,6 +25,12 @@
 (require 'ds-elpa)      ;; Machinery for installing required packages
 (require 'ds-exec-path) ;; Set up $PATH
 
+;; use-packag
+(eval-when-compile
+  (require-package 'use-package))
+(require-package 'diminish) 
+(require-package 'bind-key) 
+
 ;;------------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;------------------------------------------------------------------------------
