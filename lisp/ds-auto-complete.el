@@ -5,7 +5,8 @@
 
 (use-package auto-complete
              :ensure t
-             :defer t
+             ;;:defer t
+	     :after yasnippet
              :config
              (require 'auto-complete-config)
              (global-auto-complete-mode t)
@@ -36,12 +37,12 @@
 
 (use-package popup
 	     :ensure t
-	     :defer t
+	     ;;:defer t
 	     :after auto-complete)
 
 (use-package fuzzy
              :ensure t
-             :defer t
+             ;;:defer t
              :after auto-complete
              :config
              ;; use fuzzy matching. needs manually triggering.
@@ -50,7 +51,7 @@
 ;; use pos-tip instead of popup
 (use-package pos-tip
              :ensure t
-             :defer t
+             ;;:defer t
              :after auto-complete
              :config
              (setq ac-quick-help-prefer-pos-tip t))
@@ -63,7 +64,7 @@
 ;; add ac-sources for latex mode
 (use-package ac-math
              :ensure t
-             :defer t
+             ;;:defer t
              :after auto-complete
              :config
              (add-to-list 'ac-modes 'latex-mode)

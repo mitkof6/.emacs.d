@@ -2,10 +2,10 @@
 ;; Package: yasnippet
 ;;------------------------------------------------------------------------------
 (use-package yasnippet
-	     :defer t
+	     ;; :defer t
 	     :ensure t
 	     :config
-	     ;;(yas-reload-all)
+	     (yas-reload-all)
 	     (yas-global-mode))
 
 ;; make Ctrl-c k the only trigger key for yas

@@ -15,9 +15,11 @@
 
 ;; setup rtags
 (setq rtags-completions-enabled t
-      rtags-autostart-diagnostics t)
+      rtags-autostart-diagnostics t
+      rtags-display-result-backend 'ivy)
 (rtags-diagnostics)
 (rtags-enable-standard-keybindings)
+
 
 ;; irony-mode hook that is called when irony is triggered
 (add-hook 'c++-mode-hook 'irony-mode)
@@ -110,9 +112,9 @@
   ;; RTags creates more accurate overlays.
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
-;; c-mode-common-hook is also called by c++-mode
-(add-hook 'c-mode-common-hook #'ds/flycheck-rtags-setup)
-
+(add-hook 'c-mode-hook 'ds/flycheck-rtags-setup)
+(add-hook 'c++-mode-hook 'ds/flycheck-rtags-setup)
+(add-hook 'objc-mode-hook 'ds/flycheck-rtags-setup)
 
 ;;------------------------------------------------------------------------------
 ;; eldoc-mode

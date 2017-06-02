@@ -40,7 +40,7 @@
 (require 'ds-flycheck)
 (require 'ds-flyspell)
 (require 'ds-yasnippet)
-(require 'ds-auto-complete) ;; always after yasnippet
+;; (require 'ds-auto-complete) ;; always after yasnippet
 (require 'ds-windows)
 (require 'ds-editing-utils)
 (require 'ds-w3m)

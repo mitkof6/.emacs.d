@@ -1,6 +1,6 @@
 (use-package flycheck
              :ensure t
-             :defer t
+             ;;:defer t
              :config
              ;; Force flycheck to always use c++11 support. We use
              ;; the clang language backend so this is set to clang
