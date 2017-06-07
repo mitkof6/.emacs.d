@@ -31,6 +31,9 @@
 (require-package 'diminish) 
 (require-package 'bind-key) 
 
+;; emacs client
+(server-start)
+
 ;;------------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;------------------------------------------------------------------------------
@@ -43,6 +46,7 @@
 ;; (require 'ds-auto-complete) ;; always after yasnippet
 (require 'ds-windows)
 (require 'ds-editing-utils)
+(require 'ds-folding)
 (require 'ds-w3m)
 (require 'ds-gnus)
 (require 'ds-cpp)
