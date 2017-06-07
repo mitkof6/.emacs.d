@@ -12,6 +12,7 @@ anaconda-mode/
 bookmarks
 request/
 gnus/
+url/
 
 # ignore auto-generated file
 srecode-map.el

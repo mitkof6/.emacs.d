@@ -1,7 +1,7 @@
 (use-package auctex
   :mode "\\.tex$"
   :ensure t
-  :defer t
+  ;;:defer t
   :config
   (require 'tex)
 

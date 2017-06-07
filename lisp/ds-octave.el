@@ -21,11 +21,6 @@
       (font-lock-mode 1)))
 (add-hook 'octave-mode-hook 'ds/octave-mode-hook)
 
-(require-package 'ac-octave)
-(defun ds/ac-octave-mode-setup ()
-  (setq ac-sources '(ac-source-octave)))
-(add-hook 'octave-mode-hook 'ds/ac-octave-mode-setup)
-
 ;; configure up/down keys for octave inferior mode
 (add-hook 'inferior-octave-mode-hook
 	  (lambda ()

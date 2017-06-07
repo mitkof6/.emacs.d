@@ -2,12 +2,11 @@
 
 Features
 
-- C++ IDE (irony, company, auto-complete, rtags, cmake-ide, semantics
-  (optional))
-- python: elpy, ein (jupiter notebook), jedi
+- C++ IDE (irony, company, rtags, cmake-ide (optional))
+- python: elpy, ein (jupiter notebook)
 - java: eclim
 - lisp: cl, racket, scheme
-- latex: auctex, latex-pane-mode (disabled by default)
+- latex: auctex, latex-pane-mode (disabled by default use pdf-tools)
 - pdf-tools
 - octave support
 - spell checking: en, gr
