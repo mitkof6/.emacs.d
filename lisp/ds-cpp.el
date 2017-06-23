@@ -100,21 +100,24 @@
 ;; flycheck-irony
 ;;------------------------------------------------------------------------------
 
-(require-package 'flycheck-irony)
-(eval-after-load 'flycheck
-                 '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; for some reason flycheck-irony have problems with .dir-locals.el and
+;; ignores them
+
+;; (require-package 'flycheck-irony)
+;; (eval-after-load 'flycheck
+;;                  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 
-;; setup flycheck-rtags
-(require-package 'flycheck-rtags)
-(defun ds/flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
-  ;; RTags creates more accurate overlays.
-  (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil))
-(add-hook 'c-mode-hook 'ds/flycheck-rtags-setup)
-(add-hook 'c++-mode-hook 'ds/flycheck-rtags-setup)
-(add-hook 'objc-mode-hook 'ds/flycheck-rtags-setup)
+;; ;; setup flycheck-rtags
+;; (require-package 'flycheck-rtags)
+;; (defun ds/flycheck-rtags-setup ()
+;;   (flycheck-select-checker 'rtags)
+;;   ;; RTags creates more accurate overlays.
+;;   (setq-local flycheck-highlighting-mode nil)
+;;   (setq-local flycheck-check-syntax-automatically nil))
+;; (add-hook 'c-mode-hook 'ds/flycheck-rtags-setup)
+;; (add-hook 'c++-mode-hook 'ds/flycheck-rtags-setup)
+;; (add-hook 'objc-mode-hook 'ds/flycheck-rtags-setup)
 
 ;;------------------------------------------------------------------------------
 ;; eldoc-mode
@@ -187,11 +190,13 @@
 ;; (global-set-key [f9] 'ds/compile)
 (define-key c++-mode-map (kbd "C-c C-c") #'ds/compile)
 
+;; useful but when you jump to error it splits vertically,
+;; thus I disable this feature
 ;; when the compile window shows always split vertically
-(defadvice compile (around split-horizontally activate)
-  (let ((split-width-threshold nil)
-        (split-height-threshold 0))
-    ad-do-it))
+;; (defadvice compile (around split-horizontally activate)
+;;   (let ((split-width-threshold nil)
+;;         (split-height-threshold 0))
+;;     ad-do-it))
 
 (setq compilation-ask-about-save nil  ; Just save before compiling
       compilation-always-kill t       ; Just kill old compile processes before

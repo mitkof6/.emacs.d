@@ -41,9 +41,10 @@
   :ensure t
   :config
   (require 'smartparens-config)
-  (setq sp-base-key-bindings 'paredit)
-  (setq sp-autoskip-closing-pair 'always)
-  (setq sp-hybrid-kill-entire-symbol nil)
+  (setq sp-base-key-bindings 'paredit
+        sp-autoskip-closing-pair 'always
+        sp-hybrid-kill-entire-symbol nil)
+  (smartparens-global-strict-mode)
   (sp-use-paredit-bindings)
   (show-smartparens-global-mode +1)
   :diminish smartparens-mode)
