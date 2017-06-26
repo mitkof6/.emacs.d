@@ -6,6 +6,9 @@
   ;; turn flyspell on
   (add-hook 'org-mode-hook 'turn-on-flyspell)
 
+  ;; the alist may not work
+  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
   ;; defines todo sequence (global)
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))

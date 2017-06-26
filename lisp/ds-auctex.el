@@ -33,7 +33,7 @@
       TeX-PDF-mode t
       )
 
-;; (setq-default TeX-master nil)
+(setq-default TeX-master nil)
 
 ;; sensible defaults for OS X, other OSes should be covered out-of-the-box
 (when (eq system-type 'darwin)

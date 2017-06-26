@@ -75,10 +75,24 @@
 ;; themes
 ;; -----------------------------------------------------------------------------
 
+;; zenburn-theme
+(require-package 'zenburn-theme)
+(require 'zenburn-theme)
+
 ;; moe-theme
 (require-package 'moe-theme)
 (require 'moe-theme)
 (load-theme 'moe-dark t)
+
+;; powerline
+(require-package 'powerline)
+(require-package 'smart-mode-line-powerline-theme)
+;; (powerline-default-theme)
+(powerline-moe-theme)
+;; (powerline-center-evil-theme)
+;; (powerline-center-theme)
+;; (powerline-vim-theme)
+;; (powerline-nano-theme)
 
 ;; afternoon-theme
 ;; (require-package 'afternoon-theme)
@@ -91,18 +105,9 @@
 ;; (set-frame-parameter nil 'background-mode 'light)
 ;; (set-frame-parameter nil 'background-mode 'dark)
 
-(require-package 'powerline)
-(require-package 'smart-mode-line-powerline-theme)
-;; (powerline-default-theme)
-(powerline-moe-theme)
-;; (powerline-center-evil-theme)
-;; (powerline-center-theme)
-;; (powerline-vim-theme)
-;; (powerline-nano-theme)
-
 ;; function that changes to next theme
 (require 'cl)
-(lexical-let ((themes '(moe-light moe-dark)))
+(lexical-let ((themes '(moe-light moe-dark zenburn)))
   (rplacd (last themes) themes)
   (defun ds/change-to-next-theme ()
     (interactive)
