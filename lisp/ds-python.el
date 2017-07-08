@@ -1,6 +1,6 @@
 (use-package elpy
   :ensure t
-  :defer t
+  ;;:defer t
   :config
   (require-package 'py-autopep8)
   (package-initialize)
@@ -16,7 +16,7 @@
   (add-hook 'python-mode-hook 'elpy-mode)
   (with-eval-after-load 'elpy
     (remove-hook 'elpy-modules 'elpy-module-flymake)
-    (add-hook 'elpy-mode-hook 'flycheck-mode)
+    ;; (add-hook 'elpy-mode-hook 'flycheck-mode) ;; too slow
     (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)))
 
 

@@ -33,8 +33,8 @@
 ;; add completion
 (add-hook 'octave-mode-hook
 	  '(lambda nil
-	    (define-key octave-mode-map [(tab)]
-	     'octave-complete-symbol)))
+	     (define-key octave-mode-map [(tab)]
+	       'octave-complete-symbol)))
 
 ;; run an inferior Octave process in a special Emacs buffer
 (autoload 'run-octave "octave-inf" nil t)
@@ -42,8 +42,8 @@
 ;; if you have the win32 version of octave
 (add-hook 'inferior-octave-mode-hook
 	  '(lambda ()
-	    (setq inferior-octave-program
-	     "/usr/bin/octave")))
+	     (setq inferior-octave-program
+		   "/usr/bin/octave")))
 
 ;; If `gnuserv' is installed, add the lines
 (autoload 'octave-help "octave-hlp" nil t)

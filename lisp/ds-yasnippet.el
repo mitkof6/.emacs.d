@@ -2,11 +2,11 @@
 ;; Package: yasnippet
 ;;------------------------------------------------------------------------------
 (use-package yasnippet
-	     ;; :defer t
-	     :ensure t
-	     :config
-	     (yas-reload-all)
-	     (yas-global-mode))
+  ;; :defer t
+  :ensure t
+  :config
+  (yas-reload-all)
+  (yas-global-mode))
 
 ;; make Ctrl-c k the only trigger key for yas
 ;; (define-key yas-minor-mode-map (kbd "<tab>") nil)

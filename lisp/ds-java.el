@@ -1,34 +1,34 @@
 (use-package eclim
-	     :ensure t
-	     :defer t
-	     :config
-	     (global-eclim-mode)
+  :ensure t
+  ;;:defer t
+  :config
+  (global-eclim-mode)
 
-	     ;; control eclimd from emacs
-	     (require 'eclimd)
-	     (setq eclimd-executable "/usr/lib/eclipse/eclimd"
-		   eclimd-default-workspace "~/dev/eclipse"
-		   eclimd-wait-for-process nil
-		   ;; displaying compilation error messages in the echo area
-		   help-at-pt-display-when-idle t
-		   help-at-pt-timer-delay 0.1)
-	     (help-at-pt-set-timer)
+  ;; control eclimd from emacs
+  (require 'eclimd)
+  (setq eclimd-executable "/usr/lib/eclipse/eclimd"
+	eclimd-default-workspace "~/dev/eclipse"
+	eclimd-wait-for-process nil
+	;; displaying compilation error messages in the echo area
+	help-at-pt-display-when-idle t
+	help-at-pt-timer-delay 0.1)
+  (help-at-pt-set-timer)
 
-	     ;; ;; configuring auto-complete-mode
-	     ;; ;; regular auto-complete initialization
-	     ;; (require 'auto-complete-config)
-	     ;; (ac-config-default)
+  ;; ;; configuring auto-complete-mode
+  ;; ;; regular auto-complete initialization
+  ;; (require 'auto-complete-config)
+  ;; (ac-config-default)
 
-	     ;; add the emacs-eclim source
-	     (require-package 'ac-emacs-eclim)
-	     ;; (require 'ac-emacs-eclim-source)
-	     (ac-emacs-eclim-config)
+  ;; add the emacs-eclim source
+  (require-package 'ac-emacs-eclim)
+  ;; (require 'ac-emacs-eclim-source)
+  (ac-emacs-eclim-config)
 
-	     ;; configuring company-mode
-	     (require-package 'company)
-	     (require-package 'company-emacs-eclim)
-	     (company-emacs-eclim-setup)
-	     (global-company-mode))
+  ;; configuring company-mode
+  (require-package 'company)
+  (require-package 'company-emacs-eclim)
+  (company-emacs-eclim-setup)
+  (global-company-mode))
 
 ;;------------------------------------------------------------------------------
 ;; unused
