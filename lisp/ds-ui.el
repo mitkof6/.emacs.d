@@ -85,6 +85,7 @@
 (load-theme 'moe-dark t)
 
 ;; powerline
+(require-package 'powerline-evil)
 (require-package 'powerline)
 (require-package 'smart-mode-line-powerline-theme)
 ;; (powerline-default-theme)
