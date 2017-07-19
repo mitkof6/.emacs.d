@@ -38,6 +38,7 @@ Features
 
 [elpy](https://github.com/jorgenschaefer/elpy)
 
+``elpy-config``
 
 [ein](https://github.com/millejoh/emacs-ipython-notebook)
 

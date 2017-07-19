@@ -9,9 +9,9 @@
 
   ;; this should be set in due to ipython v5
   ;; https://github.com/jorgenschaefer/elpy/issues/949
-  (setq python-shell-interpreter "ipython2"
-	python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
-	elpy-rpc-python-command "python2")
+  (setq python-shell-interpreter "ipython3"
+	python-shell-interpreter-args "--pprint --matplotlib"
+	elpy-rpc-python-command "python3")
 
   (add-hook 'python-mode-hook 'elpy-mode)
   (with-eval-after-load 'elpy
@@ -30,12 +30,5 @@
    ein:use-auto-complete-superpack t
    ein:output-type-preference '(emacs-lisp svg png jpeg html text latex javascript))
   )
-
-
-;; ;; jedi
-;; (require-package 'jedi)
-;; (require-package 'company-jedi)
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)                 ; optional
 
 (provide 'ds-python)
