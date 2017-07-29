@@ -1,7 +1,7 @@
 (use-package org
   :mode "\\.org$"
   :ensure t
-  :defer t
+  ;; :defer t
   :config
   ;; turn flyspell on
   (add-hook 'org-mode-hook 'turn-on-flyspell)

@@ -9,9 +9,9 @@
 
   ;; this should be set in due to ipython v5
   ;; https://github.com/jorgenschaefer/elpy/issues/949
-  (setq python-shell-interpreter "ipython3"
+  (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
-	elpy-rpc-python-command "python3")
+	elpy-rpc-python-command "python")
 
   (add-hook 'python-mode-hook 'elpy-mode)
   (with-eval-after-load 'elpy

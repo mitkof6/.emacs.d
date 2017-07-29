@@ -35,7 +35,7 @@
   (add-hook 'geiser-repl-mode-hook 'lisp-mode-paredit-hook)
   (add-hook 'slime-repl-mode-hook 'lisp-mode-paredit-hook)
   (add-hook 'scheme-mode-hook 'lisp-mode-paredit-hook)
-  (setq scheme-program-name "racket"
+  (setq scheme-program-name "scheme" ;; "racket"
         geiser-scheme-implementation 'chicken
         geiser-debug-show-debug-p nil
         geiser-debug-jump-to-debug-p nil)
