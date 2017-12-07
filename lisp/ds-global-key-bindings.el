@@ -12,6 +12,9 @@
 (require-package 'expand-region)
 (global-set-key (kbd "C-c u r") 'er/expand-region)
 
+;; company complete
+;; (global-set-key (kbd "M-<return>") 'company-complete) 
+
 ;; copy/cut whole line without selecting (better than whole-line-or-region-mode)
 (defun ds/string-chomp (str)
   "Chomp leading and tailing whitespace from str."

@@ -56,8 +56,13 @@
                                        )))
 
 
-;; Zero delay when pressing tab
-(setq company-idle-delay 0)
+(setq company-idle-delay nil
+      company-minimum-prefix-length 2
+      company-show-numbers t
+      company-tooltip-limit 20
+      company-dabbrev-downcase nil
+
+)
 
 ;; Windows performance tweaks
 (when (boundp 'w32-pipe-read-delay)
@@ -83,12 +88,12 @@
   (interactive)
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
-         ;;(message "complete")
-         (company-irony)                ; better completion
-         ;;(company-complete-common)
+         ;; (message "complete")
+         ;; (company-irony)                ; better completion
+         (company-complete-common)
          )
         (t
-         ;;(message "indent")
+         ;; (message "indent")
          (call-interactively 'c-indent-line-or-region))))
 
 (defun ds/irony-mode-keys ()
