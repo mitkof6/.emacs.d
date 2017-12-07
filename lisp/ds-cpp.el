@@ -53,7 +53,7 @@
                                        ;; company-yasnippet
                                        ;; company-clang
                                        ;; company-rtags
-				       )))
+                                       )))
 
 
 ;; Zero delay when pressing tab
@@ -84,9 +84,9 @@
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
          ;;(message "complete")
-	 (company-irony)		; better completion
-	 ;;(company-complete-common)
-	 )
+         (company-irony)                ; better completion
+         ;;(company-complete-common)
+         )
         (t
          ;;(message "indent")
          (call-interactively 'c-indent-line-or-region))))
@@ -202,5 +202,6 @@
       compilation-always-kill t       ; Just kill old compile processes before
       compilation-scroll-output 'first-error ; Automatically scroll to first
       )
+
 
 (provide 'ds-cpp)
