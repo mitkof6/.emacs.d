@@ -8,36 +8,28 @@
 	ispell-parser 'tex
 	))
 
-;; don't need flyspell to start by default
-;; (if (fboundp 'prog-mode)
-;;     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-;;     (dolist (hook '(lisp-mode-hook
-;;                     emacs-lisp-mode-hook
-;;                     scheme-mode-hook
-;;                     clojure-mode-hook
-;;                     ruby-mode-hook
-;;                     yaml-mode
-;;                     python-mode-hook
-;;                     shell-mode-hook
-;;                     php-mode-hook
-;;                     css-mode-hook
-;;                     haskell-mode-hook
-;;                     caml-mode-hook
-;;                     nxml-mode-hook
-;;                     crontab-mode-hook
-;;                     perl-mode-hook
-;;                     tcl-mode-hook
-;;                     javascript-mode-hook
-;;                     ))
-;;       (add-hook hook 'flyspell-prog-mode)))
+;; enable flyspell-mode
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 
-;; (after-load 'flyspell
-;;             (add-to-list 'flyspell-prog-text-faces 'nxml-text-face))
+;; add flyspell-prog-mode
+(dolist (mode '(emacs-lisp-mode-hook
+		inferior-lisp-mode-hook
+		clojure-mode-hook
+		python-mode-hook
+		js-mode-hook
+		R-mode-hook
+		c++-mode-hook
+		c-mode-hook
+		java-mode-hook))
+  (add-hook mode
+	    '(lambda ()
+	       (flyspell-prog-mode))))
 
-;; ;; org-mode
-;; (add-to-list 'ispell-skip-region-alist
-;;              '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
-;; (add-to-list 'ispell-skip-region-alist
-;;              '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+;; mouse-3 will be used for correcting words
+(eval-after-load "flyspell"
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
 
 (provide 'ds-flyspell)
