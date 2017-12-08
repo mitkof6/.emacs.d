@@ -108,21 +108,21 @@
 ;; for some reason flycheck-irony have problems with .dir-locals.el and
 ;; ignores them
 
-;; (require-package 'flycheck-irony)
-;; (eval-after-load 'flycheck
-;;                  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+(require-package 'flycheck-irony)
+(eval-after-load 'flycheck
+                 '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 
-;; ;; setup flycheck-rtags
-;; (require-package 'flycheck-rtags)
-;; (defun ds/flycheck-rtags-setup ()
-;;   (flycheck-select-checker 'rtags)
-;;   ;; RTags creates more accurate overlays.
-;;   (setq-local flycheck-highlighting-mode nil)
-;;   (setq-local flycheck-check-syntax-automatically nil))
-;; (add-hook 'c-mode-hook 'ds/flycheck-rtags-setup)
-;; (add-hook 'c++-mode-hook 'ds/flycheck-rtags-setup)
-;; (add-hook 'objc-mode-hook 'ds/flycheck-rtags-setup)
+;; setup flycheck-rtags
+(require-package 'flycheck-rtags)
+(defun ds/flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  ;; RTags creates more accurate overlays.
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+(add-hook 'c-mode-hook 'ds/flycheck-rtags-setup)
+(add-hook 'c++-mode-hook 'ds/flycheck-rtags-setup)
+(add-hook 'objc-mode-hook 'ds/flycheck-rtags-setup)
 
 ;;------------------------------------------------------------------------------
 ;; eldoc-mode

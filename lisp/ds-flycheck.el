@@ -8,11 +8,11 @@
             (lambda ()
               (setq flycheck-clang-language-standard "c++11")))
   ;; Turn flycheck on everywhere
-  ;; (global-flycheck-mode)
+  (global-flycheck-mode)
 
   ;; flycheck-mode
-  ;; (add-hook 'c++-mode-hook 'flycheck-mode)
-  ;; (add-hook 'c-mode-hook 'flycheck-mode)
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  (add-hook 'c-mode-hook 'flycheck-mode)
 
   ;; C-c ! l displays flyckeck error list (customize window)
   (add-to-list 'display-buffer-alist
