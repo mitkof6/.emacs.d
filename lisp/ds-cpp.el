@@ -89,8 +89,8 @@
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
          ;; (message "complete")
-         ;; (company-irony)                ; better completion
-         (company-complete-common)
+         (company-irony 'interactive)	; better completion
+         ;; (company-complete-common)
          )
         (t
          ;; (message "indent")
