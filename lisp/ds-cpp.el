@@ -41,7 +41,7 @@
 ;; Using RTags completion is also faster than semantic, it seems. Semantic
 ;; also provides a bunch of technically irrelevant completions sometimes.
 ;; All in all, RTags just seems to do a better job.
-(setq company-backends (delete 'company-semantic company-backends))
+;; (setq company-backends (delete 'company-semantic company-backends))
 ;; Enable company-irony and several other useful auto-completion modes
 ;; We don't use rtags since we've found that for large projects this can cause
 ;; async timeouts. company-semantic (after company-clang!) works quite well
@@ -50,9 +50,9 @@
                  '(add-to-list
                    'company-backends '(;; company-irony-c-headers
                                        company-irony
-                                       ;; company-yasnippet
+                                       company-yasnippet
                                        ;; company-clang
-                                       ;; company-rtags
+                                       company-rtags
                                        )))
 
 
@@ -72,6 +72,13 @@
   (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
 ;;------------------------------------------------------------------------------
+;; company statistics (sorting of completion candidates by frequency)
+;;------------------------------------------------------------------------------
+
+(require-package 'company-statistics)
+(company-statistics-mode)
+
+;;------------------------------------------------------------------------------
 ;; bind TAB for indent-or-complete
 ;;------------------------------------------------------------------------------
 
@@ -89,8 +96,8 @@
   (cond ((and (not (use-region-p))
               (ds/irony-check-expansion))
          ;; (message "complete")
-         (company-irony 'interactive)	; better completion
-         ;; (company-complete-common)
+         ;; (company-irony 'interactive)	; better completion
+         (company-complete-common)
          )
         (t
          ;; (message "indent")
