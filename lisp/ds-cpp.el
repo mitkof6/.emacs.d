@@ -9,7 +9,8 @@
                    company-minimum-prefix-length 2
                    company-show-numbers t
                    company-tooltip-limit 20
-                   company-dabbrev-downcase nil))
+                   company-dabbrev-downcase nil)
+             :bind ("M-RET" . company-complete))
 
 ;; company statistics for sorting of completion candidates by frequency
 (use-package company-statistics
@@ -17,19 +18,25 @@
              :config
              (company-statistics-mode))
 
+;; include completion
+(use-package company-irony-c-headers
+             :ensure t
+             :after company
+             :config
+             (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
+
+(use-package company-irony
+                          :ensure t
+                          :config
+                          (add-to-list 'company-backends 'company-irony))
+;; irony
 (use-package irony
              :ensure t
              :config
-             (progn
-               (use-package company-irony
-                            :ensure t
-                            :config
-                            (add-to-list 'company-backends 'company-irony)
-                            :bind ("M-RET" . company-complete))
-               (add-hook 'c++-mode-hook 'irony-mode)
-               (add-hook 'c-mode-hook 'irony-mode)
-               (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-               (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
+             (add-hook 'c++-mode-hook 'irony-mode)
+             (add-hook 'c-mode-hook 'irony-mode)
+             (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+             (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
 ;; setup rtags
 (use-package rtags
@@ -65,11 +72,6 @@
              (with-eval-after-load 'irony
                (add-hook 'irony-mode-hook 'irony-eldoc)))
 
-(use-package function-args
-             :ensure t
-             :config
-             (fa-config-default))
-
 ;; setup cmake-ide (use-package is problematic must find why)
 ;; (use-package cmake-ide
 ;;              :ensure t
@@ -83,22 +85,14 @@
 (cmake-ide-setup)
 ;; set cmake-ide-flags-c++ to use C++11
 (setq cmake-ide-flags-c++ (append '("-std=c++11")))
+(global-set-key (kbd "C-c m") 'cmake-ide-compile)
+
+;; compilation
 (setq compilation-skip-threshold 2) ;; show only errors
 (setq compilation-auto-jump-to-first-error t)  ;; go to first error
-(global-set-key (kbd "C-c m") 'cmake-ide-compile)
 
 ;; make sure cmake-mode is installed for viewing CMake files
 (use-package cmake-mode
              :ensure t)
-
-;;------------------------------------------------------------------------------
-;; https://github.com/tuhdo/semantic-refactor
-;;------------------------------------------------------------------------------
-
-;; not working properly yet
-
-(require-package 'srefactor)
-
-(semantic-mode 1)
 
 (provide 'ds-cpp)

@@ -1,12 +1,15 @@
-# Emacs Configuration
+Emacs Configuration
+---
 
 Features
 
-- C++ IDE (irony, company, rtags, cmake-ide (optional))
+- C++ IDE (completion: company-irony, company-irony-c-headers, tags:
+  rtags, syntax analyzer: flycheck-irony, building: cmake-ide, docs:
+  irony-eldoc)
 - python: elpy, ein (jupiter notebook)
 - java: eclim
 - lisp: cl, racket, scheme
-- latex: auctex, latex-pane-mode (disabled by default use pdf-tools)
+- latex: auctex
 - pdf-tools
 - octave support
 - spell checking: en, gr
@@ -16,24 +19,25 @@ Features
 - markdown support
 - [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex, swiper
-- misc: whitespace cleanup/show, 80 column rule, save desktop
-- global bindings in seperate file
 
-## Installation
+Installation
+---
 
-### Build irony-server
+## C++
+
+Build irony server
 
 
 `` M-x irony-install-server ``
 
 
-### Build and install rtags
+Build rtags
 
 
 `` M-x rtags-instal ``
 
 
-### Python
+## Python
 
 
 [elpy](https://github.com/jorgenschaefer/elpy)
@@ -55,7 +59,7 @@ and set the c.NotebookApp.password password and port
 [jedi](http://tkf.github.io/emacs-jedi/latest/)
 
 
-### Java (through eclipse/eclim)
+## Java (through eclipse/eclim)
 
 
 `` packages: eclipse-java, eclim, eclim-git ``
@@ -67,19 +71,19 @@ and set the c.NotebookApp.password password and port
 [emacs-eclim](https://github.com/senny/emacs-eclim)
 
 
-### pdf-tools
+## pdf-tools
 
 
 ``` package: poppler, poppler-utils ```
 
 
-### w3m (web-browser)
+## w3m (web-browser)
 
 
 ``` package: w3m ```
 
 
-### setup gnus mail authentication
+## setup gnus mail authentication
 
 ~/.authinfo.gpg
 
@@ -88,8 +92,3 @@ machine imap.gmail.com login <USER> password <PASSWORD> port 993
 machine smtp.gmail.com login <USER> password <PASSWORD> port 587 ...
 
 In case of multiple mails, additional entries can be added.
-
-### find ac-sources (ds-auto-complete.el) for c++ completion
-
-
-`` echo "" | g++ -v -x c++ -E - ``
