@@ -221,23 +221,24 @@
 ;; magit binding
 ;;------------------------------------------------------------------------------
 
-(require-package 'magit)
-;; show word by word difference
-(setq magit-diff-refine-hunk 'all)
-
-(global-set-key (kbd "C-c g s") 'magit-status)
-(global-set-key (kbd "C-c g i") 'magit-init)
-(global-set-key (kbd "C-c g t") 'magit-stash)
-(global-set-key (kbd "C-c g l") 'magit-log)
-(global-set-key (kbd "C-c g c") 'magit-commit)
-(global-set-key (kbd "C-c g p") 'magit-push)
-(global-set-key (kbd "C-c g u") 'magit-pull)
-(global-set-key (kbd "C-c g d") 'magit-diff)
-(global-set-key (kbd "C-c g o") 'magit-checkout)
-(global-set-key (kbd "C-c g m") 'magit-merge)
-(global-set-key (kbd "C-c g a") 'magit-remote-add)
-(global-set-key (kbd "C-c g r") 'magit-remote-remove)
-(global-set-key (kbd "C-c g n") 'magit-clone)
+(use-package magit
+	     :ensure t
+	     :config
+	     ;; show word by word difference
+	     (setq magit-diff-refine-hunk 'all)
+	     :bind (("C-c g s" . magit-status)
+		    ("C-c g i" . magit-init)
+		    ("C-c g t" . magit-stash)
+		    ("C-c g l" . magit-log)
+		    ("C-c g c" . magit-commit)
+		    ("C-c g p" . magit-push)
+		    ("C-c g u" . magit-pull)
+		    ("C-c g d" . magit-diff)
+		    ("C-c g o" . magit-checkout)
+		    ("C-c g m" . magit-merge)
+		    ("C-c g a" . magit-remote-add)
+		    ("C-c g r" . magit-remote-remove)
+		    ("C-c g n" . magit-clone)))
 
 ;;------------------------------------------------------------------------------
 ;; hide-show

@@ -83,6 +83,8 @@
 (cmake-ide-setup)
 ;; set cmake-ide-flags-c++ to use C++11
 (setq cmake-ide-flags-c++ (append '("-std=c++11")))
+(setq compilation-skip-threshold 2) ;; show only errors
+(setq compilation-auto-jump-to-first-error t)  ;; go to first error
 (global-set-key (kbd "C-c m") 'cmake-ide-compile)
 
 ;; make sure cmake-mode is installed for viewing CMake files
