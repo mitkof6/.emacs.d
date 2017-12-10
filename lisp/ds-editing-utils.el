@@ -134,4 +134,9 @@
                (add-hook hook 'ds/no-trailing-whitespace))
              :diminish whitespace-cleanup-mode)
 
+;; GLSL shader mode
+(use-package shader-mode
+	     :ensure t
+	     :mode ("\\.fragmentshader\\'" "\\.vertexshader\\'"))
+
 (provide 'ds-editing-utils)
