@@ -38,25 +38,26 @@
         try-complete-lisp-symbol))
 
 (use-package smartparens
-  :ensure t
-  :config
-  (require 'smartparens-config)
-  (setq sp-base-key-bindings 'paredit
-        sp-autoskip-closing-pair 'always
-        sp-hybrid-kill-entire-symbol nil)
-  ;; (smartparens-global-strict-mode)
-  (sp-use-paredit-bindings)
-  (show-smartparens-global-mode +1)
-  :diminish smartparens-mode)
+             :ensure t
+             :config
+             (require 'smartparens-config)
+             (setq sp-base-key-bindings 'paredit
+                   sp-autoskip-closing-pair 'always
+                   sp-hybrid-kill-entire-symbol nil)
+             ;; (smartparens-global-strict-mode)
+             (smartparens-global-mode)
+             (sp-use-paredit-bindings)
+             (show-smartparens-global-mode +1)
+             :diminish smartparens-mode)
 
 ;; enable autopairing (disabled use smartparens)
 (use-package autopair
-  :ensure t
-  :disabled
-  :config
-  (autopair-global-mode t)
-  (show-paren-mode t)
-  :diminish autopair-mode)
+             :ensure t
+             :disabled
+             :config
+             (autopair-global-mode t)
+             (show-paren-mode t)
+             :diminish autopair-mode)
 
 ;; visual line (for good world wrapping when lines are long)
 ;; (global-visual-line-mode t)
@@ -80,27 +81,27 @@
 
 ;; undo-tree
 (use-package undo-tree
-  :ensure t
-  :config
-  (global-undo-tree-mode t)
-  :diminish undo-tree-mode)
+             :ensure t
+             :config
+             (global-undo-tree-mode t)
+             :diminish undo-tree-mode)
 
 ;; paredit
 (use-package paredit
-  :ensure t
-  :disabled
-  :config
-  (defun paredit-space-for-delimiter-p-lisp (endp delimiter)
-    "Don't add space after #/."
-    nil)
-  (defun lisp-mode-paredit-hook ()
-    (enable-paredit-mode)
-    (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
-                 'paredit-space-for-delimiter-p-lisp))
-  (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
-  (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
-  (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
-  (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook))
+             :ensure t
+             :disabled
+             :config
+             (defun paredit-space-for-delimiter-p-lisp (endp delimiter)
+               "Don't add space after #/."
+               nil)
+             (defun lisp-mode-paredit-hook ()
+               (enable-paredit-mode)
+               (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
+                            'paredit-space-for-delimiter-p-lisp))
+             (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
+             (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
+             (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
+             (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook))
 
 ;; hide and show
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
@@ -113,24 +114,24 @@
 
 ;; whitespace
 (use-package whitespace-cleanup-mode
-  :ensure t
-  :config
-  (global-whitespace-cleanup-mode t)
-  (global-set-key [remap just-one-space] 'cycle-spacing)
-  ;; (setq-default show-trailing-whitespace t)
-  ;; but don't show trailing whitespace in SQLi, inf-ruby etc.
-  (defun ds/no-trailing-whitespace ()
-    "Turn off display of trailing whitespace in this buffer."
-    (setq show-trailing-whitespace nil))
-  (dolist (hook '(special-mode-hook
-                  Info-mode-hook
-                  eww-mode-hook
-                  term-mode-hook
-                  comint-mode-hook
-                  compilation-mode-hook
-                  twittebring-mode-hook
-                  minibuffer-setup-hook))
-    (add-hook hook 'ds/no-trailing-whitespace))
-  :diminish whitespace-cleanup-mode)
+             :ensure t
+             :config
+             (global-whitespace-cleanup-mode t)
+             (global-set-key [remap just-one-space] 'cycle-spacing)
+             ;; (setq-default show-trailing-whitespace t)
+             ;; but don't show trailing whitespace in SQLi, inf-ruby etc.
+             (defun ds/no-trailing-whitespace ()
+               "Turn off display of trailing whitespace in this buffer."
+               (setq show-trailing-whitespace nil))
+             (dolist (hook '(special-mode-hook
+                             Info-mode-hook
+                             eww-mode-hook
+                             term-mode-hook
+                             comint-mode-hook
+                             compilation-mode-hook
+                             twittebring-mode-hook
+                             minibuffer-setup-hook))
+               (add-hook hook 'ds/no-trailing-whitespace))
+             :diminish whitespace-cleanup-mode)
 
 (provide 'ds-editing-utils)

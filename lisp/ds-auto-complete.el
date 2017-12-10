@@ -32,8 +32,7 @@
                                         ac-source-words-in-same-mode-buffers
                                         ac-source-words-in-all-buffer
                                         ac-source-functions
-                                        ac-source-yasnippet)))
-             )
+                                        ac-source-yasnippet))))
 
 (use-package popup
 	     :ensure t
