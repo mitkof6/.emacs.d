@@ -15,23 +15,26 @@
 ;; company statistics for sorting of completion candidates by frequency
 (use-package company-statistics
              :ensure t
+	     :after company
              :config
              (company-statistics-mode))
+
+(use-package company-irony
+             :ensure t
+             :after company)
 
 ;; include completion
 (use-package company-irony-c-headers
              :ensure t
              :after company
              :config
+	     ;; headers are first because company-complete will not work properly
              (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
 
-(use-package company-irony
-                          :ensure t
-                          :config
-                          (add-to-list 'company-backends 'company-irony))
 ;; irony
 (use-package irony
              :ensure t
+	     :after company
              :config
              (add-hook 'c++-mode-hook 'irony-mode)
              (add-hook 'c-mode-hook 'irony-mode)

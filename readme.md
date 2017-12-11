@@ -17,7 +17,6 @@ Features
 - w3m: integrated web-browser
 - mail: multiple mails through gnus
 - markdown support
-- [org-mode](http://orgmode.org/worg/org-tutorials/org4beginners.html)
 - mini-buffer: ivy, smex, swiper
 
 Installation

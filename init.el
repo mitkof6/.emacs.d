@@ -55,7 +55,6 @@
 (require 'ds-lisp)
 (require 'ds-java)
 (require 'ds-auctex)
-(require 'ds-org)
 (require 'ds-markdown)
 (require 'ds-pdf-tools)
 (require 'ds-ui)
