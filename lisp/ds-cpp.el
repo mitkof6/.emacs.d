@@ -36,7 +36,7 @@
              :ensure t
 	     :after company
              :config
-             (add-hook 'c++-mode-hook 'irony-mode)
+             ;; (add-hook 'c++-mode-hook 'irony-mode)
              (add-hook 'c-mode-hook 'irony-mode)
              (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
              (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
@@ -97,5 +97,12 @@
 ;; make sure cmake-mode is installed for viewing CMake files
 (use-package cmake-mode
              :ensure t)
+
+;; member functions
+;; (require 'member-functions)
+
+(defun ds/c-hook ()
+    (linum-mode))
+(add-hook 'c-mode-hook 'ds/c-hook)
 
 (provide 'ds-cpp)

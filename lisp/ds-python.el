@@ -13,6 +13,10 @@
 		   python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
 		   elpy-rpc-python-command "python2")
 
+	     (defun ds/python-hook ()
+		 (linum-mode))
+	     (add-hook 'python-mode-hook 'ds/c-hook)
+
 	     (add-hook 'python-mode-hook 'elpy-mode)
 	     (with-eval-after-load 'elpy
 	       (remove-hook 'elpy-modules 'elpy-module-flymake)
