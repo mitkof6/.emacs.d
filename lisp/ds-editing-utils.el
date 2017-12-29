@@ -19,6 +19,9 @@
 (add-hook 'c-mode-common-hook 'ds/code-indentation)
 (add-hook 'java-mode-hook 'ds/code-indentation)
 
+;; must be disabled so tabs are not inserted
+(setq-default indent-tabs-mode nil)
+
 ;; auto-revert (changes to files are seen by emacs)
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -136,7 +139,7 @@
 
 ;; GLSL shader mode
 (use-package shader-mode
-	     :ensure t
-	     :mode ("\\.fragmentshader\\'" "\\.vertexshader\\'"))
+             :ensure t
+             :mode ("\\.fragmentshader\\'" "\\.vertexshader\\'"))
 
 (provide 'ds-editing-utils)
