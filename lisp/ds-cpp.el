@@ -86,8 +86,8 @@
 ;;              :bind ("C-c m" . cmake-ide-compile))
 (require-package 'cmake-ide)
 (cmake-ide-setup)
-;; set cmake-ide-flags-c++ to use C++11
-(setq cmake-ide-flags-c++ (append '("-std=c++11")))
+(setq cmake-ide-flags-c++ (append '("-std=c++11"))
+      cmake-ide-make-command "make --no-print-directory -j4")
 (global-set-key (kbd "C-c m") 'cmake-ide-compile)
 
 ;; compilation
@@ -101,6 +101,7 @@
 ;; member functions
 ;; (require 'member-functions)
 
+;; enable line numbers
 (defun ds/c-hook ()
     (linum-mode))
 (add-hook 'c-mode-hook 'ds/c-hook)
