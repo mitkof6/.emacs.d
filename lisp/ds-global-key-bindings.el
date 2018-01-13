@@ -69,7 +69,7 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; change dictionary toggle
-(lexical-let ((dictionaries '("en_US" "greek")))
+(lexical-let ((dictionaries '("en" "el")))
              (rplacd (last dictionaries) dictionaries)
              (defun ds/ispell-change-to-next-dictionary ()
                (interactive)

@@ -5,8 +5,7 @@
 	ispell-personal-dictionary "~/.emacs.d/personal-dict"
 	flyspell-issue-message-flag nil
 	flyspell-issue-welcome-flag nil
-	ispell-parser 'tex
-	))
+	ispell-parser 'tex))
 
 ;; enable flyspell-mode
 (dolist (hook '(text-mode-hook))
