@@ -25,7 +25,7 @@
 	    '(lambda ()
 	       (flyspell-prog-mode))))
 
-;; mouse-3 will be used for correcting words
+;; mouse-3 (middle) will be used for correcting words
 (eval-after-load "flyspell"
   '(progn
      (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)

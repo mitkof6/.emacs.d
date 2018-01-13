@@ -12,7 +12,7 @@ Features
 - latex: auctex
 - pdf-tools
 - octave support
-- spell checking: en, gr
+- spell checking: en, el (install aspell-en, -el)
 - magit
 - w3m: integrated web-browser
 - mail: multiple mails through gnus
