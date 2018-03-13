@@ -39,7 +39,6 @@
 ;;------------------------------------------------------------------------------
 
 (require 'ds-ivy)
-(require 'ds-dired)
 (require 'ds-flycheck)
 (require 'ds-flyspell)
 (require 'ds-yasnippet)
