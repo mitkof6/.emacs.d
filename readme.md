@@ -54,7 +54,7 @@ Install `python-language server` (`pip install python-language server`).
 [ein](https://github.com/millejoh/emacs-ipython-notebook)
 
 
-In order to configure ein you need to generate the jupyter configureation:
+In order to configure ein you need to generate the jupyter configuration:
 
 
 ` jupyter notebook --generate-config`
