@@ -3,11 +3,9 @@ Emacs Configuration
 
 Features
 
-- C++ IDE (completion: company-irony, company-irony-c-headers, tags:
-  rtags, syntax analyzer: flycheck-irony, building: cmake-ide, docs:
-  irony-eldoc)
-- python: elpy, ein (jupiter notebook)
-- java: eclim
+- C++ language server protocol
+- python: ein (jupiter notebook), language server protocol
+- java: eclim, (TODO language server protocol)
 - lisp: cl, racket, scheme
 - latex: auctex
 - pdf-tools
@@ -24,24 +22,34 @@ Installation
 
 ## C++
 
+Install `cquery` (e.g. `yaourt -S cquery`).
+
+
+## C++ (deprecated)
+
+This is kept as it is for those interested in configuring rtags, irony,
+etc. (see lisp/unused/ds-cpp.el).
+
 Build irony server
 
 
-`` M-x irony-install-server ``
+` M-x irony-install-server `
 
 
 Build rtags
 
 
-`` M-x rtags-instal ``
+` M-x rtags-instal `
 
 
 ## Python
 
+Install `python-language server` (`pip install python-language server`).
 
-[elpy](https://github.com/jorgenschaefer/elpy)
+[elpy (deprecated)](https://github.com/jorgenschaefer/elpy)
 
-``elpy-config``
+`elpy-config`
+
 
 [ein](https://github.com/millejoh/emacs-ipython-notebook)
 
@@ -49,7 +57,7 @@ Build rtags
 In order to configure ein you need to generate the jupyter configureation:
 
 
-`` jupyter notebook --generate-config``
+` jupyter notebook --generate-config`
 
 
 and set the c.NotebookApp.password password and port
@@ -61,7 +69,7 @@ and set the c.NotebookApp.password password and port
 ## Java (through eclipse/eclim)
 
 
-`` packages: eclipse-java, eclim, eclim-git ``
+` packages: eclipse-java, eclim, eclim-git `
 
 
 [eclim](http://eclim.org/install.html)
@@ -73,13 +81,13 @@ and set the c.NotebookApp.password password and port
 ## pdf-tools
 
 
-``` package: poppler, poppler-utils ```
+` package: poppler, poppler-utils `
 
 
 ## w3m (web-browser)
 
 
-``` package: w3m ```
+` package: w3m `
 
 
 ## setup gnus mail authentication
