@@ -19,7 +19,29 @@
              :config
              (setq company-transformers nil company-lsp-async t
                    company-lsp-cache-candidates nil)
-             :bind ("M-RET" . company-lsp))
+             (add-hook 'c-mode-common-hook
+                       (lambda ()
+                         (local-set-key (kbd "M-RET") 'company-lsp))))
+
+;; setup company
+(use-package company
+             :ensure t
+             :config
+             (add-hook 'after-init-hook 'global-company-mode)
+             (setq company-idle-delay nil
+                   company-minimum-prefix-length 2
+                   company-show-numbers t
+                   company-tooltip-limit 20
+                   company-dabbrev-downcase nil)
+             ;; :bind ("M-RET" . company-complete)
+             )
+
+;; company statistics for sorting of completion candidates by frequency
+(use-package company-statistics
+             :ensure t
+             :config
+             (company-statistics-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C++
@@ -41,7 +63,7 @@
                    cquery-sem-highlight-method 'overlay
                    )
              ;; for rainbow semantic highlighting
-             (cquery-use-default-rainbow-sem-highlight)
+             ;; (cquery-use-default-rainbow-sem-highlight)
              ;; enable line numbers
              (defun ds/c-hook ()
                (linum-mode))
@@ -68,17 +90,10 @@
 
 (use-package lsp-python
              :ensure t
-             ;; :after (lsp-mode)
              :config
              (add-hook 'python-mode-hook #'lsp-python-enable)
-             ;; this should be set in due to ipython v5
-             ;;           ;; https://github.com/jorgenschaefer/elpy/issues/949
-             (setq python-shell-interpreter "ipython2"
-                   python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
-                   elpy-rpc-python-command "python2")
-
-             (defun ds/python-hook ()
-               (linum-mode))
-             (add-hook 'python-mode-hook 'ds/python-hook))
+             (add-hook 'python-mode-hook
+                       (lambda ()
+                         (local-set-key (kbd "M-RET") 'company-complete))))
 
 (provide 'ds-lsp)

@@ -4,7 +4,7 @@ Emacs Configuration
 Features
 
 - C++ language server protocol
-- python: ein (jupiter notebook), language server protocol
+- python: ein (jupiter notebook), elpy
 - java: eclim, (TODO language server protocol)
 - lisp: cl, racket, scheme
 - latex: auctex
