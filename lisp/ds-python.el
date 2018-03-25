@@ -14,7 +14,7 @@
 
 	     (defun ds/python-hook ()
 		 (linum-mode))
-	     (add-hook 'python-mode-hook 'ds/c-hook)
+	     (add-hook 'python-mode-hook 'ds/python-hook)
 
 	     (add-hook 'python-mode-hook 'elpy-mode)
 	     (with-eval-after-load 'elpy
