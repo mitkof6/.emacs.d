@@ -142,4 +142,12 @@
              :ensure t
              :mode ("\\.fragmentshader\\'" "\\.vertexshader\\'"))
 
+;; bury warning buffer (may cause problems because all warnings are ignored)
+(use-package unkillable-scratch
+             :ensure t
+             :config
+             (add-to-list 'unkillable-buffers "\\*Warnings\\*$")
+             (setq unkillable-scratch-behavior 'bury))
+
+
 (provide 'ds-editing-utils)

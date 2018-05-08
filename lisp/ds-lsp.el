@@ -85,6 +85,17 @@
 (use-package cmake-mode
              :ensure t)
 
+;; emacs Lisp defun to bury the compilation buffer if everything compiles
+;; smoothly
+(defun ds/bury-compile-buffer-if-successful (buffer string)
+  (when (and
+         (string-match "compilation" (buffer-name buffer))
+         (string-match "finished" string)
+         (not (search-forward "warning" nil t)))
+    (bury-buffer buffer)
+    (switch-to-prev-buffer (get-buffer-window buffer) 'kill)))
+(add-hook 'compilation-finish-functions 'ds/bury-compile-buffer-if-successful)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
 

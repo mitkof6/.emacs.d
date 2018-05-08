@@ -6,7 +6,8 @@
   ;; the clang language backend so this is set to clang
   (add-hook 'c++-mode-hook
             (lambda ()
-              (setq flycheck-clang-language-standard "c++11")))
+              (setq flycheck-clang-language-standard "c++11")
+  	      ))
   ;; Turn flycheck on everywhere
   (global-flycheck-mode)
 
