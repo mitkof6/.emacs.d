@@ -7,10 +7,6 @@
 	flyspell-issue-welcome-flag nil
 	ispell-parser 'tex))
 
-;; enable flyspell-mode
-(dolist (hook '(text-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
-
 ;; add flyspell-prog-mode
 (dolist (mode '(emacs-lisp-mode-hook
 		inferior-lisp-mode-hook

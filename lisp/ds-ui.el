@@ -38,16 +38,7 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-;; recent
-(use-package recentf
-  :ensure t
-  :config
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 100
-        recentf-exclude '("/tmp/" "/ssh:")
-        recentf-max-menu-item 100))
-
-;; smart mode line
+;; smart mode line (status bar)
 (use-package smart-mode-line
   :ensure t
   :config

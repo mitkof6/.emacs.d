@@ -24,7 +24,7 @@
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol
         common-lisp-hyperspec-root (concat "file://"
                                            (expand-file-name
-                                            "~/dev/work/archlinux-config/lisp/HyperSpec/"))
+                                            "~/dev/archlinux-config/lisp/HyperSpec/"))
         ))
 
 (use-package racket-mode

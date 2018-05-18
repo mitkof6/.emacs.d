@@ -9,7 +9,13 @@
 
 (require 'ob-python)
 (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((python . t)))
+ 'org-babel-load-languages
+ '((python . t)))
+
+(use-package org-ac
+             :ensure t
+             :config
+             (add-hook 'org-mode-hook '(lambda ()
+                                        (auto-complete-mode 1))))
 
 (provide 'ds-org)

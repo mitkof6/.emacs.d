@@ -1,3 +1,5 @@
+;; TODO maybe lsp mode
+
 (use-package eclim
   :ensure t
   ;;:defer t

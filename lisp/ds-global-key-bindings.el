@@ -13,7 +13,7 @@
 (global-set-key (kbd "C-c u r") 'er/expand-region)
 
 ;; company complete
-;; (global-set-key (kbd "M-<return>") 'company-complete) 
+;; (global-set-key (kbd "M-<return>") 'company-complete)
 
 ;; copy/cut whole line without selecting (better than whole-line-or-region-mode)
 (defun ds/string-chomp (str)
@@ -118,6 +118,13 @@
 ;; too slow for big files
 ;; (add-hook 'before-save-hook #'ds/clear-and-indent)
 
+;; 80 char mark and utility for whitespace
+(require-package 'whitespace)
+(global-set-key [f6] 'global-whitespace-mode)
+
+;; toggle line numbers
+(global-set-key [f9] 'global-linum-mode)
+
 ;; fill column indicator
 (require-package 'fill-column-indicator)
 (define-globalized-minor-mode global-fci-mode fci-mode
@@ -127,56 +134,28 @@
       (setq fci-rule-color "darkgrey")
       (setq fill-column 80)
       (fci-mode 1))))
-(global-set-key [f6] 'global-fci-mode)
-
-;; 80 char mark and utility for whitespace
-(require-package 'whitespace)
-(global-set-key [f7] 'global-whitespace-mode)
-
-;; toggle line numbers
-(global-set-key [f8] 'global-linum-mode)
+(global-set-key [f10] 'global-fci-mode)
 
 ;; toggle save emacs sessions
 ;; (desktop-save-mode 1)
-(global-set-key [f9] 'desktop-save-mode)
+(global-set-key [f11] 'desktop-save-mode)
 
 ;; toggle next theme
-(global-set-key [f10] 'ds/change-to-next-theme)
+(global-set-key [f12] 'ds/change-to-next-theme)
 
 ;;------------------------------------------------------------------------------
 ;; windows binding (see ds-windows.el)
 ;;------------------------------------------------------------------------------
 
 ;; navigate window layouts with "C-c n" and "C-c p"
+(require-package 'tabbar)
+(tabbar-mode 't)
 (global-set-key (kbd "C-c n") 'tabbar-forward)
 (global-set-key (kbd "C-c p") 'tabbar-backward)
 
-;; make "C-x o" prompt for a target window when there are more than 2
-(global-set-key (kbd "C-x o") 'switch-window)
 
-;; override C-x 1
-(global-set-key (kbd "C-x 1") 'ds/toggle-delete-other-windows)
-
-;; when splitting window, show (other-buffer) in the new window
-(global-set-key (kbd "C-x 2")
-                (ds/split-window-with-other-buffer 'split-window-vertically))
-(global-set-key (kbd "C-x 3")
-                (ds/split-window-with-other-buffer 'split-window-horizontally))
-
-;; horizontal splitting
-(global-set-key (kbd "C-x |") 'ds/split-window-horizontally-instead)
-
-;; vertical splitting
-(global-set-key (kbd "C-x _") 'ds/split-window-vertically-instead)
-
-;; Split the window to see the most recent buffer in the other window.
-;; Call a second time to restore the original window configuration.
-(global-set-key [f12] 'ds/split-window)
-
-;; Toggle whether the current window is dedicated to its current buffer.
-(global-set-key (kbd "C-c <down>") 'ds/toggle-current-window-dedication)
-
-;; transpose horizontal frames
+;; transpose frames (mainly for function flop-frame)
+(require-package 'transpose-frame)
 (global-set-key (kbd "C-c b t") 'flop-frame)
 
 ;; frames can be recorded by 'window-configuration-to-register (C-x r w)
@@ -184,17 +163,17 @@
 ;; frames that are registered can be recovered by (C-x r j 'char')
 
 ;; move windows to buffers
-(global-set-key (kbd "C-c b p") 'windmove-up)
-(global-set-key (kbd "C-c b n") 'windmove-down)
-(global-set-key (kbd "C-c b b") 'windmove-left)
-(global-set-key (kbd "C-c b f") 'windmove-right)
+(global-set-key (kbd "C-c b u") 'windmove-up)
+(global-set-key (kbd "C-c b d") 'windmove-down)
+(global-set-key (kbd "C-c b l") 'windmove-left)
+(global-set-key (kbd "C-c b r") 'windmove-right)
 
 ;; move windows
 (require-package 'buffer-move)
-(global-set-key (kbd "C-c b p") 'buf-move-up)
-(global-set-key (kbd "C-c b N") 'buf-move-down)
-(global-set-key (kbd "C-c b B") 'buf-move-left)
-(global-set-key (kbd "C-c b F") 'buf-move-right)
+(global-set-key (kbd "C-c b U") 'buf-move-up)
+(global-set-key (kbd "C-c b D") 'buf-move-down)
+(global-set-key (kbd "C-c b L") 'buf-move-left)
+(global-set-key (kbd "C-c b R") 'buf-move-right)
 
 ;;------------------------------------------------------------------------------
 ;; w3m binding (see ds-w3m.el)
@@ -222,23 +201,23 @@
 ;;------------------------------------------------------------------------------
 
 (use-package magit
-	     :ensure t
-	     :config
-	     ;; show word by word difference
-	     (setq magit-diff-refine-hunk 'all)
-	     :bind (("C-c g s" . magit-status)
-		    ("C-c g i" . magit-init)
-		    ("C-c g t" . magit-stash)
-		    ("C-c g l" . magit-log)
-		    ("C-c g c" . magit-commit)
-		    ("C-c g p" . magit-push)
-		    ("C-c g u" . magit-pull)
-		    ("C-c g d" . magit-diff)
-		    ("C-c g o" . magit-checkout)
-		    ("C-c g m" . magit-merge)
-		    ("C-c g a" . magit-remote-add)
-		    ("C-c g r" . magit-remote-remove)
-		    ("C-c g n" . magit-clone)))
+             :ensure t
+             :config
+             ;; show word by word difference
+             (setq magit-diff-refine-hunk 'all)
+             :bind (("C-c g s" . magit-status)
+                    ("C-c g i" . magit-init)
+                    ("C-c g t" . magit-stash)
+                    ("C-c g l" . magit-log)
+                    ("C-c g c" . magit-commit)
+                    ("C-c g p" . magit-push)
+                    ("C-c g u" . magit-pull)
+                    ("C-c g d" . magit-diff)
+                    ("C-c g o" . magit-checkout)
+                    ("C-c g m" . magit-merge)
+                    ("C-c g a" . magit-remote-add)
+                    ("C-c g r" . magit-remote-remove)
+                    ("C-c g n" . magit-clone)))
 
 ;;------------------------------------------------------------------------------
 ;; hide-show

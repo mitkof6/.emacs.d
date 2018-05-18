@@ -53,14 +53,6 @@
              (show-smartparens-global-mode +1)
              :diminish smartparens-mode)
 
-;; enable autopairing (disabled use smartparens)
-(use-package autopair
-             :ensure t
-             :disabled
-             :config
-             (autopair-global-mode t)
-             (show-paren-mode t)
-             :diminish autopair-mode)
 
 ;; visual line (for good world wrapping when lines are long)
 ;; (global-visual-line-mode t)
@@ -69,15 +61,6 @@
 
 ;; auto-fill mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;; ;; enable uppercase and lowercase transform for region
-;; (put 'upcase-region 'disabled nil)
-;; (put 'downcase-region 'disabled nil)
-
-;; ;; use page-break-line to handle the ^l page-breaking symbol
-;; (require-package 'page-break-lines)
-;; (global-page-break-lines-mode)
-;; (diminish 'page-break-lines-mode)
 
 ;; enable subword-mode (move between camel case words)
 (global-subword-mode t)
@@ -89,23 +72,6 @@
              (global-undo-tree-mode t)
              :diminish undo-tree-mode)
 
-;; paredit
-(use-package paredit
-             :ensure t
-             :disabled
-             :config
-             (defun paredit-space-for-delimiter-p-lisp (endp delimiter)
-               "Don't add space after #/."
-               nil)
-             (defun lisp-mode-paredit-hook ()
-               (enable-paredit-mode)
-               (add-to-list (make-local-variable 'paredit-space-for-delimiter-predicates)
-                            'paredit-space-for-delimiter-p-lisp))
-             (add-hook 'lisp-mode-hook 'lisp-mode-paredit-hook)
-             (add-hook 'lisp-interaction-mode-hook 'lisp-mode-paredit-hook)
-             (add-hook 'emacs-lisp-mode-hook 'lisp-mode-paredit-hook)
-             (add-hook 'clojure-mode-hook 'lisp-mode-paredit-hook))
-
 ;; hide and show
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
@@ -114,6 +80,15 @@
 (add-hook 'python-mode-hook     'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
 (setq hs-hide-comments nil)
+
+;; recent opened files
+(use-package recentf
+  :ensure t
+  :config
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 100
+        recentf-exclude '("/tmp/" "/ssh:")
+        recentf-max-menu-item 100))
 
 ;; whitespace
 (use-package whitespace-cleanup-mode
@@ -142,15 +117,7 @@
              :ensure t
              :mode ("\\.fragmentshader\\'" "\\.vertexshader\\'"))
 
-;; bury warning buffer (may cause problems because all warnings are ignored)
-;; (use-package unkillable-scratch
-;;              :ensure t
-;;              :config
-;;              (add-to-list 'unkillable-buffers "\\*Warnings\\*$")
-;;              (setq unkillable-scratch-behavior 'bury))
-
-
-;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
 (defun ds/unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
@@ -158,5 +125,17 @@
         ;; This would override `fill-column' if it's an integer.
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))
+
+;; folding regions automatically
+(use-package folding
+  :ensure t
+  :config
+  (folding-add-to-marks-list 'tex-mode "%{{{" "%}}}" nil t)
+             (folding-mode-add-find-file-hook))
+
+;; markdown
+(use-package markdown-mode
+  :mode "\\.\\(md\\|markdown\\)\\'"
+  :ensure t)
 
 (provide 'ds-editing-utils)

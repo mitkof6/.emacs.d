@@ -11,10 +11,6 @@
   ;; Turn flycheck on everywhere
   (global-flycheck-mode)
 
-  ;; flycheck-mode
-  (add-hook 'c++-mode-hook 'flycheck-mode)
-  (add-hook 'c-mode-hook 'flycheck-mode)
-
   ;; C-c ! l displays flyckeck error list (customize window)
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -24,8 +20,5 @@
                  (reusable-frames . visible)
                  (window-height   . 0.2)))
   )
-
-;; Use flycheck-pyflakes for python. Seems to work a little better.
-;; (require 'flycheck-pyflakes)
 
 (provide 'ds-flycheck)
