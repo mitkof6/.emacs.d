@@ -9,6 +9,8 @@
 (blink-cursor-mode -1)
 
 (setq
+ ;; configure *Warnings* bufer
+ warning-minimum-level :emergency
  ;; disable the annoying bell ring
  ring-bell-function 'ignore
  ;; disable startup screen
@@ -20,12 +22,12 @@
 
 ;; mode line settings
 (use-package hlinum
-  :ensure t
-  :config
-  ;; (hlinum-activate)
-  ;; (global-linum-mode t)
-  (column-number-mode t)
-  (size-indication-mode t))
+             :ensure t
+             :config
+             ;; (hlinum-activate)
+             ;; (global-linum-mode t)
+             (column-number-mode t)
+             (size-indication-mode t))
 
 ;; enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -36,20 +38,20 @@
       '("" invocation-name " DS - "
         (:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
+                   "%b"))))
 
 ;; smart mode line (status bar)
 (use-package smart-mode-line
-  :ensure t
-  :config
-  (setq sml/no-confirm-load-theme t
-        ;; delegate theming to the currently active theme
-        ;;  sml/theme nil
-        sml/theme 'dark
-        ;;  sml/theme 'light
-        ;;  sml/theme 'respectful
-        )
-  (add-hook 'after-init-hook #'sml/setup))
+             :ensure t
+             :config
+             (setq sml/no-confirm-load-theme t
+                   ;; delegate theming to the currently active theme
+                   ;;  sml/theme nil
+                   sml/theme 'dark
+                   ;;  sml/theme 'light
+                   ;;  sml/theme 'respectful
+                   )
+             (add-hook 'after-init-hook #'sml/setup))
 
 ;; show the cursor when moving after big movements in the window
 (require-package 'beacon)
@@ -100,9 +102,9 @@
 ;; function that changes to next theme
 (require 'cl)
 (lexical-let ((themes '(moe-light moe-dark zenburn)))
-  (rplacd (last themes) themes)
-  (defun ds/change-to-next-theme ()
-    (interactive)
-    (load-theme (pop themes) t)))
+             (rplacd (last themes) themes)
+             (defun ds/change-to-next-theme ()
+               (interactive)
+               (load-theme (pop themes) t)))
 
 (provide 'ds-ui)

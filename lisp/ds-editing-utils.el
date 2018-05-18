@@ -83,12 +83,12 @@
 
 ;; recent opened files
 (use-package recentf
-  :ensure t
-  :config
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 100
-        recentf-exclude '("/tmp/" "/ssh:")
-        recentf-max-menu-item 100))
+             :ensure t
+             :config
+             (recentf-mode 1)
+             (setq recentf-max-saved-items 100
+                   recentf-exclude '("/tmp/" "/ssh:")
+                   recentf-max-menu-item 100))
 
 ;; whitespace
 (use-package whitespace-cleanup-mode
@@ -128,14 +128,15 @@
 
 ;; folding regions automatically
 (use-package folding
-  :ensure t
-  :config
-  (folding-add-to-marks-list 'tex-mode "%{{{" "%}}}" nil t)
-             (folding-mode-add-find-file-hook))
+             :ensure t
+             :config
+             (folding-add-to-marks-list 'tex-mode "%{{{" "%}}}" nil t)
+             (folding-mode-add-find-file-hook)
+             :diminish folding-mode)
 
 ;; markdown
 (use-package markdown-mode
-  :mode "\\.\\(md\\|markdown\\)\\'"
-  :ensure t)
+             :mode "\\.\\(md\\|markdown\\)\\'"
+             :ensure t)
 
 (provide 'ds-editing-utils)
