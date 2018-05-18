@@ -21,10 +21,14 @@
 	    '(lambda ()
 	       (flyspell-prog-mode))))
 
-;; mouse-3 (middle) will be used for correcting words
-(eval-after-load "flyspell"
-  '(progn
-     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
-     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+;; save word to dictionary
+(defun ds/save-to-dictionary ()
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)    
+      (flyspell-do-correct 'save nil (car word)
+      current-location (cadr word) (caddr word)
+      current-location))))
 
 (provide 'ds-flyspell)
