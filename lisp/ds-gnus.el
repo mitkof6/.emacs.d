@@ -146,8 +146,8 @@
 
 ;; message signature
 (setq message-signature nil)
-(setq message-signature-directory "~/.emacs.d/signature/")
-(setq message-signature-file "upatras")
+(setq message-signature-directory "~/.emacs.d/")
+(setq message-signature-file "upatras_signature")
 
 ;;------------------------------------------------------------------------------
 ;; utility function for choosing the send server from 'FROM' field

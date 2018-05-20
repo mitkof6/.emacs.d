@@ -2,7 +2,7 @@
   (setq-default ispell-program-name "aspell")
   (setq ispell-really-aspell t
 	ispell-extra-args '("--sug-mode=fast")
-	ispell-personal-dictionary "~/.emacs.d/personal-dict"
+	ispell-personal-dictionary "~/.emacs.d/personal_dictionary"
 	flyspell-issue-message-flag nil
 	flyspell-issue-welcome-flag nil
 	ispell-parser 'tex))
@@ -20,6 +20,10 @@
   (add-hook mode
 	    '(lambda ()
 	       (flyspell-prog-mode))))
+
+;; enable flyspell-mode
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 
 ;; save word to dictionary
 (defun ds/save-to-dictionary ()
