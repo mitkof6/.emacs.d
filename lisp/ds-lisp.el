@@ -11,8 +11,7 @@
   (slime-setup '(slime-asdf slime-banner slime-clipboard slime-compiler-notes-tree
                             slime-fancy slime-fontifying-fu slime-hyperdoc slime-indentation
                             slime-media slime-mrepl slime-parse slime-presentation-streams
-                            slime-sbcl-exts slime-snapshot slime-sprof slime-xref-browser))
-
+                            slime-sbcl-exts slime-sprof slime-xref-browser))
   (setq slime-header-line-p nil
         common-lisp-style 'modern
         slime-startup-animation nil
@@ -24,17 +23,17 @@
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol
         common-lisp-hyperspec-root (concat "file://"
                                            (expand-file-name
-                                            "~/dev/archlinux-config/lisp/HyperSpec/"))
-        ))
+                                            "~/dev/archlinux-config/lisp/HyperSpec/")))
+             )
 
 (use-package racket-mode
   :ensure t
   ;;:defer t
   :config
   ;; scheme
-  (add-hook 'geiser-repl-mode-hook 'lisp-mode-paredit-hook)
-  (add-hook 'slime-repl-mode-hook 'lisp-mode-paredit-hook)
-  (add-hook 'scheme-mode-hook 'lisp-mode-paredit-hook)
+  ;; (add-hook 'geiser-repl-mode-hook 'lisp-mode-paredit-hook)
+  ;; (add-hook 'slime-repl-mode-hook 'lisp-mode-paredit-hook)
+  ;; (add-hook 'scheme-mode-hook 'lisp-mode-paredit-hook)
   (setq scheme-program-name "scheme" ;; "racket"
         geiser-scheme-implementation 'chicken
         geiser-debug-show-debug-p nil
