@@ -2,7 +2,6 @@
   (setq-default ispell-program-name "aspell")
   (setq ispell-really-aspell t
 	ispell-extra-args '("--sug-mode=fast")
-	ispell-personal-dictionary "~/.emacs.d/personal_dictionary"
 	flyspell-issue-message-flag nil
 	flyspell-issue-welcome-flag nil
 	ispell-parser 'tex))
