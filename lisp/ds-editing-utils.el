@@ -139,4 +139,21 @@
              :mode "\\.\\(md\\|markdown\\)\\'"
              :ensure t)
 
+;; writegood-mode (duplicates, passive voice, )
+(add-to-list 'load-path "~/.emacs.d/lisp/third/writegood-mode")
+(require 'writegood-mode)
+(global-set-key (kbd "C-c b s") 'writegood-mode)
+
+;; languagetool
+(use-package langtool
+             :config
+             (setq langtool-java-classpath
+                   "/usr/share/languagetool:/usr/share/java/languagetool/*"))
+
+;; define word
+(use-package define-word)
+
+;; synonyms
+(use-package synosaurus)
+
 (provide 'ds-editing-utils)

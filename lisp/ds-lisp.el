@@ -30,14 +30,21 @@
   :ensure t
   ;;:defer t
   :config
+  (setq tab-always-indent 'complete)
+  (set (make-local-variable 'eldoc-documentation-function) 'racket-eldoc-function)
   ;; scheme
   ;; (add-hook 'geiser-repl-mode-hook 'lisp-mode-paredit-hook)
   ;; (add-hook 'slime-repl-mode-hook 'lisp-mode-paredit-hook)
   ;; (add-hook 'scheme-mode-hook 'lisp-mode-paredit-hook)
-  (setq scheme-program-name "scheme" ;; "racket"
-        geiser-scheme-implementation 'chicken
-        geiser-debug-show-debug-p nil
-        geiser-debug-jump-to-debug-p nil)
+  ;; (setq scheme-program-name "scheme" ;; "racket"
+  ;;       geiser-scheme-implementation 'chicken
+  ;;       geiser-debug-show-debug-p nil
+  ;;       geiser-debug-jump-to-debug-p nil)
   )
+
+(use-package cider
+  :ensure t
+             ;; :pin melpa-stable
+             )
 
 (provide 'ds-lisp)

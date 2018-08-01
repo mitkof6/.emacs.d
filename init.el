@@ -54,6 +54,7 @@
 (require 'ds-org)
 (require 'ds-pdf-tools)
 (require 'ds-ui)
+(require 'ds-maxima)
 (require 'ds-global-key-bindings)
 
 ;;------------------------------------------------------------------------------

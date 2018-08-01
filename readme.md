@@ -89,6 +89,10 @@ and set the c.NotebookApp.password password and port
 
 ` package: w3m `
 
+## language tools
+
+`packages: wordnet, languagetool`
+
 
 ## setup gnus mail authentication
 
