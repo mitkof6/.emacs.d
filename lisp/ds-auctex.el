@@ -59,7 +59,7 @@
   (outline-minor-mode +1)
   (visual-line-mode +1)
   (flyspell-mode +1)
-  (folding-mode +1)
+  ;; (folding-mode +1)
   (case ds/latex-fast-math-entry
     (LaTeX-math-mode (LaTeX-math-mode 1))
     (cdlatex (turn-on-cdlatex))))

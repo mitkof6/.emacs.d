@@ -140,7 +140,7 @@
              :ensure t)
 
 ;; writegood-mode (duplicates, passive voice, )
-(add-to-list 'load-path "~/.emacs.d/lisp/third/writegood-mode")
+(add-to-list 'load-path "~/.emacs.d/lisp/third/")
 (require 'writegood-mode)
 (global-set-key (kbd "C-c b s") 'writegood-mode)
 

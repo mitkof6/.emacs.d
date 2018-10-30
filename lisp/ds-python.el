@@ -8,7 +8,8 @@
 
 	     ;; this should be set in due to ipython v5
 	     ;; https://github.com/jorgenschaefer/elpy/issues/949
-	     (setq python-shell-interpreter "ipython2"
+	     (setq python-indent-offset 4
+                   python-shell-interpreter "ipython2"
 	           python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
 	           elpy-rpc-python-command "python2")            
 
