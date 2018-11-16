@@ -105,6 +105,17 @@
              (add-hook 'python-mode-hook #'lsp-python-enable)
              (add-hook 'python-mode-hook
                        (lambda ()
-                         (local-set-key (kbd "M-RET") 'company-complete))))
+                         (local-set-key (kbd "M-RET") 'company-complete)))
+             (defun ds/python-shell-send-snippet ()
+               (interactive)
+               (save-excursion
+                (search-backward "##")
+                (end-of-line)
+                (set-mark-command nil)
+                (search-forward "##")
+                (call-interactively 'python-shell-send-region)
+                (deactivate-mark)))
+             :commands ds/python-shell-send-snippet
+             :bind (("C-c C-g" . ds/python-shell-send-snippet)))
 
 (provide 'ds-lsp)
