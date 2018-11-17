@@ -126,13 +126,13 @@
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))
 
-;; folding regions automatically
-(use-package folding
-             :ensure t
-             :config
-             (folding-add-to-marks-list 'tex-mode "%{{{" "%}}}" nil t)
-             (folding-mode-add-find-file-hook)
-             :diminish folding-mode)
+;; ;; folding regions automatically (causes problems with pdf, temporary disabled)
+;; (use-package folding
+;;              :ensure t
+;;              :config
+;;              (folding-add-to-marks-list 'tex-mode "%{{{" "%}}}" nil t)
+;;              (folding-mode-add-find-file-hook)
+;;              :diminish folding-mode)
 
 ;; markdown
 (use-package markdown-mode
