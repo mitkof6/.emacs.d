@@ -8,10 +8,13 @@
 
   (defalias 'equalp 'cl-equalp)
   (autoload 'slime "slime" "Superior Lisp Interaction Mode for Emacs" t)
-  (slime-setup '(slime-asdf slime-banner slime-clipboard slime-compiler-notes-tree
-                            slime-fancy slime-fontifying-fu slime-hyperdoc slime-indentation
-                            slime-media slime-mrepl slime-parse slime-presentation-streams
-                            slime-sbcl-exts slime-sprof slime-xref-browser))
+  (slime-setup '(slime-asdf slime-banner slime-clipboard
+                            slime-compiler-notes-tree slime-fancy
+                            slime-fontifying-fu slime-hyperdoc
+                            slime-indentation slime-media
+                            slime-mrepl slime-parse
+                            slime-sbcl-exts slime-sprof
+                            slime-xref-browser))
   (setq slime-header-line-p nil
         common-lisp-style 'modern
         slime-startup-animation nil

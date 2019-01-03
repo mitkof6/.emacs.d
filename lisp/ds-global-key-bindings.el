@@ -218,7 +218,7 @@
                     ("C-c g t" . magit-stash)
                     ("C-c g l" . magit-log)
                     ("C-c g c" . magit-commit)
-                    ("C-c g p" . magit-push)
+                    ("C-c g p" . magit-push-other)
                     ("C-c g u" . magit-pull)
                     ("C-c g d" . magit-diff)
                     ("C-c g o" . magit-checkout)
