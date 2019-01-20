@@ -48,6 +48,7 @@
 (require 'ds-lsp)
 (require 'ds-python)
 (require 'ds-octave)
+(require 'ds-julia)
 (require 'ds-lisp)
 (require 'ds-java)
 (require 'ds-auctex)
