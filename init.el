@@ -23,6 +23,7 @@
 ;; add directory to load-path
 ;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; (add-to-list 'load-path (expand-file-name "lisp/third/" user-emacs-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;;On-demand installation of packages
 (defun require-package (package &optional min-version no-refresh)
@@ -609,19 +610,7 @@ re-downloaded in order to locate PACKAGE."
 ;; custom
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   (quote
-    ((cmake-ide-build-dir . "~/dev/OActiveSim/build")
-     (cmake-ide-build-dir . "~/dev/RealTimeOpenSim/build")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(provide 'init)
