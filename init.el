@@ -100,22 +100,43 @@ re-downloaded in order to locate PACKAGE."
                           :config
                           (powerline-moe-theme)))
 
-;; mini buffer
 (use-package ivy
              :ensure t
              :config
-             (use-package counsel
-                          :ensure t
-                          :bind ("M-x" . counsel-M-x))
-             (use-package swiper
-                          :ensure t
-                          :config
-                          :bind ("C-s" . swiper))
-             (ivy-mode 1)
-             (setq ivy-use-virtual-buffers t
-                   ivy-count-format "(%d/%d) "
-                   ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                           (t . ivy--regex-fuzzy))))
+             (setq-default ivy-use-virtual-buffers t
+                           ivy-count-format ""
+                           projectile-completion-system 'ivy
+                           ivy-initial-inputs-alist
+                           '((counsel-M-x . "^")
+                             (man . "^")
+                             (woman . "^")))
+             ;; IDO-style directory navigation
+             (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+             (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+             (defun ds/enable-ivy-flx-matching ()
+               "Make `ivy' matching work more like IDO."
+               (interactive)
+               (require-package 'flx)
+               (setq-default ivy-re-builders-alist
+                             '((t . ivy--regex-fuzzy))))
+             (add-hook 'after-init-hook
+                       (lambda ()
+                         (when (bound-and-true-p ido-ubiquitous-mode)
+                           (ido-ubiquitous-mode -1))
+                         (when (bound-and-true-p ido-mode)
+                           (ido-mode -1))
+                         (ivy-mode 1))))
+
+(use-package counsel
+             :ensure t
+             :config
+             (setq-default counsel-mode-override-describe-bindings t)
+             (add-hook 'after-init-hook 'counsel-mode))
+
+(use-package swiper
+             :ensure t
+             :config
+             (define-key ivy-mode-map (kbd "C-s") 'swiper))
 
 (use-package smartparens
              :ensure t
@@ -128,6 +149,14 @@ re-downloaded in order to locate PACKAGE."
              (smartparens-global-mode)
              (sp-use-paredit-bindings)
              (show-smartparens-global-mode +1))
+
+;; ;; undo-tree
+;; (use-package undo-tree
+;;              :ensure t
+;;              :config
+;;              (global-undo-tree-mode t)
+;;              ;; :diminish undo-tree-mode
+;;           )
 
 ;; move cursor to other buffers
 (global-set-key (kbd "C-c b p") 'windmove-up)
@@ -324,10 +353,10 @@ re-downloaded in order to locate PACKAGE."
              (defun ds/disable-cursor-blink () (blink-cursor-mode 0))
              (add-hook 'pdf-view-mode-hook 'ds/disable-cursor-blink))
 
-(use-package auto-complete
-             :ensure t
-             :config
-             (ac-config-default))
+;; (use-package auto-complete
+;;              :ensure t
+;;              :config
+;;              (ac-config-default))
 
 (use-package yasnippet-snippets
              :ensure t)
@@ -342,6 +371,8 @@ re-downloaded in order to locate PACKAGE."
              :bind ("M-RET" . company-complete)
              :config
              (add-hook 'after-init-hook 'global-company-mode)
+
+
              (setq company-idle-delay nil
                    company-minimum-prefix-length 2
                    company-show-numbers t
