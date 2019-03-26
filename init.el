@@ -400,6 +400,11 @@ re-downloaded in order to locate PACKAGE."
 (use-package synosaurus
              :ensure t)
 
+(use-package hideshow
+	     :ensure t
+	     :config
+	     (add-hook 'prog-mode-hook #'hs-minor-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lsp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
