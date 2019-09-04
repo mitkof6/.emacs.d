@@ -274,6 +274,8 @@ re-downloaded in order to locate PACKAGE."
                            current-location))))
 (global-set-key [f1] 'ds/save-to-dictionary)
 (global-set-key (kbd "C-c b s") 'flyspell-buffer)
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 ;; change dictionary toggle
 (lexical-let ((dictionaries '("en" "el")))
@@ -305,8 +307,8 @@ re-downloaded in order to locate PACKAGE."
 (use-package hlinum
              :ensure t
              :config
-             (column-number-mode t)
-             (size-indication-mode t)
+             (column-number-mode nil)
+             (size-indication-mode nil)
              :bind ("<f9>" . global-linum-mode))
 
 ;; fill column indicator
@@ -439,9 +441,9 @@ re-downloaded in order to locate PACKAGE."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq python-indent-offset 4
-      python-shell-interpreter "ipython2"
+      python-shell-interpreter "ipython3"
       python-shell-interpreter-args "--simple-prompt --pprint --matplotlib"
-      elpy-rpc-python-command "python2")
+      elpy-rpc-python-command "python3")
 
 (defun ds/python-shell-send-snippet ()
   (interactive)
@@ -454,7 +456,7 @@ re-downloaded in order to locate PACKAGE."
    (deactivate-mark)))
 
 (defun ds/python-hook ()
-  (linum-mode)
+  ;; (linum-mode)
   (flyspell-prog-mode)
   (local-set-key (kbd "C-c C-g") 'ds/python-shell-send-snippet))
 (add-hook 'python-mode-hook 'ds/python-hook)
@@ -464,7 +466,7 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package ein
              :ensure t
-             :defer t
+             ;; :defer t
              :config
              (setq ein:use-auto-complete-superpack t
                    ein:output-type-preference '(emacs-lisp svg png jpeg html
@@ -475,7 +477,7 @@ re-downloaded in order to locate PACKAGE."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ds/c++-hook ()
-  (linum-mode)
+  ;; (linum-mode)
   (c-set-offset 'substatement-open 0) ;; close statement
   (c-set-offset 'arglist-intro '+)    ;; long argument names
   (setq c++-tab-always-indent t
