@@ -47,6 +47,11 @@ re-downloaded in order to locate PACKAGE."
 ;;   (package-install 'use-package))
 (require-package 'use-package)
 
+;; start emacs server
+(require 'server)
+(or (server-running-p)
+    (server-start))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ui customization
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
