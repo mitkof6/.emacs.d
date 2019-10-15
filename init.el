@@ -78,6 +78,13 @@ re-downloaded in order to locate PACKAGE."
 ;; enable subword-mode (move between camel case words)
 (global-subword-mode t)
 
+;; show trailing white space
+(setq-default show-trailing-whitespace t)
+
+;; use space instead of tabs with width = 4
+(setq tab-width 4
+      indent-tabs-mode nil)
+
 ;; show available keybindings after you start typing
 (use-package which-key
              :ensure t
