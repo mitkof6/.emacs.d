@@ -22,7 +22,7 @@ Installation
 
 ## C++
 
-Install `cquery` (e.g. `yaourt -S cquery`).
+Install `clangd`.
 
 ## Python
 

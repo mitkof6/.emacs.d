@@ -31,3 +31,4 @@ lisp/init-local.el
 custom.el
 company-statistics-cache.el
 /transient/history.el
+flyckeck_init.el

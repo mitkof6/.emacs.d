@@ -2,7 +2,7 @@
 ;;
 ;; Emacs configuration file
 ;;
-;; Author: Dimitar Stanev (jimstanev@gmail.com)
+;; Author: Dimitar Stanev
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
@@ -385,8 +385,6 @@ re-downloaded in order to locate PACKAGE."
              :bind ("M-RET" . company-complete)
              :config
              (add-hook 'after-init-hook 'global-company-mode)
-
-
              (setq company-idle-delay nil
                    company-minimum-prefix-length 2
                    company-show-numbers t
@@ -415,9 +413,15 @@ re-downloaded in order to locate PACKAGE."
              :ensure t)
 
 (use-package hideshow
-	     :ensure t
-	     :config
-	     (add-hook 'prog-mode-hook #'hs-minor-mode))
+             :ensure t
+             :config
+             (add-hook 'prog-mode-hook #'hs-minor-mode))
+
+;; flycheck better than flymake
+(use-package flycheck
+             :ensure t
+             :config
+             (global-flycheck-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lsp
@@ -427,26 +431,49 @@ re-downloaded in order to locate PACKAGE."
              :ensure t
              :commands lsp
              :config
+             ;; prefer using lsp-ui (flycheck)
+             (setq lsp-prefer-flymake nil)
+             ;; setup clangd
+             (setq lsp-clients-clangd-args '("-j=2" "-background-index" "-log=error"))
+             ;; hook languages
              (add-hook 'python-mode-hook 'lsp)
              (add-hook 'c-mode-common-hook 'lsp))
+
+;; lsp-treemacs
+(use-package lsp-treemacs
+             :ensure t
+             :config
+             (lsp-treemacs-sync-mode 1))
 
 ;; lsp extras
 (use-package lsp-ui
              :ensure t
-             :commands lsp-ui-mode)
+             :requires lsp-mode flycheck
+             ;; :commands lsp-ui-mode
+             :config
+             (setq lsp-ui-doc-enable t
+                   lsp-ui-doc-use-childframe t
+                   lsp-ui-doc-position 'top
+                   lsp-ui-doc-include-signature t
+                   lsp-ui-sideline-enable nil
+                   lsp-ui-flycheck-enable t
+                   lsp-ui-flycheck-list-position 'right
+                   lsp-ui-flycheck-live-reporting t
+                   lsp-ui-peek-enable t
+                   lsp-ui-peek-list-width 60
+                   lsp-ui-peek-peek-height 25)
+             (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
 (use-package company-lsp
              :ensure t
-             :commands company-lsp)
-
-;; debug with lsp
-(use-package dap-mode
-             :ensure t
+             :commands company-lsp
              :config
-             (dap-mode 1)
-             (dap-ui-mode 1)
-             (add-hook 'python-mode-hook (lambda () (require 'dap-python)))
-             (add-hook 'c-mode-common-hook (lambda () (require 'dap-lldb))))
+             (push 'company-lsp company-backends)
+             ;; Disable client-side cache because the LSP server does a better job.
+             (setq company-transformers nil
+                   company-lsp-async t
+                   company-lsp-cache-candidates nil))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
@@ -497,9 +524,6 @@ re-downloaded in order to locate PACKAGE."
         c-indent-level 4)
   (flyspell-prog-mode))
 (add-hook 'c-mode-common-hook 'ds/c++-hook)
-
-(use-package cquery
-             :ensure t)
 
 (use-package cmake-ide
              :ensure t
