@@ -35,3 +35,4 @@ flyckeck_init.el
 /.dap-breakpoints
 /dap-python3-template.el
 /.lsp-session-v1
+flyckeck_init.el
