@@ -85,6 +85,13 @@ re-downloaded in order to locate PACKAGE."
 (setq tab-width 4
       indent-tabs-mode nil)
 
+(use-package clang-format
+             :ensure t
+             :config
+             ;; (global-set-key (kbd "C-c i") 'clang-format-region)
+             ;; (global-set-key (kbd "C-c u") 'clang-format-buffer)
+             (setq clang-format-style-option "file"))
+
 ;; show available keybindings after you start typing
 (use-package which-key
              :ensure t
@@ -521,7 +528,9 @@ re-downloaded in order to locate PACKAGE."
   (c-set-offset 'arglist-intro '+)    ;; long argument names
   (setq c++-tab-always-indent t
         c-basic-offset 4
-        c-indent-level 4)
+        c-indent-level 4
+        tab-width 4
+        indent-tabs-mode nil)
   (flyspell-prog-mode))
 (add-hook 'c-mode-common-hook 'ds/c++-hook)
 
