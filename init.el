@@ -21,8 +21,6 @@
 
 
 ;; add directory to load-path
-;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;; (add-to-list 'load-path (expand-file-name "lisp/third/" user-emacs-directory))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;;On-demand installation of packages
@@ -364,7 +362,6 @@ re-downloaded in order to locate PACKAGE."
                    recentf-exclude '("/tmp/" "/ssh:")
                    recentf-max-menu-item 100))
 
-
 (use-package pdf-tools
              :ensure t
              :config
@@ -419,12 +416,13 @@ re-downloaded in order to locate PACKAGE."
 (use-package synosaurus
              :ensure t)
 
+;; hide and show code snippets
 (use-package hideshow
              :ensure t
              :config
              (add-hook 'prog-mode-hook #'hs-minor-mode))
 
-;; flycheck better than flymake
+;; flycheck is better than flymake
 (use-package flycheck
              :ensure t
              :config
@@ -456,8 +454,8 @@ re-downloaded in order to locate PACKAGE."
 (use-package lsp-ui
              :ensure t
              :requires lsp-mode flycheck
-             ;; :commands lsp-ui-mode
              :config
+	     ;; setup lsp-ui
              (setq lsp-ui-doc-enable t
                    lsp-ui-doc-use-childframe t
                    lsp-ui-doc-position 'top
@@ -476,7 +474,7 @@ re-downloaded in order to locate PACKAGE."
              :commands company-lsp
              :config
              (push 'company-lsp company-backends)
-             ;; Disable client-side cache because the LSP server does a better job.
+             ;; disable client-side cache because the LSP server does a better job.
              (setq company-transformers nil
                    company-lsp-async t
                    company-lsp-cache-candidates nil))
@@ -512,7 +510,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package ein
              :ensure t
-             ;; :defer t
              :config
              (setq ein:use-auto-complete-superpack t
                    ein:output-type-preference '(emacs-lisp svg png jpeg html
@@ -538,12 +535,11 @@ re-downloaded in order to locate PACKAGE."
              :ensure t
              :config
              ;; (cmake-ide-setup)
-             (setq cmake-ide-flags-c++ (append '("-std=c++11"))
+             (setq ; cmake-ide-flags-c++ (append '("-std=c++11"))
                    cmake-ide-make-command "make --no-print-directory -j4"
                    compilation-skip-threshold 2 ;; show only errors
                    compilation-auto-jump-to-first-error t) ;; go to first error
              :bind ("C-c m" . cmake-ide-compile))
-
 
 ;; make sure cmake-mode is installed for viewing CMake files
 (use-package cmake-mode
@@ -567,35 +563,6 @@ re-downloaded in order to locate PACKAGE."
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
-;; (setq-default octave-auto-indent t
-;;            octave-auto-newline t
-;;            octave-blink-matching-block t
-;;            octave-block-offset 4
-;;            octave-continuation-offset 4
-;;            octave-continuation-string "\\"
-;;            octave-mode-startup-message t
-;;            octave-send-echo-input t
-;;            octave-send-line-auto-forward t
-;;            octave-send-show-buffer t)
-
-;; (defun ds/octave-mode-hook ()
-;;   (abbrev-mode 1)
-;;   (auto-fill-mode 1)
-;;   (flyspell-prog-mode)
-;;   ;; add completion
-;;   (define-key octave-mode-map [(tab)] 'octave-complete-symbol)
-;;   (if (eq window-system 'x)
-;;       (font-lock-mode 1)))
-;; (add-hook 'octave-mode-hook 'ds/octave-mode-hook)
-
-;; ;; configure up/down keys for octave inferior mode
-;; (defun ds/inferior-octave-mode-hook ()
-;;   (turn-on-font-lock)
-;;   (define-key inferior-octave-mode-map [up]
-;;     'comint-previous-input)
-;;   (define-key inferior-octave-mode-map [down]
-;;     'comint-next-input))
-;; (add-hook 'inferior-octave-mode-hook 'ds/inferior-octave-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp
