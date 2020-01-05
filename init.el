@@ -347,7 +347,7 @@ re-downloaded in order to locate PACKAGE."
              :bind ("<f11>" . global-whitespace-mode))
 
 ;; toggle save emacs sessions
-(global-set-key [f12] 'desktop-save-mode)
+;; (global-set-key [f12] 'desktop-save-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packages
