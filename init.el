@@ -81,7 +81,8 @@ re-downloaded in order to locate PACKAGE."
 
 ;; use space instead of tabs with width = 4
 (setq tab-width 4
-      indent-tabs-mode nil)
+      indent-tabs-mode nil
+      tab-stop-list (number-sequence 4 200 4))
 
 (use-package clang-format
              :ensure t
@@ -109,13 +110,17 @@ re-downloaded in order to locate PACKAGE."
              :ensure t
              :config
              (load-theme 'moe-dark t)
-             ;; status bar
              (use-package powerline
                           :ensure t)
              (use-package smart-mode-line-powerline-theme
                           :ensure t
                           :config
                           (powerline-moe-theme)))
+
+;; (use-package spacemacs-theme
+;;              :ensure t
+;;              :defer t
+;;              :init (load-theme 'spacemacs-dark t))
 
 (use-package ivy
              :ensure t
@@ -387,9 +392,9 @@ re-downloaded in order to locate PACKAGE."
 (use-package company
              :ensure t
              :bind ("M-RET" . company-complete)
+	     :init (add-hook 'after-init-hook 'global-company-mode)
              :config
-             (add-hook 'after-init-hook 'global-company-mode)
-             (setq company-idle-delay nil
+             (setq company-idle-delay 0
                    company-minimum-prefix-length 2
                    company-show-numbers t
                    company-tooltip-limit 20
@@ -455,7 +460,7 @@ re-downloaded in order to locate PACKAGE."
              :ensure t
              :requires lsp-mode flycheck
              :config
-	     ;; setup lsp-ui
+             ;; setup lsp-ui
              (setq lsp-ui-doc-enable t
                    lsp-ui-doc-use-childframe t
                    lsp-ui-doc-position 'top
@@ -492,10 +497,10 @@ re-downloaded in order to locate PACKAGE."
 (defun ds/python-shell-send-snippet ()
   (interactive)
   (save-excursion
-   (search-backward "##")
+   (search-backward "# %%")
    (end-of-line)
    (set-mark-command nil)
-   (search-forward "##")
+   (search-forward "# %%")
    (call-interactively 'python-shell-send-region)
    (deactivate-mark)))
 
@@ -616,6 +621,16 @@ re-downloaded in order to locate PACKAGE."
 ;; ;; clojure
 ;; (use-package cider
 ;;   :ensure t)
+
+;; hy
+(use-package hy-mode
+             :ensure t
+             :config
+             ;; (defun ds/hy-hook ()
+             ;;   (company-mode 1)
+             ;;   (run-jedhy))
+             ;; (add-hook 'hy-mode-hook 'ds/hy-hook)
+	     )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; latex
