@@ -81,7 +81,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; use space instead of tabs with width = 4
 (setq tab-width 4
-      indent-tabs-mode nil
+      indent-tabs-mode t
       tab-stop-list (number-sequence 4 200 4))
 
 (use-package clang-format
@@ -446,7 +446,7 @@ re-downloaded in order to locate PACKAGE."
              ;; setup clangd
              (setq lsp-clients-clangd-args '("-j=2" "-background-index" "-log=error"))
              ;; hook languages
-             (add-hook 'python-mode-hook 'lsp)
+             ;; (add-hook 'python-mode-hook 'lsp)
              (add-hook 'c-mode-common-hook 'lsp))
 
 ;; lsp-treemacs
@@ -510,6 +510,11 @@ re-downloaded in order to locate PACKAGE."
   (local-set-key (kbd "C-c C-g") 'ds/python-shell-send-snippet))
 (add-hook 'python-mode-hook 'ds/python-hook)
 
+(use-package elpy
+	     :ensure t
+	     :config
+	     (elpy-enable))
+
 (use-package py-autopep8
              :ensure t)
 
@@ -532,7 +537,7 @@ re-downloaded in order to locate PACKAGE."
         c-basic-offset 4
         c-indent-level 4
         tab-width 4
-        indent-tabs-mode nil)
+        indent-tabs-mode t)
   (flyspell-prog-mode))
 (add-hook 'c-mode-common-hook 'ds/c++-hook)
 
