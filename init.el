@@ -512,11 +512,14 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package elpy
 	     :ensure t
-	     :config
+	     :init
 	     (elpy-enable))
 
 (use-package py-autopep8
              :ensure t)
+
+(use-package blacken
+			 :ensure t)
 
 (use-package ein
              :ensure t
