@@ -38,3 +38,4 @@ flyckeck_init.el
 flyckeck_init.el
 /.cache/
 /elpy/
+/tramp

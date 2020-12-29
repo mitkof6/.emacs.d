@@ -81,7 +81,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; use space instead of tabs with width = 4
 (setq tab-width 4
-      indent-tabs-mode t
+      indent-tabs-mode nil
       tab-stop-list (number-sequence 4 200 4))
 
 (use-package clang-format
@@ -540,7 +540,7 @@ re-downloaded in order to locate PACKAGE."
         c-basic-offset 4
         c-indent-level 4
         tab-width 4
-        indent-tabs-mode t)
+        indent-tabs-mode nil)
   (flyspell-prog-mode))
 (add-hook 'c-mode-common-hook 'ds/c++-hook)
 
@@ -655,6 +655,19 @@ re-downloaded in order to locate PACKAGE."
 (require 'reftex)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+;; sometimes reftex cannot find the .bib file properly
+(setq reftex-external-file-finders
+      '(("tex" . "/path/to/kpsewhich -format=.tex %f")
+        ("bib" . "/path/to/kpsewhich -format=.bib %f")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package org-ref
+             :ensure t
+             :config
+	     (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; magit binding
