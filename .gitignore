@@ -39,3 +39,4 @@ flyckeck_init.el
 /.cache/
 /elpy/
 /tramp
+/flycheck_init.el

@@ -217,6 +217,44 @@ re-downloaded in order to locate PACKAGE."
     (fill-paragraph nil region)))
 (global-set-key (kbd "C-c b u") 'ds/unfill-paragraph)
 
+(defun ds/get-point (symbol &optional arg)
+  "Get the point"
+  (funcall symbol arg)
+  (point))
+
+(defun ds/copy-thing (begin-of-thing end-of-thing &optional arg)
+  "Copy thing between beg & end into kill ring."
+  (save-excursion
+   (let ((beg (ds/get-point begin-of-thing 1))
+         (end (ds/get-point end-of-thing arg)))
+     (copy-region-as-kill beg end))))
+
+(defun ds/kill-thing (begin-of-thing end-of-thing &optional arg)
+  "Kill thing between beg & end."
+  (save-excursion
+   (let ((beg (ds/get-point begin-of-thing 1))
+         (end (ds/get-point end-of-thing arg)))
+     (kill-region beg end))))
+
+(defun ds/kill-paragraph (&optional arg)
+  "Kill paragraphe at point"
+  (interactive "P")
+  (ds/kill-thing 'backward-paragraph 'forward-paragraph arg))
+(global-set-key (kbd "C-c b y") 'ds/kill-paragraph)
+
+(defun ds/copy-paragraph (&optional arg)
+  "Copy paragraphe at point"
+  (interactive "P")
+  (ds/copy-thing 'backward-paragraph 'forward-paragraph arg))
+
+(defun ds/copy-unfill-paragraph (&optional arg)
+  "Copy paragraphe at point"
+  (interactive "P")
+  (ds/unfill-paragraph)
+  (ds/copy-thing 'backward-paragraph 'forward-paragraph arg)
+  (fill-paragraph))
+(global-set-key (kbd "C-c b c") 'ds/copy-unfill-paragraph)
+
 ;; font size
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
