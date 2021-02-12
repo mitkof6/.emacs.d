@@ -236,16 +236,38 @@ re-downloaded in order to locate PACKAGE."
          (end (ds/get-point end-of-thing arg)))
      (kill-region beg end))))
 
-(defun ds/kill-paragraph (&optional arg)
-  "Kill paragraphe at point"
+(defun ds/copy-word (&optional arg)
+  "Copy words at point into kill-ring"
   (interactive "P")
-  (ds/kill-thing 'backward-paragraph 'forward-paragraph arg))
-(global-set-key (kbd "C-c b y") 'ds/kill-paragraph)
+  (ds/copy-thing 'backward-word 'forward-word arg))
+(global-set-key (kbd "C-c b w") 'ds/copy-word)
+
+(defun ds/copy-previous-word ()
+  "Copy word before point - rocky @ stackexchange."
+   (interactive "")
+   (save-excursion
+    (let ((end (point))
+      (beg (get-point 'backward-word 1)))
+      (copy-region-as-kill beg end))))
+(global-set-key (kbd "C-c b W") 'ds/copy-previous-word)
+
+(defun ds/copy-line (&optional arg)
+  "Save current line into Kill-Ring without mark the line."
+  (interactive "P")
+  (ds/copy-thing 'beginning-of-line 'end-of-line arg))
+(global-set-key (kbd "C-c b l") 'ds/copy-line)
 
 (defun ds/copy-paragraph (&optional arg)
   "Copy paragraphe at point"
   (interactive "P")
   (ds/copy-thing 'backward-paragraph 'forward-paragraph arg))
+(global-set-key (kbd "C-c b v") 'ds/copy-paragraph)
+
+(defun ds/kill-paragraph (&optional arg)
+  "Kill paragraphe at point"
+  (interactive "P")
+  (ds/kill-thing 'backward-paragraph 'forward-paragraph arg))
+(global-set-key (kbd "C-c b y") 'ds/kill-paragraph)
 
 (defun ds/copy-unfill-paragraph (&optional arg)
   "Copy paragraphe at point"
@@ -254,6 +276,20 @@ re-downloaded in order to locate PACKAGE."
   (ds/copy-thing 'backward-paragraph 'forward-paragraph arg)
   (fill-paragraph))
 (global-set-key (kbd "C-c b c") 'ds/copy-unfill-paragraph)
+
+(defun ds/beginning-of-string (&optional arg)
+  (when (re-search-backward "[ \t]" (line-beginning-position) :noerror 1)
+    (forward-char 1)))
+
+(defun ds/end-of-string (&optional arg)
+  (when (re-search-forward "[ \t]" (line-end-position) :noerror arg)
+    (backward-char 1)))
+
+(defun ds/thing-copy-string(&optional arg)
+  " Try to copy a string."
+  (interactive "P")
+  (ds/copy-thing 'ds/beginning-of-string 'ds/end-of-string arg))
+(global-set-key (kbd "C-c b h") 'ds/thing-copy-string)
 
 ;; font size
 (global-set-key (kbd "C-+") 'text-scale-increase)
@@ -449,7 +485,7 @@ re-downloaded in order to locate PACKAGE."
              :config
              (setq langtool-java-classpath
                    "/usr/share/languagetool:/usr/share/java/languagetool/*")
-             :bind ("C-c b l" . langtool-check-buffer))
+             :bind ("C-c b S" . langtool-check-buffer))
 
 ;; define word
 (use-package define-word
