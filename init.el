@@ -520,7 +520,7 @@ re-downloaded in order to locate PACKAGE."
              ;; setup clangd
              (setq lsp-clients-clangd-args '("-j=2" "-background-index" "-log=error"))
              ;; hook languages
-             ;; (add-hook 'python-mode-hook 'lsp)
+             ;; (add-hook 'python-mode-hook 'lsp) ; disable this in case of elpy
              (add-hook 'c-mode-common-hook 'lsp))
 
 ;; lsp-treemacs
@@ -583,6 +583,10 @@ re-downloaded in order to locate PACKAGE."
   (flyspell-prog-mode)
   (local-set-key (kbd "C-c C-g") 'ds/python-shell-send-snippet))
 (add-hook 'python-mode-hook 'ds/python-hook)
+
+;; use jedi instead of pyls
+;; (use-package lsp-jedi
+;;   :ensure t)
 
 (use-package elpy
 	     :ensure t
